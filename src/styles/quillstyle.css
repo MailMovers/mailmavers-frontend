@@ -1,0 +1,117 @@
+@import url('https://webfontworld.github.io/amore/AritaBuri.css');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Lora&family=Noto+Sans+KR:wght@100;200;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gaegu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+.ql-editor {
+  font-size: 16px;
+  font-family: 'Noto Sans KR';
+}
+
+.ql-picker.ql-font {
+  .ql-picker-item {
+    font-size: 0;
+    &:before {
+      content: attr(data-value) !important;
+      font-size: 16px;
+    }
+  }
+}
+
+.ql-picker.ql-font {
+  .ql-active {
+    &:before {
+      content: attr(data-value) !important;
+      font-size: 16px;
+    }
+  }
+}
+
+.ql-picker.ql-font .ql-picker-label[data-value='Roboto']::before,
+.ql-picker.ql-font .ql-picker-item[data-value='Roboto']::before {
+  font-family: 'Roboto', cursive;
+  content: 'Roboto' !important;
+}
+
+.ql-picker.ql-font .ql-picker-label[data-value='Raleway']::before,
+.ql-picker.ql-font .ql-picker-item[data-value='Raleway']::before {
+  font-family: 'Raleway', cursive;
+  content: 'Raleway' !important;
+}
+
+.ql-picker.ql-font .ql-picker-label[data-value='Montserrat']::before,
+.ql-picker.ql-font .ql-picker-item[data-value='Montserrat']::before {
+  font-family: 'Montserrat', cursive;
+  content: 'Montserrat' !important;
+}
+
+.ql-picker.ql-font .ql-picker-label[data-value='Lato']::before,
+.ql-picker.ql-font .ql-picker-item[data-value='Lato']::before {
+  font-family: 'Lato', cursive;
+  content: 'Lato' !important;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='노토산스']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='노토산스']::before {
+  content: '노토산스' cursive;
+  font-family: 'Noto Sans KR' !important;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='개구체']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='개구체']::before {
+  content: '개구체' cursive;
+  font-family: 'Gaegu' !important;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='나눔펜']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='나눔펜']::before {
+  content: '나눔펜' cursive;
+  font-family: 'Nanum Pen Script' !important;
+}
+
+/* Set content font-families */
+.ql-font-buri {
+  font-family: 'AritaBuri';
+}
+
+.ql-font-Roboto {
+  font-family: 'Roboto';
+}
+.ql-font-Raleway {
+  font-family: 'Raleway';
+}
+.ql-font-Montserrat {
+  font-family: 'Montserrat';
+}
+.ql-font-Lato {
+  font-family: 'Lato';
+}
+.ql-font-노토산스 {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.ql-font-개구체 {
+  font-family: 'Gaegu', sans-serif;
+}
+.ql-font-나눔펜 {
+  font-family: 'Nanum Pen Script', sans-serif;
+}
+
+/*폰트 크기*/
+.ql-size-16px,
+.ql-size span[data-value='16px']::before {
+  font-size: 16px !important;
+}
+.ql-size-18px,
+.ql-size span[data-value='18px']::before {
+  font-size: 18px !important;
+}
+.ql-size-24px,
+.ql-size span[data-value='24px']::before {
+  font-size: 24px !important;
+}
+.ql-size-28px,
+.ql-size span[data-value='28px']::before {
+  font-size: 28px !important;
+}
+.ql-size-32px,
+.ql-size span[data-value='32px']::before {
+  font-size: 32px !important;
+}
