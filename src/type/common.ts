@@ -11,3 +11,11 @@ export interface AxiosResponseData {
   success: boolean;
   message: string;
 }
+
+export interface PageProps {
+  title?: string;
+  ogImage?: string;
+  ogDescription?: string;
+  keywords?: string;
+  ogImageAlt?: string;
+}
