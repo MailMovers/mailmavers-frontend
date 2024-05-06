@@ -7,6 +7,9 @@ import type { PageProps } from '@/type/common';
 
 import { RecoilRoot } from 'recoil';
 
+import 'react-quill/dist/quill.snow.css';
+import '../styles/quillstyle.css';
+
 export default function App({ Component, pageProps }: AppProps) {
   const pagePropsInfo: PageProps = pageProps;
   const title = pagePropsInfo.title
