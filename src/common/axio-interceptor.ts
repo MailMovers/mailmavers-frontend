@@ -19,7 +19,8 @@ const removeToken = async () => {
 };
 
 const initAxios = (tokenInfo?: TToken) => {
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + tokenInfo?.accessToken;
+  axios.defaults.headers.common['Authorization'] =
+    'Bearer ' + tokenInfo?.accessToken;
 
   axios.interceptors.request.use(
     (request) => {
@@ -29,7 +30,7 @@ const initAxios = (tokenInfo?: TToken) => {
     (error) => {
       console.log('error', error);
       return Promise.reject(error);
-    },
+    }
   );
 
   axios.interceptors.response.use(
@@ -40,9 +41,9 @@ const initAxios = (tokenInfo?: TToken) => {
       const err = error as AxiosError;
 
       if (err.response?.data) {
-        if (error.response.data.error.name === 'TokenExpiredError') {
-          window.location.href = '/?status=expire';
-        }
+        // if (error.response.data.error.name === 'TokenExpiredError') {
+        //   window.location.href = '/?status=expire';
+        // }
         //   const { data } = err.response as TError;
         //   if (data.message === 'jwt malformed') {
         //     removeToken();
@@ -81,7 +82,7 @@ const initAxios = (tokenInfo?: TToken) => {
 
       //   return reject(error);
       // });
-    },
+    }
   );
 };
 

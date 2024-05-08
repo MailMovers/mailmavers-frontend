@@ -69,7 +69,7 @@ export default function Desktop() {
 
       router.push('/logout');
     }
-  }, []);
+  }, [params]);
 
   return (
     <div css={mainWrap}>
