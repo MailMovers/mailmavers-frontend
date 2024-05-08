@@ -90,6 +90,8 @@ const QuillEditor = memo(
         revalidateOnReconnect: false,
       }
     );
+
+    console.log('PadData', PadData);
     const letterImg = PadData?.[0].pad_img_url;
 
     const style = css`

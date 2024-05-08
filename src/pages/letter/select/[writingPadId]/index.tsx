@@ -1,5 +1,9 @@
 import Select from '@/components/views/letter/Select';
+import { useRouter } from 'next/router';
 
 export default function Page({ params }: { params: { writingPadId: string } }) {
-  return <Select params={params} />;
+  const router = useRouter();
+
+  const writingPadId = router.query.writingPadId as string;
+  return <Select params={{ writingPadId: writingPadId }} />;
 }

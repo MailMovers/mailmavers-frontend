@@ -20,7 +20,13 @@ import {
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { letterContentState, textLengthState } from '@/recoil/letter/atom';
 import 'react-quill/dist/quill.snow.css';
-import QuillEditor from '@/components/letter/quillEditor/QuillEditor';
+
+import dynamic from 'next/dynamic';
+const QuillEditor = dynamic(
+  () => import('@/components/letter/quillEditor/QuillEditor'),
+  { ssr: false }
+);
+
 import Button from '@/components/letter/Button';
 import useSWR from 'swr';
 import { tokenAtom } from '@/recoil/auth/atom';
@@ -36,15 +42,15 @@ import { windowSizeWidthAtom } from '@/recoil/width/atom';
 
 interface Params {
   writingPadId: string;
-  pageNum: string[];
-  letterId: string[];
+  pageNum: string;
+  letterId: string;
 }
 
 const Edit = ({ params }: { params: Params }) => {
   const router = useRouter();
   const writingPadId = parseInt(params.writingPadId);
-  const pageNum = parseInt(params.pageNum[0]);
-  const letterId = parseInt(params.pageNum[1]);
+  const pageNum = parseInt(params.pageNum);
+  const letterId = parseInt(params.pageNum);
   const nextPageNum = pageNum + 1;
   const prevPageNum = pageNum - 1;
   const quillRef = useRef<ReactQuill | null>(null);
@@ -169,8 +175,10 @@ const Edit = ({ params }: { params: Params }) => {
         updateContentsState();
 
         const nextPageUrl = letterId
-          ? `/letter/edit/${writingPadId}/${nextPageNum}/${letterId}`
+          ? `/letter/edit/${writingPadId}/${nextPageNum}?letterId=${letterId}`
           : `/letter/edit/${writingPadId}/${nextPageNum}`;
+        console.log(nextPageUrl);
+
         router.push(nextPageUrl);
       }
     },
@@ -184,7 +192,7 @@ const Edit = ({ params }: { params: Params }) => {
       updateContentsState();
 
       const prevPageUrl = letterId
-        ? `/letter/edit/${writingPadId}/${prevPageNum}/${letterId}`
+        ? `/letter/edit/${writingPadId}/${prevPageNum}?letterId=${letterId}`
         : `/letter/edit/${writingPadId}/${prevPageNum}`;
       router.push(prevPageUrl);
     },
@@ -235,6 +243,9 @@ const Edit = ({ params }: { params: Params }) => {
   };
 
   const mobileWidth = getWindowWidth > 480;
+
+  console.log('currentContent', currentContent);
+  console.log('htmlContent', htmlContent);
 
   return (
     <div css={Wrap}>
