@@ -72,12 +72,6 @@ const Edit = ({ params }: { params: Params }) => {
 
   const token = useRecoilValue(tokenAtom);
 
-  useEffect(() => {
-    if (!token) {
-      router.push('/login');
-    }
-  }, []);
-
   console.log('token', token);
   console.log('letterId', letterId);
 
@@ -244,11 +238,17 @@ const Edit = ({ params }: { params: Params }) => {
     try {
       if (letterId) {
         updateLetterContent(editLetterData);
-        router.push(`/letter/photo-select/${letterId}`);
+
+        router.push(
+          `/letter/photo-select/${letterId}?writingPadId=${writingPadId}`
+        );
       } else {
         const response = await postLetterContent(letterData);
         const newLetterId = response.data;
-        router.push(`/letter/photo-select/${newLetterId}`);
+
+        router.push(
+          `/letter/photo-select/${newLetterId}?writingPadId=${writingPadId}`
+        );
       }
     } catch (error) {
       alert('죄송합니다. 저장에 실패했습니다.');
