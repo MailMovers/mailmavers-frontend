@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import Link from 'next/link';
-import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 import { useSetRecoilState } from 'recoil';
 import { Modal } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router';
 
 import { getNewList, getPopularList } from '@/api/main';
 
@@ -17,7 +17,6 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 
 export default function Desktop() {
-  const params = useSearchParams();
   const router = useRouter();
   const [modal, contextHolder] = Modal.useModal();
   const setProductId = useSetRecoilState(productIdAtom);
@@ -52,24 +51,6 @@ export default function Desktop() {
       revalidateOnMount: true,
     }
   );
-
-  useEffect(() => {
-    const status = params.get('status');
-
-    if (status === 'expire') {
-      modal.confirm({
-        title: '인증 만료',
-        content: '인증이 만료 되었습니다.',
-        okText: '확인',
-        cancelText: '취소',
-
-        onOk: () => router.push('/logout'),
-        onCancel: () => router.push('/logout'),
-      });
-
-      router.push('/logout');
-    }
-  }, [params]);
 
   return (
     <div css={mainWrap}>
