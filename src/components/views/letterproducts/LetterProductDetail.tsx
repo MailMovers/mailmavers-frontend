@@ -74,7 +74,6 @@ const LetterProductDetail = () => {
     router.push('/letterproducts');
   };
 
-  console.log('productId', productId);
   const goWriteLetter = () => {
     if (token?.accessToken) {
       router.push(`/letter/select/${productId}`);
