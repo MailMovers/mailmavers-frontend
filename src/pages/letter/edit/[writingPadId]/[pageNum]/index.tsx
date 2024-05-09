@@ -8,5 +8,5 @@ export default function Page() {
   const pageNum = router.query.pageNum as string;
   const letterId = router.query.letterId as string;
 
-  return <Edit params={{ writingPadId, pageNum, letterId }} />;
+  return <Edit key={pageNum} params={{ writingPadId, pageNum, letterId }} />;
 }

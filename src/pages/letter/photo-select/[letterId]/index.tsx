@@ -1,8 +1,9 @@
 import PhotoSelect from '@/components/views/letter/PhotoSelect';
+import { useRouter } from 'next/router';
 
 export default function Page({ params }: { params: { letterId: string } }) {
-  if (!params || !params.letterId || params.letterId.length === 0) {
-    return <div>페이지 에러</div>;
-  }
-  return <PhotoSelect params={params} />;
+  const router = useRouter();
+
+  const letterId = router.query.letterId as string;
+  return <PhotoSelect params={{ letterId }} />;
 }

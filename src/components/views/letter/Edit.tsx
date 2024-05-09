@@ -18,7 +18,11 @@ import {
   MobileText,
 } from './Edit.styles';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import { letterContentState, textLengthState } from '@/recoil/letter/atom';
+import {
+  letterContentState,
+  letterWriteList,
+  textLengthState,
+} from '@/recoil/letter/atom';
 import 'react-quill/dist/quill.snow.css';
 
 import dynamic from 'next/dynamic';
@@ -50,20 +54,21 @@ const Edit = ({ params }: { params: Params }) => {
   const router = useRouter();
   const writingPadId = parseInt(params.writingPadId);
   const pageNum = parseInt(params.pageNum);
-  const letterId = params.letterId ? parseInt(params.letterId) : '';
+  const letterId = params.letterId ? parseInt(params.letterId) : undefined;
   const nextPageNum = pageNum + 1;
   const prevPageNum = pageNum - 1;
   const quillRef = useRef<ReactQuill | null>(null);
-  const [contents, setContents] = useRecoilState(letterContentState);
-  const [htmlContent, setHtmlContent] = useState('');
+  const [contents, setContents] = useRecoilState(letterWriteList);
+
   const currentContent = contents.find(
     (content) => content.pageNum === pageNum
+  );
+  const [htmlContent, setHtmlContent] = useState(
+    currentContent ? currentContent.content : ''
   );
   const [isContentChanged, setIsContentChanged] = useState(false);
   const getWindowWidth = useRecoilValue(windowSizeWidthAtom);
   const [actualLength, setActualLength] = useState(0);
-
-  console.log('contents', contents);
 
   const token = useRecoilValue(tokenAtom);
 
@@ -125,32 +130,26 @@ const Edit = ({ params }: { params: Params }) => {
   /** 에디터에 작성된 데이터 업데이트 */
   const handleHtmlContentChange = useCallback(
     (newContent: SetStateAction<string>) => {
-      if (htmlContent !== newContent) {
-        setIsContentChanged(true);
-        setHtmlContent(newContent);
-      }
+      // if (htmlContent !== newContent) {
+      setIsContentChanged(true);
+      setHtmlContent(newContent);
+      // }
     },
-    [htmlContent, setHtmlContent]
+    [setHtmlContent]
   );
 
   /** 현재 위치한 페이지에서 작성된 편지 내용 업데이트 */
   const updateCurrentPageContent = useCallback(() => {
-    const updatedContents = [...contents];
-    const currentIndex = updatedContents.findIndex(
-      (content) => content.pageNum === pageNum
-    );
-    if (currentIndex >= 0) {
-      updatedContents[currentIndex] = {
-        pageNum,
-        content: htmlContent,
-        writingPadId,
-      };
-    } else {
-      updatedContents.push({ pageNum, content: htmlContent, writingPadId });
-    }
-    console.log('updatedContents', updatedContents);
-    return updatedContents;
-  }, [contents, pageNum, htmlContent, writingPadId, letterId]);
+    const newPageList = contents.map((data) => {
+      if (data.pageNum === pageNum) {
+        return { ...data, content: htmlContent };
+      } else {
+        return data;
+      }
+    });
+
+    return newPageList;
+  }, [contents, pageNum, htmlContent]);
 
   const updateContentsState = useCallback(() => {
     if (isContentChanged) {
@@ -173,7 +172,7 @@ const Edit = ({ params }: { params: Params }) => {
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
 
-      if (isEmptyEditor) {
+      if (!htmlContent) {
         alert('작성된 내용이 없습니다.');
       } else {
         updateContentsState();
@@ -212,7 +211,7 @@ const Edit = ({ params }: { params: Params }) => {
 
   const submitLetter = async () => {
     updateContentsState();
-    if (isEmptyEditor) {
+    if (!htmlContent) {
       alert('작성된 내용이 없습니다.');
       return;
     }
@@ -247,17 +246,14 @@ const Edit = ({ params }: { params: Params }) => {
 
   const mobileWidth = getWindowWidth > 480;
 
-  console.log('currentContent', currentContent);
-  console.log('htmlContent', htmlContent);
-
   return (
     <div css={Wrap}>
       <h1 css={Page}>{pageNum}페이지</h1>
       <p css={LetterInfo}>편지 1장당 1,000자 입력하실 수 있습니다.</p>
       <QuillEditor
-        key={letterId}
+        key={pageNum}
         quillRef={quillRef}
-        htmlContent={currentContent?.content || htmlContent}
+        htmlContent={currentContent?.content || ''}
         setHtmlContent={handleHtmlContentChange}
         setActualLength={setActualLength}
       />
