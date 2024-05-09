@@ -50,7 +50,7 @@ export const postLetterContent = async (letterData: letterData) => {
 
 export const getPadData = async (url: string): Promise<PadData[]> => {
   const res: AxiosResponse<TResultPadData> = await axios.get(url);
-  return res.data.data;
+  return res.data.data || [];
 };
 
 interface TResultTempLetterData {

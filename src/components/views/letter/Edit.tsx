@@ -50,7 +50,7 @@ const Edit = ({ params }: { params: Params }) => {
   const router = useRouter();
   const writingPadId = parseInt(params.writingPadId);
   const pageNum = parseInt(params.pageNum);
-  const letterId = parseInt(params.pageNum);
+  const letterId = params.letterId ? parseInt(params.letterId) : '';
   const nextPageNum = pageNum + 1;
   const prevPageNum = pageNum - 1;
   const quillRef = useRef<ReactQuill | null>(null);
@@ -62,6 +62,8 @@ const Edit = ({ params }: { params: Params }) => {
   const [isContentChanged, setIsContentChanged] = useState(false);
   const getWindowWidth = useRecoilValue(windowSizeWidthAtom);
   const [actualLength, setActualLength] = useState(0);
+
+  console.log('contents', contents);
 
   const token = useRecoilValue(tokenAtom);
 
@@ -146,12 +148,14 @@ const Edit = ({ params }: { params: Params }) => {
     } else {
       updatedContents.push({ pageNum, content: htmlContent, writingPadId });
     }
+    console.log('updatedContents', updatedContents);
     return updatedContents;
   }, [contents, pageNum, htmlContent, writingPadId, letterId]);
 
   const updateContentsState = useCallback(() => {
     if (isContentChanged) {
       const updatedContents = updateCurrentPageContent();
+
       setContents(updatedContents);
     }
   }, [isContentChanged, updateCurrentPageContent, setContents]);
@@ -177,7 +181,6 @@ const Edit = ({ params }: { params: Params }) => {
         const nextPageUrl = letterId
           ? `/letter/edit/${writingPadId}/${nextPageNum}?letterId=${letterId}`
           : `/letter/edit/${writingPadId}/${nextPageNum}`;
-        console.log(nextPageUrl);
 
         router.push(nextPageUrl);
       }

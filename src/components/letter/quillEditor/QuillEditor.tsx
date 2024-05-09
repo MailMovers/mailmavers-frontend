@@ -91,8 +91,7 @@ const QuillEditor = memo(
       }
     );
 
-    console.log('PadData', PadData);
-    const letterImg = PadData?.[0].pad_img_url;
+    const letterImg = PadData?.[0] && PadData?.[0].pad_img_url;
 
     const style = css`
       height: 570px;
