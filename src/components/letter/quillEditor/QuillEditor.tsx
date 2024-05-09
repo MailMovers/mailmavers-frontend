@@ -10,6 +10,7 @@ import useSWR from 'swr';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { letterWritingPadIdState, textLengthState } from '@/recoil/letter/atom';
 import { getPadData } from '@/api/letter';
+import { useRouter } from 'next/router';
 
 type QuillEditorProps = {
   quillRef: React.MutableRefObject<ReactQuill | null>;
@@ -25,8 +26,11 @@ const QuillEditor = memo(
     setHtmlContent,
     setActualLength,
   }: QuillEditorProps) => {
-    const mounted = useRef(false);
-    const letterWritingPadId = useRecoilValue(letterWritingPadIdState);
+    const router = useRouter();
+    const writingPadId = router.query.writingPadId as string;
+
+    // const mounted = useRef(false);
+    // const letterWritingPadId = useRecoilValue(letterWritingPadIdState);
     const [contentLength, setContentLength] = useState(0);
 
     useEffect(() => {
@@ -82,7 +86,7 @@ const QuillEditor = memo(
 
     // 에디터 화면에 편지지 띄우기
     const { data: PadData } = useSWR<PadData[]>(
-      `product/writing/${letterWritingPadId}`,
+      `product/writing/${writingPadId}`,
       getPadData,
       {
         fallbackData: [],

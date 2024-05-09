@@ -1,7 +1,7 @@
 'use client';
 /** @jsxImportSource @emotion/react */
 
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import TempLetters from './TempLetters';
 import { useState } from 'react';
 import { MouseEventHandler } from 'react';
@@ -10,6 +10,7 @@ import { css } from '@emotion/react';
 import { letterContentState, letterIdState } from '@/recoil/letter/atom';
 import { useRecoilValue } from 'recoil';
 import { isPhotoSelectPage, isSelectPage } from '@/utils/routeHelpers';
+import { useRouter } from 'next/router';
 
 interface Props {
   onClickNext?: MouseEventHandler<HTMLButtonElement>;
@@ -19,6 +20,7 @@ interface Props {
 
 const LetterBottom = ({ onClickNext, goToWrite, nextBtnDisabled }: Props) => {
   const router = useRouter();
+  const writingPadId = router.query.writingPadId as string;
   const pathname = usePathname();
   const [modalOpen, setModalOpen] = useState(false);
   const letterContent = useRecoilValue(letterContentState);
@@ -32,7 +34,6 @@ const LetterBottom = ({ onClickNext, goToWrite, nextBtnDisabled }: Props) => {
 
   const onClickPrev = () => {
     if (isPhotoSelectPage(pathname) && letterId) {
-      const writingPadId = letterContent[0].writingPadId;
       router.push(`/letter/edit/${writingPadId}/1?letterId=${letterId}`);
     } else {
       router.back();
