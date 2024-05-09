@@ -78,18 +78,24 @@ const Edit = ({ params }: { params: Params }) => {
     }
   }, []);
 
+  console.log('token', token);
+  console.log('letterId', letterId);
+
   const { data } = useSWR<TempLetterData[]>(
-    () => (!!token && letterId ? 'getTempLetterList' : null),
+    () => (!!token && !!letterId ? 'getTempLetterList' : null),
     getTempLetterList,
     {
       fallbackData: [],
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
+      revalidateOnMount: true,
       onSuccess: (data) => {
-        if (data && !currentContent && data.length > 0) {
+        console.log('data', data, currentContent);
+        if (data && data.length > 0) {
           const matchedLetters = data.filter(
             (letter: { letterId: number }) => letter.letterId === letterId
           );
+
           const allContents = matchedLetters.reduce(
             (acc: any, letter: { contents: any }) => [
               ...acc,
@@ -97,12 +103,16 @@ const Edit = ({ params }: { params: Params }) => {
             ],
             []
           );
+
+          console.log('allContents', allContents);
+
+          setContents(allContents);
           const pageContent = allContents.find(
             (content: { pageNum: number }) => content.pageNum === pageNum
           );
-          if (pageContent) {
-            setHtmlContent(pageContent.content);
-          }
+          // if (pageContent) {
+          //   setHtmlContent(pageContent.content);
+          // }
         }
       },
     }
@@ -126,6 +136,8 @@ const Edit = ({ params }: { params: Params }) => {
       }
     }
   }, [data, pageNum, currentContent]);
+
+  console.log(htmlContent);
 
   /** 에디터에 작성된 데이터 업데이트 */
   const handleHtmlContentChange = useCallback(
@@ -220,13 +232,13 @@ const Edit = ({ params }: { params: Params }) => {
     const updatedContents = updateCurrentPageContent();
     const letterData = {
       writingPadId: writingPadId,
-      contents: updatedContents,
+      contents: updatedContents.filter((data) => !!data.content),
     };
 
     const editLetterData = {
       letterId: letterId,
       writingPadId: writingPadId,
-      contents: updatedContents,
+      contents: updatedContents.filter((data) => !!data.content),
     };
 
     try {
