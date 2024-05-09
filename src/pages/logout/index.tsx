@@ -2,18 +2,18 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Spin } from 'antd';
 import { removeToken } from '@/common/axio-interceptor';
-import { useResetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { tokenAtom } from '@/recoil/auth/atom';
 
 export default function Logout() {
-  const resetToken = useResetRecoilState(tokenAtom);
+  const setToken = useSetRecoilState(tokenAtom);
 
   const router = useRouter();
 
   useEffect(() => {
     removeToken().then(() => {
-      resetToken();
-      router.push('/');
+      setToken(null);
+      router.push('/?status=expire');
     });
   }, []);
 
