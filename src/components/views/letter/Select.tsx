@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 
-import { useRouter } from 'next/navigation';
 import LetterHeader from '@/components/letter/LetterHeader';
 import useSWR from 'swr';
 import { PadData } from '@/type/letterData';
@@ -11,12 +10,14 @@ import { letterWritingPadIdState } from '@/recoil/letter/atom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useEffect } from 'react';
 import { tokenAtom } from '@/recoil/auth/atom';
+import { useRouter } from 'next/router';
 
-const Select = ({ params }: { params: { writingPadId: string } }) => {
+const Select = () => {
   const router = useRouter();
   const [_, setLetterWritingId] = useRecoilState(letterWritingPadIdState);
   const token = useRecoilValue(tokenAtom);
-  const writingPadId = parseInt(params.writingPadId);
+
+  const writingPadId = router.query.writingPadId as string;
 
   const { data: letterData } = useSWR<PadData[]>(
     `product/writing/${writingPadId}`,
@@ -29,14 +30,10 @@ const Select = ({ params }: { params: { writingPadId: string } }) => {
   );
 
   useEffect(() => {
-    if (!token) {
-      router.push('/login');
+    if (writingPadId) {
+      setLetterWritingId(Number(writingPadId));
     }
   }, []);
-
-  useEffect(() => {
-    setLetterWritingId(writingPadId);
-  }, [writingPadId]);
 
   const onClickHandler = () => {
     router.push(`/letter/edit/${writingPadId}/1`);

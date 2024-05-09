@@ -27,6 +27,8 @@ import {
   signUpPageBtn,
   isMemberPrompt,
 } from './Login.styles';
+import { useRecoilState } from 'recoil';
+import { tokenAtom } from '@/recoil/auth/atom';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -35,6 +37,8 @@ export default function LoginPage() {
   const [password, onChangePassword] = useInput('');
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const [token, setTokenState] = useRecoilState(tokenAtom);
 
   const { data: user } = useSWR(`${process.env.NEXT_PUBLIC_API_HOST}user/info`);
 
@@ -47,6 +51,7 @@ export default function LoginPage() {
           if (res.status === 200) {
             const { accessToken, refreshToken } = res.data;
             setToken(accessToken, refreshToken);
+            setTokenState({ accessToken, refreshToken });
 
             if (localStorage.getItem('상세페이지에서로그인') === 'true') {
               localStorage.removeItem('상세페이지에서로그인');

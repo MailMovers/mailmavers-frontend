@@ -52,6 +52,20 @@ export default function Desktop() {
     }
   );
 
+  useEffect(() => {
+    const status = router.query.status as string;
+
+    if (status === 'expire') {
+      // modal.confirm({
+      //   title: '인증 만료',
+      //   content: '인증이 만료 되었습니다.',
+      //   okText: '확인',
+      //   cancelText: '취소',
+      // });
+      // router.push('/logout');
+    }
+  }, []);
+
   return (
     <div css={mainWrap}>
       {contextHolder}
