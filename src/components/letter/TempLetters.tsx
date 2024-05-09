@@ -26,11 +26,15 @@ const TempLetters = ({ setModalOpen }: ModalProps) => {
     return doc.body.textContent || '';
   };
 
-  const { data: tempList } = useSWR<TempLetterData[]>(() => (!!token ? 'getTempLetterList' : null), getTempLetterList, {
-    fallbackData: [],
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const { data: tempList } = useSWR<TempLetterData[]>(
+    () => (!!token ? 'getTempLetterList' : null),
+    getTempLetterList,
+    {
+      fallbackData: [],
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
 
   const closeModal = () => {
     if (setModalOpen) {
@@ -39,7 +43,7 @@ const TempLetters = ({ setModalOpen }: ModalProps) => {
   };
 
   const handleSelectLetter = (writingPadId: number, letterId: number) => {
-    router.push(`/letter/edit/${writingPadId}/1/${letterId}`);
+    router.push(`/letter/edit/${writingPadId}/1?letterId=${letterId}`);
   };
 
   return (
@@ -49,15 +53,30 @@ const TempLetters = ({ setModalOpen }: ModalProps) => {
           <p css={Title}>임시 저장 목록</p>
           {tempList && tempList.length > 0 ? (
             tempList.map((list, index) => {
-              const pageOneContent = list.contents.find((content) => content.pageNum === 1);
+              const pageOneContent = list.contents.find(
+                (content) => content.pageNum === 1
+              );
 
               return pageOneContent ? (
-                <div key={index} css={List} onClick={() => handleSelectLetter(list.writingPadId, list.letterId)}>
-                  <Image src="/images/main_best.svg" alt="작성한 편지" width={100} height={76} />
+                <div
+                  key={index}
+                  css={List}
+                  onClick={() =>
+                    handleSelectLetter(list.writingPadId, list.letterId)
+                  }
+                >
+                  <Image
+                    src='/images/main_best.svg'
+                    alt='작성한 편지'
+                    width={100}
+                    height={76}
+                  />
                   <div css={LetterContainer}>
                     <div>
                       <p css={LetterContnetTitle}>편지내용</p>
-                      <p css={LetterContnet}>{extractTextFromHTML(pageOneContent.content)}</p>
+                      <p css={LetterContnet}>
+                        {extractTextFromHTML(pageOneContent.content)}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -67,7 +86,7 @@ const TempLetters = ({ setModalOpen }: ModalProps) => {
             <div>작성된 편지가 없습니다.</div>
           )}
         </div>
-        <button type="button" css={CloseBtn} onClick={closeModal}>
+        <button type='button' css={CloseBtn} onClick={closeModal}>
           창닫기
         </button>
       </div>

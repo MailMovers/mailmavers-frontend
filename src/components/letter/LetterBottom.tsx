@@ -33,7 +33,7 @@ const LetterBottom = ({ onClickNext, goToWrite, nextBtnDisabled }: Props) => {
   const onClickPrev = () => {
     if (isPhotoSelectPage(pathname) && letterId) {
       const writingPadId = letterContent[0].writingPadId;
-      router.push(`/letter/edit/${writingPadId}/1/${letterId}`);
+      router.push(`/letter/edit/${writingPadId}/1?letterId=${letterId}`);
     } else {
       router.back();
     }
@@ -61,7 +61,11 @@ const LetterBottom = ({ onClickNext, goToWrite, nextBtnDisabled }: Props) => {
               이전단계
             </button>
             {!paymentPage ? (
-              <button css={NextBtn} disabled={nextBtnDisabled} onClick={onClickNext}>
+              <button
+                css={NextBtn}
+                disabled={nextBtnDisabled}
+                onClick={onClickNext}
+              >
                 다음단계
               </button>
             ) : (
