@@ -32,8 +32,11 @@ export default function Success() {
   const queryString = queryParams.toString();
   const fullUrl = `${url}?${queryString}`;
 
-  // 서버로 결제 정보 보내기
+  // // 서버로 결제 정보 보내기
   useEffect(() => {
+    if (!amount || !paymentKey || !orderId) {
+      return;
+    }
     const letterId = localStorage.getItem('letterId');
     const isAmountCleared = amount - changePoint === 0;
     const clearedPointData = {
@@ -76,7 +79,7 @@ export default function Success() {
     };
 
     getOrderConfirmData();
-  }, [fullUrl, token, usePoint]);
+  }, [fullUrl, token, usePoint, amount, paymentKey, orderId]);
 
   const goToMypage = () => {
     router.push(`/mypage/history`);

@@ -86,7 +86,6 @@ const Edit = ({ params }: { params: Params }) => {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       onSuccess: (data) => {
-        console.log('data', data);
         if (data && !currentContent && data.length > 0) {
           const matchedLetters = data.filter(
             (letter: { letterId: number }) => letter.letterId === letterId
