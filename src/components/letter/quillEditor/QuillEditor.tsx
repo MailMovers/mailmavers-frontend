@@ -1,16 +1,15 @@
 import { css } from '@emotion/react';
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import Toolbar from './EditorToolBar';
 
-import { addComma } from '@/common/util';
 import { Common } from 'styles/common';
 import { PadData } from '@/type/letterData';
 import useSWR from 'swr';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { letterWritingPadIdState, textLengthState } from '@/recoil/letter/atom';
 import { getPadData } from '@/api/letter';
 import { useRouter } from 'next/router';
+import { letterWritingPadIdState } from '@/recoil/letter/atom';
+import { useRecoilValue } from 'recoil';
 
 type QuillEditorProps = {
   quillRef: React.MutableRefObject<ReactQuill | null>;
@@ -30,8 +29,8 @@ const QuillEditor = memo(
     const writingPadId = router.query.writingPadId as string;
 
     // const mounted = useRef(false);
-    // const letterWritingPadId = useRecoilValue(letterWritingPadIdState);
-    const [contentLength, setContentLength] = useState(0);
+    const letterWritingPadId = useRecoilValue(letterWritingPadIdState);
+    const [_, setContentLength] = useState(0);
 
     useEffect(() => {
       if (quillRef.current && htmlContent) {
@@ -73,15 +72,7 @@ const QuillEditor = memo(
 
     // 폰트를 whitelist에 추가하고 Quill에 등록
     const Font = Quill.import('formats/font');
-    Font.whitelist = [
-      '노토산스',
-      '개구체',
-      '나눔펜',
-      'Roboto',
-      'Raleway',
-      'Montserrat',
-      'Lato',
-    ];
+    Font.whitelist = ['노토산스', '개구체'];
     Quill.register(Font, true);
 
     // 에디터 화면에 편지지 띄우기
@@ -95,13 +86,30 @@ const QuillEditor = memo(
       }
     );
 
-    const letterImg = PadData?.[0] && PadData?.[0].pad_img_url;
-
+    const letterImg = PadData?.[0].pad_img_url;
     const style = css`
-      height: 570px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 49.606rem;
+      width: 34.488rem;
       margin: 0 auto;
+      z-index: 999;
+
+      > div > div {
+        padding: 3.438rem 2.188rem;
+        line-height: 2.4;
+      }
+    `;
+
+    const PadImg = css`
+      height: 49.606rem;
+      width: 34.488rem;
+      margin: 0 auto;
+      posistion: absolute;
+      top: 0;
       background: url('${letterImg}');
-      background-size: 697px 570px;
+      background-size: cover;
     `;
 
     const modules = useMemo(
@@ -121,7 +129,6 @@ const QuillEditor = memo(
 
     const formats = [
       'header',
-      'size',
       'font',
       'bold',
       'italic',
@@ -139,18 +146,23 @@ const QuillEditor = memo(
     return (
       <div css={QuillWrap}>
         <Toolbar />
-        <ReactQuill
-          ref={(element) => {
-            quillRef.current = element;
-          }}
-          defaultValue={htmlContent}
-          onChange={setHtmlContent}
-          modules={modules}
-          formats={formats}
-          theme='snow'
-          css={style}
-        />
-        <p css={Length}>{addComma(contentLength)} / 1,000</p>
+        <div css={EditorContainer}>
+          <ReactQuill
+            ref={(element) => {
+              quillRef.current = element;
+            }}
+            defaultValue={htmlContent}
+            onChange={setHtmlContent}
+            modules={modules}
+            formats={formats}
+            theme='snow'
+            css={style}
+          />
+          <div css={ImgContainer}>
+            <div css={PadImg} />
+            <div css={PadBackImg} />
+          </div>
+        </div>
       </div>
     );
   }
@@ -160,16 +172,33 @@ export default QuillEditor;
 
 const QuillWrap = css`
   position: relative;
-  width: 694px;
+  width: 34.488rem;
+  z-index: 999;
 
   @media all and (max-width: 767px) {
     width: calc(100vw - 3em);
   }
 `;
 
-const Length = css`
+const EditorContainer = css`
+  position: relative;
+  width: 34.488rem;
+  height: 49.606rem;
+`;
+
+const ImgContainer = css`
+  position: relative;
+  width: 34.488rem;
+  height: 49.606rem;
+`;
+
+const PadBackImg = css`
+  background: url(/images/pad_back_image.png);
+  background-size: cover;
+  width: 34.488rem;
+  height: 49.606rem;
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-  color: ${Common.colors.gray01};
+  z-index: 1;
+  top: 0;
+  left: 0;
 `;

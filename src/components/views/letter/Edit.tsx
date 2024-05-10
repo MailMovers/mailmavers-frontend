@@ -72,9 +72,6 @@ const Edit = ({ params }: { params: Params }) => {
 
   const token = useRecoilValue(tokenAtom);
 
-  console.log('token', token);
-  console.log('letterId', letterId);
-
   const { data } = useSWR<TempLetterData[]>(
     () => (!!token && !!letterId ? 'getTempLetterList' : null),
     getTempLetterList,
@@ -261,7 +258,6 @@ const Edit = ({ params }: { params: Params }) => {
   return (
     <div css={Wrap}>
       <h1 css={Page}>{pageNum}페이지</h1>
-      <p css={LetterInfo}>편지 1장당 1,000자 입력하실 수 있습니다.</p>
       <QuillEditor
         key={pageNum}
         quillRef={quillRef}

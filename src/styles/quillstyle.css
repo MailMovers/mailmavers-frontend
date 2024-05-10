@@ -89,6 +89,8 @@
 }
 .ql-font-개구체 {
   font-family: 'Gaegu', sans-serif;
+  font-size: 18px;
+  line-height: 1.5px;
 }
 .ql-font-나눔펜 {
   font-family: 'Nanum Pen Script', sans-serif;
