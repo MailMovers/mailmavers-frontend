@@ -1,24 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 import { useSetRecoilState } from 'recoil';
-import { Modal } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
-import { useRouter } from 'next/router';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 import { getNewList, getPopularList } from '@/api/main';
 
 import { productIdAtom } from '@/recoil/letter-product/atom';
 
 import type { TNewProduct } from '@/type/main';
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import Image from 'next/image';
 
 export default function Desktop() {
   const router = useRouter();
-  const [modal, contextHolder] = Modal.useModal();
+
   const setProductId = useSetRecoilState(productIdAtom);
 
   const goLetterProducts = () => {
@@ -68,8 +67,6 @@ export default function Desktop() {
 
   return (
     <div css={mainWrap}>
-      {contextHolder}
-
       <BannerWrap>
         <img src='/images/main_img.svg' alt='메인 이미지' css={bannerImg} />
       </BannerWrap>
@@ -297,12 +294,12 @@ export const BannerWrap = styled.div`
   }
 
   @media all and (max-width: 767px) {
-    height: 300px;
+    height: auto;
   }
 `;
 
 export const bannerImg = css`
-  height: 100%;
+  width: 100%;
 
   @media all and (min-width: 323px) and (max-width: 767px) {
   }
