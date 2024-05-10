@@ -8,8 +8,8 @@ import { PadData } from '@/type/letterData';
 import useSWR from 'swr';
 import { getPadData } from '@/api/letter';
 import { useRouter } from 'next/router';
-import { letterWritingPadIdState } from '@/recoil/letter/atom';
 import { useRecoilValue } from 'recoil';
+import { letterWritingPadIdState } from '@/recoil/letter/atom';
 
 type QuillEditorProps = {
   quillRef: React.MutableRefObject<ReactQuill | null>;
@@ -29,51 +29,8 @@ const QuillEditor = memo(
     const writingPadId = router.query.writingPadId as string;
 
     // const mounted = useRef(false);
-    const letterWritingPadId = useRecoilValue(letterWritingPadIdState);
+    const letterWritingPadId = localStorage.getItem('product');
     const [_, setContentLength] = useState(0);
-
-    useEffect(() => {
-      if (quillRef.current && htmlContent) {
-        const quill = quillRef.current.getEditor();
-        const currentContent = quill.root.innerHTML;
-
-        quill.on('text-change', () => {
-          const maxLength = 1000;
-          const text = quill.getText();
-          let actualLength = text.endsWith('\n')
-            ? text.length - 1
-            : text.length;
-          setActualLength(actualLength);
-          setContentLength(actualLength);
-
-          if (actualLength > maxLength) {
-            quill.deleteText(maxLength, quill.getLength());
-            quill.setSelection(maxLength, 0);
-          }
-        });
-
-        if (currentContent !== htmlContent) {
-          const range = quill.getSelection();
-          const delta = quill.clipboard.convert(htmlContent);
-          quill.setContents(delta);
-
-          if (range) {
-            // 커서 위치 복원
-            quill.setSelection(range.index, range.length, 'silent');
-          }
-        }
-      }
-    }, [htmlContent, setActualLength]);
-
-    // 폰트 사이즈
-    const Size = Quill.import('formats/size');
-    Size.whitelist = ['16px', '18px', '24px', ''];
-    Quill.register(Size, true);
-
-    // 폰트를 whitelist에 추가하고 Quill에 등록
-    const Font = Quill.import('formats/font');
-    Font.whitelist = ['노토산스', '개구체'];
-    Quill.register(Font, true);
 
     // 에디터 화면에 편지지 띄우기
     const { data: PadData } = useSWR<PadData[]>(
@@ -87,17 +44,75 @@ const QuillEditor = memo(
     );
 
     const letterImg = PadData?.[0].pad_img_url;
+
+    useEffect(() => {
+      if (quillRef.current) {
+        const quill = quillRef.current.getEditor();
+
+        quill.on('text-change', () => {
+          // const maxLength = 1000;
+          // const text = quill.getText();
+          // let actualLength = text.endsWith('\n')
+          //   ? text.length - 1
+          //   : text.length;
+          // setActualLength(actualLength);
+          // setContentLength(actualLength);
+
+          // if (actualLength > maxLength) {
+          //   quill.deleteText(maxLength, quill.getLength());
+          //   quill.setSelection(maxLength, 0);
+          // }
+
+          const editorElement = quill.root;
+          const lineHeightPx = parseFloat(
+            window.getComputedStyle(editorElement).lineHeight
+          );
+          const textHeight = editorElement.scrollHeight;
+          const lines = Math.ceil(textHeight / lineHeightPx) - 3;
+          console.log(`현재 줄 수: ${lines}`); // 로그 확인
+
+          if (lines > 18) {
+            alert('18줄을 초과했습니다. 다음 페이지로 이동하세요.');
+            quill.deleteText(18, quill.getLength());
+          }
+        });
+
+        if (quill.root.innerHTML !== htmlContent) {
+          const range = quill.getSelection();
+          const delta = quill.clipboard.convert(htmlContent);
+          quill.setContents(delta);
+
+          if (range) {
+            quill.setSelection(range.index, range.length, 'silent');
+          }
+        }
+      }
+    }, [quillRef]);
+
+    // 폰트 사이즈
+    const Size = Quill.import('formats/size');
+    Size.whitelist = ['16px', '18px', '24px', ''];
+    Quill.register(Size, true);
+
+    // 폰트를 whitelist에 추가하고 Quill에 등록
+    const Font = Quill.import('formats/font');
+    Font.whitelist = ['노토산스', '개구체'];
+    Quill.register(Font, true);
+
     const style = css`
       position: absolute;
       top: 0;
       left: 0;
-      height: 49.606rem;
-      width: 34.488rem;
       margin: 0 auto;
       z-index: 999;
+      overflow: hidden;
+
+      > div {
+        border: none !important;
+      }
 
       > div > div {
-        padding: 3.438rem 2.188rem;
+        // padding: 3.438rem 2.188rem;
         line-height: 2.4;
       }
     `;
