@@ -134,6 +134,9 @@ const footerContent = css`
 
   .category {
     display: flex;
+    align-items: center;
+    font-size: 14px;
+    border: 1px solid black;
 
     @media all and (min-width: 1200px),
       all and (min-width: 768px) and (max-width: 1199px) {
@@ -144,23 +147,21 @@ const footerContent = css`
       gap: 0.63em;
     }
 
-    font-size: 14px;
-
     .normal {
       font-weight: 400;
       color: ${Common.colors.gray};
-
-      @media all and (max-width: 767px) {
-        font-size: 0.8em;
-      }
     }
 
     .strong {
       font-weight: 700;
       color: ${Common.colors.gray};
+    }
 
+    .normal,
+    .strong {
+      font-size: 1rem; // 기본 크기 설정
       @media all and (max-width: 767px) {
-        font-size: 0.8em;
+        font-size: 0.8rem; // 모바일에서 조정
       }
     }
   }
