@@ -70,6 +70,7 @@ export const StatusWrap = styled.div<{ status: string }>`
   ${({ status }) => {
     switch (status) {
       case 'save':
+      case 'event':
         return `
           background-color: #ACC172;
         `;
@@ -109,7 +110,9 @@ export const CardInfoContent = styled.div`
     .use {
       color: #dc3545;
     }
-    .save {
+
+    .save,
+    .event {
       color: #acc172;
     }
 

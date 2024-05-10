@@ -93,6 +93,8 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
   }
 
   .del_btn {
+    width: 40px;
+    text-align: center;
     cursor: pointer;
   }
 `;
