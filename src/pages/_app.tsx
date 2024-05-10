@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const img = pagePropsInfo.ogImage
     ? pagePropsInfo.ogImage
-    : '/images/main_img.svg';
+    : '/images/open_graph.png';
   const ogImageAlt = pagePropsInfo.ogImageAlt ?? 'mailtree og 이미지';
 
   return (
