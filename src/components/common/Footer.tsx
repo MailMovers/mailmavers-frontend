@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
+import Link from 'next/link';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Common } from 'styles/common';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { windowSizeWidthAtom } from '@/recoil/width/atom';
+import { useRecoilValue } from 'recoil';
 
 const Footer = () => {
-  const router = useRouter();
+  const windowSizeWidth = useRecoilValue(windowSizeWidthAtom);
 
   return (
     <Frame>
@@ -23,22 +24,44 @@ const Footer = () => {
             <span className='strong'>사업제휴</span>
           </div>
 
-          <div className='company_info'>
-            <p className='green_text'>메일트리</p>
-            <p className='gray_text'>
-              대표: 김창훈 | 사업자등록번호: 176-07-02809 | 통신판매업신고:
-              2024-대전서구-0889
-            </p>
-            <p className='gray_text'>
-              E-mail: mailtreeletterservice@gmail.com | 주소: 대전광역시 서구
-              도안중로305번안길 7-22, 3층 302호(도안동, 피렌체)
-            </p>
-            <br />
-            <br />
-            <p className='gray_text'>
-              메일트리© 메일트리 Co., Ltd. All rights reserved.
-            </p>
-          </div>
+          {windowSizeWidth > 480 ? (
+            <div className='company_info mobile'>
+              <p className='green_text'>메일트리</p>
+              <p className='gray_text'>
+                대표: 김창훈 | 사업자등록번호: 176-07-02809 | 통신판매업신고:
+                2024-대전서구-0889
+              </p>
+              <p className='gray_text'>
+                E-mail: mailtreeletterservice@gmail.com | 주소: 대전광역시 서구
+                도안중로305번안길 7-22, 3층 302호(도안동, 피렌체)
+              </p>
+              <br />
+              <br />
+              <p className='gray_text'>
+                메일트리© 메일트리 Co., Ltd. All rights reserved.
+              </p>
+            </div>
+          ) : (
+            <div className='company_info'>
+              <p className='green_text'>메일트리</p>
+              <p className='gray_text'>
+                대표: 김창훈 | 사업자등록번호: 176-07-02809
+              </p>
+              <p className='gray_text'>통신판매업신고: 2024-대전서구-0889</p>
+              <p className='gray_text'>
+                E-mail: mailtreeletterservice@gmail.com
+              </p>
+              <p className='gray_text'>
+                주소: 대전광역시 서구 도안중로305번안길 7-22, 3층 302호(도안동,
+                피렌체)
+              </p>
+              <br />
+              <br />
+              <p className='gray_text'>
+                메일트리© 메일트리 Co., Ltd. All rights reserved.
+              </p>
+            </div>
+          )}
         </div>
         <div css={footerContent}>
           <div className='service_center'>
@@ -153,6 +176,10 @@ const footerContent = css`
 
     .gray_text {
       color: ${Common.colors.gray01};
+
+      @media all and (max-width: 480px) {
+        margin: 5px 0;
+      }
     }
   }
 
