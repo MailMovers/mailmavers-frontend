@@ -31,6 +31,8 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
 
   const movePage = (path: string) => router.push(path);
 
+  console.log('windowSizeWidth', windowSizeWidth);
+
   return (
     <S.Wrap>
       {windowSizeWidth > 480 && (
