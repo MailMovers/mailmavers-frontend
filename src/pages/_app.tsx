@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const pagePropsInfo: PageProps = pageProps;
   const title = pagePropsInfo.title
     ? pagePropsInfo.title + ''
-    : 'mailmovers: 전자 메일 서비스';
+    : 'mailtree: 전자 메일 서비스';
 
   const description =
     (pagePropsInfo.ogDescription ? pagePropsInfo.ogDescription + ' | ' : '') +
@@ -24,8 +24,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const img = pagePropsInfo.ogImage
     ? pagePropsInfo.ogImage
-    : '/images/open_graph.png';
-  const ogImageAlt = pagePropsInfo.ogImageAlt ?? 'mailmovers og 이미지';
+    : '/images/main_img.svg';
+  const ogImageAlt = pagePropsInfo.ogImageAlt ?? 'mailtree og 이미지';
 
   return (
     <>
@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <link rel='icon' href={`/images/favicon.ico`} />
         <meta name='keywords' content={keywords} />
-        <meta property='og:site_name' content='메일 무브어스' />
+        <meta property='og:site_name' content='메일트리' />
         <meta property='og:title' content={title} />
         <meta property='og:description' content={description} />
         <meta property='og:image' content={img} />
