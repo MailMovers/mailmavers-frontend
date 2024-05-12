@@ -17,6 +17,7 @@ type QuillEditorProps = {
   setHtmlContent: (content: string) => void;
   setActualLength: (length: number) => void;
   addLetterPage: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  updateContentsState: (content: string) => void;
 };
 
 const QuillEditor = memo(
@@ -26,8 +27,10 @@ const QuillEditor = memo(
     setHtmlContent,
     setActualLength,
     addLetterPage,
+    updateContentsState,
   }: QuillEditorProps) => {
     const router = useRouter();
+    const pageNum = parseInt(localStorage.getItem('pageNum') || '1');
 
     // const mounted = useRef(false);
     const letterWritingPadId = localStorage.getItem('product');
@@ -46,13 +49,15 @@ const QuillEditor = memo(
         const quill = quillRef.current.getEditor();
 
         quill.on('text-change', () => {
-          const maxLength = 577;
-          const text = quill.getText();
-          let actualLength = text.endsWith('\n')
-            ? text.length - 1
-            : text.length;
-          setActualLength(actualLength);
-          setContentLength(actualLength);
+          const currentContent = quill.getText();
+          setHtmlContent(currentContent);
+          // const maxLength = 577;
+          // const text = quill.getText();
+          // let actualLength = text.endsWith('\n')
+          //   ? text.length - 1
+          //   : text.length;
+          // setActualLength(actualLength);
+          // setContentLength(actualLength);
 
           // if (actualLength > maxLength) {
           //   quill.deleteText(maxLength, quill.getLength());
@@ -66,17 +71,20 @@ const QuillEditor = memo(
           const textHeight = editorElement.scrollHeight;
           const lines = Math.ceil(textHeight / lineHeightPx) - 3;
 
-          if (lines > 18) {
-            alert('18줄을 초과했습니다. 다음 페이지로 이동하세요.');
-            while (textHeight > 18) {
-              let text = quill.getText();
-              quill.deleteText(text.length - 1, 1);
-            }
-            addLetterPage();
+          if (lines > 18 && pageNum !== 5) {
+            // 사용자 확인 후 페이지 이동
+            setTimeout(() => {
+              // setTimeout을 사용하여 비동기적으로 처리
+              if (
+                window.confirm('18줄을 초과했습니다. 다음 페이지로 이동하세요.')
+              ) {
+                addLetterPage();
+              }
+            }, 100);
           }
         });
       }
-    }, [quillRef, htmlContent]);
+    }, [quillRef, pageNum, setHtmlContent, updateContentsState, addLetterPage]);
 
     // 폰트 사이즈
     const Size = Quill.import('formats/size');
