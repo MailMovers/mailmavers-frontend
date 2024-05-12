@@ -16,6 +16,7 @@ type QuillEditorProps = {
   htmlContent: string;
   setHtmlContent: (content: string) => void;
   setActualLength: (length: number) => void;
+  addLetterPage: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const QuillEditor = memo(
@@ -24,9 +25,9 @@ const QuillEditor = memo(
     htmlContent,
     setHtmlContent,
     setActualLength,
+    addLetterPage,
   }: QuillEditorProps) => {
     const router = useRouter();
-    const writingPadId = router.query.writingPadId as string;
 
     // const mounted = useRef(false);
     const letterWritingPadId = localStorage.getItem('product');
@@ -34,13 +35,8 @@ const QuillEditor = memo(
 
     // 에디터 화면에 편지지 띄우기
     const { data: PadData } = useSWR<PadData[]>(
-      `product/writing/${writingPadId}`,
-      getPadData,
-      {
-        fallbackData: [],
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false,
-      }
+      `product/writing/${letterWritingPadId}`,
+      getPadData
     );
 
     const letterImg = PadData?.[0].pad_img_url;
@@ -50,13 +46,13 @@ const QuillEditor = memo(
         const quill = quillRef.current.getEditor();
 
         quill.on('text-change', () => {
-          // const maxLength = 1000;
-          // const text = quill.getText();
-          // let actualLength = text.endsWith('\n')
-          //   ? text.length - 1
-          //   : text.length;
-          // setActualLength(actualLength);
-          // setContentLength(actualLength);
+          const maxLength = 577;
+          const text = quill.getText();
+          let actualLength = text.endsWith('\n')
+            ? text.length - 1
+            : text.length;
+          setActualLength(actualLength);
+          setContentLength(actualLength);
 
           // if (actualLength > maxLength) {
           //   quill.deleteText(maxLength, quill.getLength());
@@ -69,25 +65,18 @@ const QuillEditor = memo(
           );
           const textHeight = editorElement.scrollHeight;
           const lines = Math.ceil(textHeight / lineHeightPx) - 3;
-          console.log(`현재 줄 수: ${lines}`); // 로그 확인
 
           if (lines > 18) {
             alert('18줄을 초과했습니다. 다음 페이지로 이동하세요.');
-            quill.deleteText(18, quill.getLength());
+            while (textHeight > 18) {
+              let text = quill.getText();
+              quill.deleteText(text.length - 1, 1);
+            }
+            addLetterPage();
           }
         });
-
-        if (quill.root.innerHTML !== htmlContent) {
-          const range = quill.getSelection();
-          const delta = quill.clipboard.convert(htmlContent);
-          quill.setContents(delta);
-
-          if (range) {
-            quill.setSelection(range.index, range.length, 'silent');
-          }
-        }
       }
-    }, [quillRef]);
+    }, [quillRef, htmlContent]);
 
     // 폰트 사이즈
     const Size = Quill.import('formats/size');
@@ -121,7 +110,7 @@ const QuillEditor = memo(
       height: 49.606rem;
       width: 34.488rem;
       margin: 0 auto;
-      posistion: absolute;
+      position: absolute;
       top: 0;
       background: url('${letterImg}');
       background-size: cover;

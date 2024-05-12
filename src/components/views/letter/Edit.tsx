@@ -81,7 +81,6 @@ const Edit = ({ params }: { params: Params }) => {
       revalidateOnReconnect: false,
       revalidateOnMount: true,
       onSuccess: (data) => {
-        console.log('data', data, currentContent);
         if (data && data.length > 0) {
           const matchedLetters = data.filter(
             (letter: { letterId: number }) => letter.letterId === letterId
@@ -94,8 +93,6 @@ const Edit = ({ params }: { params: Params }) => {
             ],
             []
           );
-
-          console.log('allContents', allContents);
 
           setContents(allContents);
           const pageContent = allContents.find(
@@ -127,8 +124,6 @@ const Edit = ({ params }: { params: Params }) => {
       }
     }
   }, [data, pageNum, currentContent]);
-
-  console.log(htmlContent);
 
   /** 에디터에 작성된 데이터 업데이트 */
   const handleHtmlContentChange = useCallback(
@@ -172,8 +167,8 @@ const Edit = ({ params }: { params: Params }) => {
 
   /** 다음 페이지로 이동, Recoil로 상태 저장 */
   const addLetterPage = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
+    (e?: React.MouseEvent<HTMLButtonElement>) => {
+      e?.stopPropagation();
 
       if (!htmlContent) {
         alert('작성된 내용이 없습니다.');
@@ -264,6 +259,7 @@ const Edit = ({ params }: { params: Params }) => {
         htmlContent={currentContent?.content || ''}
         setHtmlContent={handleHtmlContentChange}
         setActualLength={setActualLength}
+        addLetterPage={addLetterPage}
       />
       <div css={ButtonSection}>
         <Button
