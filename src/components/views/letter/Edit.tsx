@@ -60,6 +60,11 @@ const Edit = ({ params }: { params: Params }) => {
   const quillRef = useRef<ReactQuill | null>(null);
   const [contents, setContents] = useRecoilState(letterWriteList);
 
+  const localStoragePageNum = localStorage.setItem(
+    'pageNum',
+    pageNum.toString()
+  );
+
   const currentContent = contents.find(
     (content) => content.pageNum === pageNum
   );
@@ -143,13 +148,13 @@ const Edit = ({ params }: { params: Params }) => {
     return newPageList;
   }, [contents, pageNum, htmlContent]);
 
-  const updateContentsState = useCallback(() => {
+  const updateContentsState = () => {
     if (isContentChanged) {
       const updatedContents = updateCurrentPageContent();
 
       setContents(updatedContents);
     }
-  }, [isContentChanged, updateCurrentPageContent, setContents]);
+  };
 
   /** 편지에 작성된 내용이 있는지 확인 */
   const [isEmptyEditor, setIsEmptyEditor] = useState(true);
@@ -160,38 +165,32 @@ const Edit = ({ params }: { params: Params }) => {
   }, [actualLength, htmlContent]);
 
   /** 다음 페이지로 이동, Recoil로 상태 저장 */
-  const addLetterPage = useCallback(
-    (e?: React.MouseEvent<HTMLButtonElement>) => {
-      e?.stopPropagation();
+  const addLetterPage = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    e?.stopPropagation();
 
-      if (!htmlContent) {
-        alert('작성된 내용이 없습니다.');
-      } else {
-        updateContentsState();
-
-        const nextPageUrl = letterId
-          ? `/letter/edit/${writingPadId}/${nextPageNum}?letterId=${letterId}`
-          : `/letter/edit/${writingPadId}/${nextPageNum}`;
-
-        router.push(nextPageUrl);
-      }
-    },
-    [isEmptyEditor, updateContentsState, pageNum, letterId, router]
-  );
-
-  /** 이전 페이지로 이동, Recoil로 상태 저장 */
-  const prevLetterPage = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
+    if (!htmlContent) {
+      alert('작성된 내용이 없습니다.');
+    } else {
       updateContentsState();
 
-      const prevPageUrl = letterId
-        ? `/letter/edit/${writingPadId}/${prevPageNum}?letterId=${letterId}`
-        : `/letter/edit/${writingPadId}/${prevPageNum}`;
-      router.push(prevPageUrl);
-    },
-    [contents, updateContentsState, pageNum, letterId]
-  );
+      const nextPageUrl = letterId
+        ? `/letter/edit/${writingPadId}/${nextPageNum}?letterId=${letterId}`
+        : `/letter/edit/${writingPadId}/${nextPageNum}`;
+
+      router.push(nextPageUrl);
+    }
+  };
+
+  /** 이전 페이지로 이동, Recoil로 상태 저장 */
+  const prevLetterPage = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    updateContentsState();
+
+    const prevPageUrl = letterId
+      ? `/letter/edit/${writingPadId}/${prevPageNum}?letterId=${letterId}`
+      : `/letter/edit/${writingPadId}/${prevPageNum}`;
+    router.push(prevPageUrl);
+  };
 
   /** 편지 작성 페이지를 벗어나면(prevStep 함수 실행) Recoil을 리셋 */
   const resetContent = useResetRecoilState(letterContentState);
@@ -253,6 +252,7 @@ const Edit = ({ params }: { params: Params }) => {
         htmlContent={currentContent?.content || ''}
         setHtmlContent={handleHtmlContentChange}
         setActualLength={setActualLength}
+        updateContentsState={updateContentsState}
         addLetterPage={addLetterPage}
       />
       <div css={ButtonSection}>
