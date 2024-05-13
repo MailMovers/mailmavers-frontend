@@ -35,6 +35,7 @@ const QuillEditor = memo(
     // const mounted = useRef(false);
     const letterWritingPadId = localStorage.getItem('product');
     const [_, setContentLength] = useState(0);
+    const [isPageMoving, setIsPageMoving] = useState(false);
 
     // 에디터 화면에 편지지 띄우기
     const { data: PadData } = useSWR<PadData[]>(
@@ -44,47 +45,74 @@ const QuillEditor = memo(
 
     const letterImg = PadData?.[0].pad_img_url;
 
+    const handleChange = () => {
+      if (isPageMoving) return; // 페이지 이동 중이면 추가 입력 무시
+
+      if (!quillRef.current) return; // quillRef.current가 null이면 함수 실행 중지
+
+      const quill = quillRef.current.getEditor(); // quill 객체를 올바르게 참조
+
+      const currentContent = quill.getText();
+      setHtmlContent(currentContent);
+
+      const editorElement = quill.root;
+      const lineHeightPx = parseFloat(
+        window.getComputedStyle(editorElement).lineHeight
+      );
+      const textHeight = editorElement.scrollHeight;
+      const lines = Math.ceil(textHeight / lineHeightPx) - 3;
+
+      const editorText = quill.getText();
+
+      const lastAllowedIndex = editorText.lastIndexOf(
+        '\n',
+        editorText.length - 1
+      );
+      if (pageNum === 5 && lines > 18) {
+        if (
+          // lastAllowedIndex !== -1 &&
+          window.confirm('더 이상 입력할 수 없습니다. 마지막 페이지입니다.')
+        ) {
+          quill.deleteText(lastAllowedIndex - 1, quill.getLength()); // 초과된 텍스트만 삭제
+        }
+      } else if (pageNum !== 5 && lines > 18) {
+        setIsPageMoving(true);
+        setTimeout(() => {
+          if (
+            window.confirm('18줄을 초과했습니다. 다음 페이지로 이동합니다.')
+          ) {
+            quill.deleteText(lastAllowedIndex + 1, quill.getLength());
+            setTimeout(function () {
+              addLetterPage();
+            }, 1000);
+            setIsPageMoving(false);
+          } else {
+            setIsPageMoving(false);
+          }
+        }, 100);
+      }
+    };
+
     useEffect(() => {
       if (quillRef.current) {
         const quill = quillRef.current.getEditor();
+        quill.on('text-change', handleChange);
 
-        quill.on('text-change', () => {
-          const currentContent = quill.getText();
-          setHtmlContent(currentContent);
-          // const maxLength = 577;
-          // const text = quill.getText();
-          // let actualLength = text.endsWith('\n')
-          //   ? text.length - 1
-          //   : text.length;
-          // setActualLength(actualLength);
-          // setContentLength(actualLength);
-
-          // if (actualLength > maxLength) {
-          //   quill.deleteText(maxLength, quill.getLength());
-          //   quill.setSelection(maxLength, 0);
-          // }
-
-          const editorElement = quill.root;
-          const lineHeightPx = parseFloat(
-            window.getComputedStyle(editorElement).lineHeight
-          );
-          const textHeight = editorElement.scrollHeight;
-          const lines = Math.ceil(textHeight / lineHeightPx) - 3;
-
-          if (lines > 18 && pageNum !== 5) {
-            // 사용자 확인 후 페이지 이동
-            setTimeout(() => {
-              // setTimeout을 사용하여 비동기적으로 처리
-              if (
-                window.confirm('18줄을 초과했습니다. 다음 페이지로 이동하세요.')
-              ) {
-                addLetterPage();
-              }
-            }, 100);
+        return () => {
+          if (quillRef.current) {
+            const quill = quillRef.current.getEditor();
+            quill.off('text-change', handleChange);
           }
-        });
+        };
       }
-    }, [quillRef, pageNum, setHtmlContent, updateContentsState, addLetterPage]);
+    }, [
+      quillRef,
+      pageNum,
+      setHtmlContent,
+      updateContentsState,
+      addLetterPage,
+      isPageMoving,
+    ]);
 
     // 폰트 사이즈
     const Size = Quill.import('formats/size');
