@@ -136,7 +136,6 @@ const footerContent = css`
     display: flex;
     align-items: center;
     font-size: 14px;
-    border: 1px solid black;
 
     @media all and (min-width: 1200px),
       all and (min-width: 768px) and (max-width: 1199px) {

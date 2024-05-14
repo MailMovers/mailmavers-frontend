@@ -88,11 +88,7 @@ export default function Header() {
             <StyledImage src='/images/logo.png' alt='로고' />
           </Link>
 
-          {/* <div css={inputWrap}>
-        <input type="text" placeholder="크리스마스 편지지" />
-      </div> */}
-
-          {windowSizeWidth > 480 ? (
+          {windowSizeWidth > 767 ? (
             <div css={btnContainer}>
               {/* <Link href={'/'}>
           <span css={btnText}>공지사항</span>
