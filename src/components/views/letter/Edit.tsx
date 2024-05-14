@@ -1,4 +1,6 @@
 /** @jsxImportSource @emotion/react */
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 
 import {
   useState,
@@ -7,7 +9,24 @@ import {
   useCallback,
   SetStateAction,
 } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import useSWR from 'swr';
+import ReactQuill from 'react-quill';
+
+import Button from '@/components/letter/Button';
+import LocalStorage from '@/common/LocalStorage';
+import {
+  getTempLetterList,
+  updateLetterContent,
+  postLetterContent,
+} from '@/api/letter';
+import { tokenAtom } from '@/recoil/auth/atom';
+import { windowSizeWidthAtom } from '@/recoil/width/atom';
+import { letterContentState, letterWriteList } from '@/recoil/letter/atom';
+
+import type { TempLetterData } from '@/type/letterData';
+
+import { Common } from 'styles/common';
 import {
   Page,
   Buttons,
@@ -17,32 +36,12 @@ import {
   DesktopText,
   MobileText,
 } from './Edit.styles';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import {
-  letterContentState,
-  letterWriteList,
-  textLengthState,
-} from '@/recoil/letter/atom';
 import 'react-quill/dist/quill.snow.css';
 
-import dynamic from 'next/dynamic';
 const QuillEditor = dynamic(
   () => import('@/components/letter/quillEditor/QuillEditor'),
   { ssr: false }
 );
-
-import Button from '@/components/letter/Button';
-import useSWR from 'swr';
-import { tokenAtom } from '@/recoil/auth/atom';
-import {
-  getTempLetterList,
-  updateLetterContent,
-  postLetterContent,
-} from '@/api/letter';
-import ReactQuill from 'react-quill';
-import { TempLetterData } from '@/type/letterData';
-import { Common } from 'styles/common';
-import { windowSizeWidthAtom } from '@/recoil/width/atom';
 
 interface Params {
   writingPadId: string;
@@ -60,10 +59,7 @@ const Edit = ({ params }: { params: Params }) => {
   const quillRef = useRef<ReactQuill | null>(null);
   const [contents, setContents] = useRecoilState(letterWriteList);
 
-  const localStoragePageNum = localStorage.setItem(
-    'pageNum',
-    pageNum.toString()
-  );
+  LocalStorage.setItem('pageNum', pageNum.toString());
 
   const currentContent = contents.find(
     (content) => content.pageNum === pageNum
