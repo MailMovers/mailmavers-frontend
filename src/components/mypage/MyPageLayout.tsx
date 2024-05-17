@@ -30,10 +30,9 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
   );
 
   const movePage = (path: string) => router.push(path);
-
   return (
     <S.Wrap>
-      {windowSizeWidth > 480 && (
+      {windowSizeWidth > 767 && (
         <S.TopWrap>
           <S.TopContent>
             <S.TopTitle>{userInfo?.name}님, 안녕하세요.</S.TopTitle>

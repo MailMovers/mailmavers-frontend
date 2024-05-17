@@ -6,6 +6,11 @@
 .ql-editor {
   font-size: 16px;
   font-family: 'Noto Sans KR';
+  overflow: hidden;
+  max-height: 49.606rem;
+  max-width: 34.488rem;
+  border: none;
+  padding: 0;
 }
 
 .ql-picker.ql-font {

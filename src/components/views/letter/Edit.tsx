@@ -1,4 +1,6 @@
 /** @jsxImportSource @emotion/react */
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 
 import {
   useState,
@@ -7,7 +9,24 @@ import {
   useCallback,
   SetStateAction,
 } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import useSWR from 'swr';
+import ReactQuill from 'react-quill';
+
+import Button from '@/components/letter/Button';
+import LocalStorage from '@/common/LocalStorage';
+import {
+  getTempLetterList,
+  updateLetterContent,
+  postLetterContent,
+} from '@/api/letter';
+import { tokenAtom } from '@/recoil/auth/atom';
+import { windowSizeWidthAtom } from '@/recoil/width/atom';
+import { letterContentState, letterWriteList } from '@/recoil/letter/atom';
+
+import type { TempLetterData } from '@/type/letterData';
+
+import { Common } from 'styles/common';
 import {
   Page,
   Buttons,
@@ -17,32 +36,12 @@ import {
   DesktopText,
   MobileText,
 } from './Edit.styles';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import {
-  letterContentState,
-  letterWriteList,
-  textLengthState,
-} from '@/recoil/letter/atom';
 import 'react-quill/dist/quill.snow.css';
 
-import dynamic from 'next/dynamic';
 const QuillEditor = dynamic(
   () => import('@/components/letter/quillEditor/QuillEditor'),
   { ssr: false }
 );
-
-import Button from '@/components/letter/Button';
-import useSWR from 'swr';
-import { tokenAtom } from '@/recoil/auth/atom';
-import {
-  getTempLetterList,
-  updateLetterContent,
-  postLetterContent,
-} from '@/api/letter';
-import ReactQuill from 'react-quill';
-import { TempLetterData } from '@/type/letterData';
-import { Common } from 'styles/common';
-import { windowSizeWidthAtom } from '@/recoil/width/atom';
 
 interface Params {
   writingPadId: string;
@@ -60,6 +59,8 @@ const Edit = ({ params }: { params: Params }) => {
   const quillRef = useRef<ReactQuill | null>(null);
   const [contents, setContents] = useRecoilState(letterWriteList);
 
+  LocalStorage.setItem('pageNum', pageNum.toString());
+
   const currentContent = contents.find(
     (content) => content.pageNum === pageNum
   );
@@ -72,9 +73,6 @@ const Edit = ({ params }: { params: Params }) => {
 
   const token = useRecoilValue(tokenAtom);
 
-  console.log('token', token);
-  console.log('letterId', letterId);
-
   const { data } = useSWR<TempLetterData[]>(
     () => (!!token && !!letterId ? 'getTempLetterList' : null),
     getTempLetterList,
@@ -84,7 +82,6 @@ const Edit = ({ params }: { params: Params }) => {
       revalidateOnReconnect: false,
       revalidateOnMount: true,
       onSuccess: (data) => {
-        console.log('data', data, currentContent);
         if (data && data.length > 0) {
           const matchedLetters = data.filter(
             (letter: { letterId: number }) => letter.letterId === letterId
@@ -98,15 +95,7 @@ const Edit = ({ params }: { params: Params }) => {
             []
           );
 
-          console.log('allContents', allContents);
-
           setContents(allContents);
-          const pageContent = allContents.find(
-            (content: { pageNum: number }) => content.pageNum === pageNum
-          );
-          // if (pageContent) {
-          //   setHtmlContent(pageContent.content);
-          // }
         }
       },
     }
@@ -130,8 +119,6 @@ const Edit = ({ params }: { params: Params }) => {
       }
     }
   }, [data, pageNum, currentContent]);
-
-  console.log(htmlContent);
 
   /** 에디터에 작성된 데이터 업데이트 */
   const handleHtmlContentChange = useCallback(
@@ -157,13 +144,13 @@ const Edit = ({ params }: { params: Params }) => {
     return newPageList;
   }, [contents, pageNum, htmlContent]);
 
-  const updateContentsState = useCallback(() => {
+  const updateContentsState = () => {
     if (isContentChanged) {
       const updatedContents = updateCurrentPageContent();
 
       setContents(updatedContents);
     }
-  }, [isContentChanged, updateCurrentPageContent, setContents]);
+  };
 
   /** 편지에 작성된 내용이 있는지 확인 */
   const [isEmptyEditor, setIsEmptyEditor] = useState(true);
@@ -174,38 +161,32 @@ const Edit = ({ params }: { params: Params }) => {
   }, [actualLength, htmlContent]);
 
   /** 다음 페이지로 이동, Recoil로 상태 저장 */
-  const addLetterPage = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
+  const addLetterPage = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    e?.stopPropagation();
 
-      if (!htmlContent) {
-        alert('작성된 내용이 없습니다.');
-      } else {
-        updateContentsState();
-
-        const nextPageUrl = letterId
-          ? `/letter/edit/${writingPadId}/${nextPageNum}?letterId=${letterId}`
-          : `/letter/edit/${writingPadId}/${nextPageNum}`;
-
-        router.push(nextPageUrl);
-      }
-    },
-    [isEmptyEditor, updateContentsState, pageNum, letterId, router]
-  );
-
-  /** 이전 페이지로 이동, Recoil로 상태 저장 */
-  const prevLetterPage = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
+    if (!htmlContent) {
+      alert('작성된 내용이 없습니다.');
+    } else {
       updateContentsState();
 
-      const prevPageUrl = letterId
-        ? `/letter/edit/${writingPadId}/${prevPageNum}?letterId=${letterId}`
-        : `/letter/edit/${writingPadId}/${prevPageNum}`;
-      router.push(prevPageUrl);
-    },
-    [contents, updateContentsState, pageNum, letterId]
-  );
+      const nextPageUrl = letterId
+        ? `/letter/edit/${writingPadId}/${nextPageNum}?letterId=${letterId}`
+        : `/letter/edit/${writingPadId}/${nextPageNum}`;
+
+      router.push(nextPageUrl);
+    }
+  };
+
+  /** 이전 페이지로 이동, Recoil로 상태 저장 */
+  const prevLetterPage = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    updateContentsState();
+
+    const prevPageUrl = letterId
+      ? `/letter/edit/${writingPadId}/${prevPageNum}?letterId=${letterId}`
+      : `/letter/edit/${writingPadId}/${prevPageNum}`;
+    router.push(prevPageUrl);
+  };
 
   /** 편지 작성 페이지를 벗어나면(prevStep 함수 실행) Recoil을 리셋 */
   const resetContent = useResetRecoilState(letterContentState);
@@ -261,13 +242,14 @@ const Edit = ({ params }: { params: Params }) => {
   return (
     <div css={Wrap}>
       <h1 css={Page}>{pageNum}페이지</h1>
-      <p css={LetterInfo}>편지 1장당 1,000자 입력하실 수 있습니다.</p>
       <QuillEditor
         key={pageNum}
         quillRef={quillRef}
         htmlContent={currentContent?.content || ''}
         setHtmlContent={handleHtmlContentChange}
         setActualLength={setActualLength}
+        updateContentsState={updateContentsState}
+        addLetterPage={addLetterPage}
       />
       <div css={ButtonSection}>
         <Button

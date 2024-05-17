@@ -191,7 +191,7 @@ export default function Address() {
                         className='del_btn'
                         onClick={() => handleDelSend(sendInfo.id)}
                       >
-                        삭제하기
+                        삭제
                       </span>
                     </S.CardWrap>
                   );
@@ -229,7 +229,7 @@ export default function Address() {
                         className='del_btn'
                         onClick={() => handleDelReceive(receiveInfo.id)}
                       >
-                        삭제하기
+                        삭제
                       </span>
                     </S.CardWrap>
                   );

@@ -14,7 +14,7 @@ export const LetterInfo = css`
 `;
 
 export const Page = css`
-  margin: 30px 0 10px;
+  margin: 50px 0 30px;
   text-align: center;
   font-size: ${Common.fontSize.title};
   font-weight: bold;
@@ -22,7 +22,7 @@ export const Page = css`
 
 export const ButtonSection = css`
   display: flex;
-  width: 694px;
+  width: 34.488rem;
   margin: 20px auto 0;
   justify-content: space-between;
   > button {

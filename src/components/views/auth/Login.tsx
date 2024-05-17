@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useRef, useState } from 'react';
 import useSWR from 'swr';
+import { useRecoilState } from 'recoil';
 
 import KakaoLogin from '@/components/views/auth/KakaoLogin';
 import NaverLogin from '@/components/views/auth/NaverLogin';
@@ -10,6 +11,7 @@ import GoogleLogin from '@/components/views/auth/GoogleLogin';
 import useInput from '@/hooks/useInput';
 import { postUserLogin } from '@/api/auth';
 import { setToken } from '@/common/axio-interceptor';
+import { tokenAtom } from '@/recoil/auth/atom';
 
 import { formDivDefalutMagin } from './Signup.styles';
 import { errorMessage } from './SocialLogin.styles';
@@ -27,16 +29,16 @@ import {
   signUpPageBtn,
   isMemberPrompt,
 } from './Login.styles';
-import { useRecoilState } from 'recoil';
-import { tokenAtom } from '@/recoil/auth/atom';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [logInError, setLogInError] = useState(false);
+
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const [errorMsg, setErrorMsg] = useState('');
 
   const [token, setTokenState] = useRecoilState(tokenAtom);
 
@@ -45,7 +47,17 @@ export default function LoginPage() {
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      setLogInError(false);
+
+      if (!email) {
+        setErrorMsg('이메일을 작성해주세요.');
+        return;
+      }
+
+      if (!password) {
+        setErrorMsg('비밀번호를 작성해주세요.');
+        return;
+      }
+
       postUserLogin(email, password)
         .then((res) => {
           if (res.status === 200) {
@@ -60,13 +72,11 @@ export default function LoginPage() {
             } else {
               router.push('/');
             }
-          } else {
-            setLogInError(true);
           }
         })
         .catch((error) => {
           console.log(error);
-          setLogInError(error.response?.status === 400);
+          setErrorMsg(error.response?.data?.message as string);
         });
     },
     [email, password]
@@ -113,11 +123,7 @@ export default function LoginPage() {
                 </span>
               </div>
             </div>
-            {logInError && (
-              <p css={errorMessage}>
-                이메일과 비밀번호 조합이 일치하지 않습니다.
-              </p>
-            )}
+            {errorMsg && <p css={errorMessage}>{errorMsg}</p>}
             <button css={submitBtn} type='submit'>
               로그인
             </button>

@@ -6,6 +6,11 @@
 .ql-editor {
   font-size: 16px;
   font-family: 'Noto Sans KR';
+  overflow: hidden;
+  max-height: 49.606rem;
+  width: 34.488rem;
+  border: none;
+  padding: 3.438rem 2.188rem;
 }
 
 .ql-picker.ql-font {
@@ -89,6 +94,8 @@
 }
 .ql-font-개구체 {
   font-family: 'Gaegu', sans-serif;
+  font-size: 18px;
+  line-height: 1.5px;
 }
 .ql-font-나눔펜 {
   font-family: 'Nanum Pen Script', sans-serif;

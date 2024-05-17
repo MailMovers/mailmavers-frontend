@@ -19,7 +19,7 @@ const InquireDetailPopup = ({ csInfo, close }: Tprops) => {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       revalidateOnMount: true,
-    },
+    }
   );
 
   return (
@@ -30,12 +30,12 @@ const InquireDetailPopup = ({ csInfo, close }: Tprops) => {
       <Body>
         <Tiltle>
           <span>제목 :</span>
-          <input id="title" value={data?.title || ''} disabled />
+          <input id='title' value={data?.title || ''} disabled />
         </Tiltle>
         <Message>
           <span>내용 :</span>
           <textarea
-            id="content"
+            id='content'
             value={
               data?.content ||
               `safdasdfasdf\nasdfadsfads\n\nasdfasdfasd\n\n\nasdfasdf\n\n…sfadsf\n\n\nasdfasdfadsf\n\n\nasdfasdfdsf\n\n\nasdfasdfads`
@@ -47,7 +47,7 @@ const InquireDetailPopup = ({ csInfo, close }: Tprops) => {
 
       <Bottom>
         <ButtonContainer>
-          <button className="submit" onClick={close}>
+          <button className='submit' onClick={close}>
             확인
           </button>
         </ButtonContainer>
@@ -64,10 +64,18 @@ const Wrap = styled.div`
   bottom: 5%;
   width: 500px;
   height: 500px;
-  border: 1px solid black;
+
   background-color: #ffff;
   border: 1px solid #ccc;
   z-index: 10;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 100%;
+    right: 0%;
+    bottom: 0%;
+    top: 0;
+  }
 `;
 
 const Header = styled.div`
@@ -92,11 +100,14 @@ const Body = styled.div`
   width: 100%;
   height: calc(100% - 110px);
   padding: 16px;
-  /* border: 1px solid black; */
 
   display: flex;
   flex-direction: column;
   gap: 14px;
+
+  @media (max-width: 480px) {
+    height: auto;
+  }
 `;
 
 const Tiltle = styled.div<{ isArea?: boolean }>`
@@ -105,21 +116,32 @@ const Tiltle = styled.div<{ isArea?: boolean }>`
   grid-template-columns: 1fr 5fr;
   align-items: center;
 
+  @media all and (max-width: 480px) {
+    grid-template-columns: none;
+  }
+
   span {
     color: var(--default, #333);
 
     font-size: 18px;
     font-weight: 400;
+
+    @media all and (max-width: 480px) {
+      display: none;
+    }
   }
 
   input {
     padding: 13px 0 13px 10px;
-    /* width: 2; */
     height: 50px;
     border-radius: 5px;
     border: 1px solid var(--greyD9, #d9d9d9);
 
     outline: none;
+
+    @media all and (max-width: 480px) {
+      width: 100%;
+    }
   }
 `;
 
@@ -131,12 +153,20 @@ const Message = styled.div<{ isArea?: boolean }>`
 
   height: ${({ isArea }) => isArea && '400px'};
 
+  @media all and (max-width: 480px) {
+    grid-template-columns: none;
+  }
+
   span {
     margin-top: 10px;
     color: var(--default, #333);
 
     font-size: 18px;
     font-weight: 400;
+
+    @media all and (max-width: 480px) {
+      display: none;
+    }
   }
 
   textarea {
@@ -154,6 +184,10 @@ const Message = styled.div<{ isArea?: boolean }>`
     font-size: 16px;
     resize: none;
     border: 1px solid var(--greyD9, #d9d9d9);
+
+    @media (max-width: 480px) {
+      height: 100%;
+    }
   }
 `;
 

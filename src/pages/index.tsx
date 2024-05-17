@@ -1,33 +1,26 @@
 /** @jsxImportSource @emotion/react */
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 import { useSetRecoilState } from 'recoil';
-import { Modal } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
-import { useRouter } from 'next/router';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 import { getNewList, getPopularList } from '@/api/main';
 
 import { productIdAtom } from '@/recoil/letter-product/atom';
 
 import type { TNewProduct } from '@/type/main';
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import Image from 'next/image';
 
 export default function Desktop() {
   const router = useRouter();
-  const [modal, contextHolder] = Modal.useModal();
+
   const setProductId = useSetRecoilState(productIdAtom);
 
-  const goLetterProducts = () => {
-    router.push('/letterproducts');
-  };
-
-  const goSignUp = () => {
-    router.push('/signup');
-  };
+  const goLetterProducts = () => router.push('/letterproducts');
+  const goSignUp = () => router.push('/signup');
 
   const goLetterDetail = (productId: number) => {
     setProductId(productId);
@@ -36,16 +29,22 @@ export default function Desktop() {
     router.push('letterproducts/letter-product-detail');
   };
 
-  const { data } = useSWR<TNewProduct[]>(() => '/product/new', getNewList, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    revalidateOnMount: true,
-  });
+  const { data: reviewList = [] } = useSWR<TNewProduct[]>(
+    () => '/product/new',
+    getNewList,
+    {
+      fallbackData: [],
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      revalidateOnMount: true,
+    }
+  );
 
-  const { data: populars } = useSWR<TNewProduct[]>(
+  const { data: populars = [] } = useSWR<TNewProduct[]>(
     () => '/product/popular',
     getPopularList,
     {
+      fallbackData: [],
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       revalidateOnMount: true,
@@ -68,17 +67,15 @@ export default function Desktop() {
 
   return (
     <div css={mainWrap}>
-      {contextHolder}
-
       <BannerWrap>
         <img src='/images/main_img.svg' alt='메인 이미지' css={bannerImg} />
       </BannerWrap>
 
       <Content>
-        <div css={bestTextWrap}>
-          <div css={bestTextMain}>
+        <div css={mainTitleWrap}>
+          <div css={mainTextWrap}>
             <p className='text_category'>Best</p>
-            <p css={commonTextLg}>인기 많아요</p>
+            <p css={textSubCategory}>인기 많아요</p>
           </div>
           <button
             type='button'
@@ -91,24 +88,23 @@ export default function Desktop() {
 
         <div css={bestImgContainer}>
           <ul className='bestImgContentWrap'>
-            {populars &&
-              populars.map((popular) => (
-                <li
-                  css={bestContent}
-                  key={popular.id}
-                  onClick={() => goLetterDetail(popular.id)}
-                >
-                  <div className='best_img_wrap'>
-                    <img
-                      className='best_img'
-                      src={popular.imgUrl}
-                      alt={popular.name}
-                    />
-                  </div>
-                  <p className='best_title'>{popular.name}</p>
-                  <p className='best_desc'>{popular.description}</p>
-                </li>
-              ))}
+            {populars.map((popular) => (
+              <li
+                css={bestContent}
+                key={popular.id}
+                onClick={() => goLetterDetail(popular.id)}
+              >
+                <div className='best_img_wrap'>
+                  <img
+                    className='best_img'
+                    src={popular.imgUrl}
+                    alt={popular.name}
+                  />
+                </div>
+                <p className='best_title'>{popular.name}</p>
+                <p className='best_desc'>{popular.description}</p>
+              </li>
+            ))}
           </ul>
         </div>
       </Content>
@@ -133,7 +129,7 @@ export default function Desktop() {
 
       <div css={howWrap}>
         <div className='how_contents_wrap'>
-          <p css={commonTextLg}>메일트리 이용방법</p>
+          <p css={textSubCategory}>메일트리 이용방법</p>
           <div css={howContainer}>
             <div css={howContent}>
               <HowIcon src={'/icon/letter.svg'}>
@@ -142,7 +138,7 @@ export default function Desktop() {
 
               <div className='how_text'>
                 <p className='how_text_main'>편지지 / 봉투 선택 및 작성</p>
-                <p className='how_text_sub'>편지지 / 봉투 선택 및 작성</p>
+                {/* <p className='how_text_sub'>편지지 / 봉투 선택 및 작성</p> */}
               </div>
             </div>
 
@@ -153,7 +149,7 @@ export default function Desktop() {
 
               <div className='how_text'>
                 <p className='how_text_main'>사진 추가</p>
-                <p className='how_text_sub'>편지지 / 봉투 선택 및 작성</p>
+                {/* <p className='how_text_sub'>편지지 / 봉투 선택 및 작성</p> */}
               </div>
             </div>
             <div css={howContent}>
@@ -163,7 +159,7 @@ export default function Desktop() {
 
               <div className='how_text'>
                 <p className='how_text_main'>우편 종류 선택</p>
-                <p className='how_text_sub'>편지지 / 봉투 선택 및 작성</p>
+                {/* <p className='how_text_sub'>편지지 / 봉투 선택 및 작성</p> */}
               </div>
             </div>
 
@@ -174,7 +170,7 @@ export default function Desktop() {
 
               <div className='how_text'>
                 <p className='how_text_main'>우체국 발송</p>
-                <p className='how_text_sub'>편지지 / 봉투 선택 및 작성</p>
+                {/* <p className='how_text_sub'>편지지 / 봉투 선택 및 작성</p> */}
               </div>
             </div>
           </div>
@@ -182,28 +178,30 @@ export default function Desktop() {
       </div>
 
       <Content style={{ marginTop: '8.81em' }}>
-        <div css={bestTextWrap}>
+        <div css={mainTitleWrap}>
           <div />
-          <div css={bestTextMain}>
+          <div css={mainTextWrap}>
             <p className='text_category'>Review</p>
-            <p css={commonTextLg}>이용후기</p>
+            <p css={textSubCategory}>이용후기</p>
           </div>
           <div />
         </div>
 
         <div css={ReviewImgContainer}>
           <ul className='bestImgContentWrap'>
-            {data &&
-              data.map((prd) => (
-                <li css={bestContent} key={prd.id}>
-                  {/* <StyledImage src={prd.imgUrl} alt="메인 이미지" width={0} height={0} sizes="387px" /> */}
-                  <div className='best_img_review_wrap'>
-                    <img className='best_img' src={prd.imgUrl} alt={prd.name} />
-                  </div>
-                  <p className='best_title'>{prd.name}</p>
-                  <p className='best_desc'>{prd.description}</p>
-                </li>
-              ))}
+            {reviewList.map((review) => (
+              <li css={bestContent} key={review.id}>
+                <div className='best_img_review_wrap'>
+                  <img
+                    className='best_img'
+                    src={review.imgUrl}
+                    alt={review.name}
+                  />
+                </div>
+                <p className='best_title'>{review.name}</p>
+                <p className='best_desc'>{review.description}</p>
+              </li>
+            ))}
           </ul>
         </div>
       </Content>
@@ -263,10 +261,7 @@ export const mainWrap = css`
 `;
 
 export const BannerWrap = styled.div`
-  display: flex;
-  align-items: center;
   width: 100%;
-  height: 440px;
   background: ${Common.colors.white};
 
   @media all and (min-width: 1200px) {
@@ -297,19 +292,15 @@ export const BannerWrap = styled.div`
   }
 
   @media all and (max-width: 767px) {
-    height: 300px;
+    height: auto;
   }
 `;
 
 export const bannerImg = css`
-  height: 100%;
+  width: 100%;
 
   @media all and (min-width: 323px) and (max-width: 767px) {
   }
-`;
-
-export const StyledImage = styled(Image)`
-  width: 100%;
 `;
 
 export const Content = styled.div`
@@ -334,12 +325,12 @@ export const Content = styled.div`
   }
 `;
 
-export const bestTextWrap = css`
+export const mainTitleWrap = css`
   position: relative;
   width: 100%;
 `;
 
-export const bestTextMain = css`
+export const mainTextWrap = css`
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -365,7 +356,7 @@ export const bestTextMain = css`
   }
 `;
 
-export const commonTextLg = css`
+export const textSubCategory = css`
   color: var(--default, #333);
   font-weight: 500;
 
@@ -641,9 +632,9 @@ export const howContent = css`
       color: var(--default, #333);
     }
 
-    .how_text_sub {
+    /* .how_text_sub {
       color: var(--grey666, #666);
-    }
+    } */
   }
 `;
 
