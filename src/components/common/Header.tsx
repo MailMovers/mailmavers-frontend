@@ -73,6 +73,8 @@ export default function Header() {
         setToken({ accessToken, refreshToken });
         initAxios({ accessToken, refreshToken });
       }
+
+      return;
     }
 
     initAxios();
