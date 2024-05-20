@@ -5,7 +5,13 @@ import { usePathname } from 'next/navigation';
 import styled from '@emotion/styled';
 import { Common } from 'styles/common';
 import { css } from '@emotion/react';
-import { isConfirmPage, isPaymentPage, isPhotoSelectPage, isSelectPage, isSendPage } from '@/utils/routeHelpers';
+import {
+  isConfirmPage,
+  isPaymentPage,
+  isPhotoSelectPage,
+  isSelectPage,
+  isSendPage,
+} from '@/utils/routeHelpers';
 
 const LetterHeader = () => {
   const pathname = usePathname();
@@ -22,11 +28,13 @@ const LetterHeader = () => {
     <div css={Progress}>
       <div css={Container}>
         <div css={LeftContent}>
-          <h1>편지쓰기</h1>
+          <Title>편지쓰기</Title>
           <div css={ProgressSection}>
             {steps.map((step, index) => (
               <div css={ProgressList} key={index}>
-                <ProgressName isActive={step.isActive}>{step.name} </ProgressName>
+                <ProgressName isActive={step.isActive}>
+                  {step.name}{' '}
+                </ProgressName>
               </div>
             ))}
           </div>
@@ -44,7 +52,8 @@ const Progress = css`
   background: ${Common.colors.gray04};
   font-size: 16px;
 
-  @media all and (min-width: 768px) and (max-width: 1199px), all and (max-width: 767px) {
+  @media all and (min-width: 768px) and (max-width: 1199px),
+    all and (max-width: 767px) {
     display: flex;
     align-items: center;
     height: 200px;
@@ -62,7 +71,8 @@ const Container = css`
     max-width: 1200px;
   }
 
-  @media all and (min-width: 768px) and (max-width: 1199px), all and (max-width: 767px) {
+  @media all and (min-width: 768px) and (max-width: 1199px),
+    all and (max-width: 767px) {
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
@@ -88,6 +98,10 @@ const LeftContent = css`
     align-items: center;
   }
 `;
+
+const Title = styled.h1`
+  margin-right: 20px; /* 여기 추가 */
+`;
 const ProgressList = css`
   align-items: center;
   list-style: none;
@@ -110,7 +124,30 @@ const ProgressSection = css`
 
 const ProgressName = styled.p<{ isActive: boolean }>`
   font-size: ${Common.fontSize.fs14};
-  color: ${({ isActive }) => (isActive ? `${Common.colors.theme}` : `${Common.colors.black}`)};
+  color: ${({ isActive }) =>
+    isActive ? `${Common.colors.theme}` : `${Common.colors.black}`};
   padding-bottom: 5px;
-  border-bottom: 2px solid ${({ isActive }) => (isActive ? `${Common.colors.theme}` : 'transparent')};
+  border-bottom: 2px solid
+    ${({ isActive }) => (isActive ? `${Common.colors.theme}` : 'transparent')};
+
+  @media (min-width: 1201px) {
+    margin-top: 20px;
+    font-size: 17px;
+  }
+  @media (min-width: 820px) and (max-width: 1200px) {
+    margin-top: 20px;
+    font-size: 15px;
+  }
+  @media (max-width: 600px) {
+    margin-top: 20px;
+    font-size: 11.43px;
+  }
+  @media (max-width: 360px) {
+    margin-top: 20px;
+    font-size: 10.73px;
+  }
+  @media (max-width: 344px) {
+    margin-top: 20px;
+    font-size: 9.9px;
+  }
 `;
