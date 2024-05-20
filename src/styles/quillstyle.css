@@ -83,10 +83,6 @@
   font-family: 'Nanum Pen Script' !important;
 }
 
-.ql-snow .ql-picker-label {
-  display: flex;
-}
-
 /* Set content font-families */
 .ql-font-buri {
   font-family: 'AritaBuri';
@@ -136,4 +132,8 @@
 .ql-size-32px,
 .ql-size span[data-value='32px']::before {
   font-size: 32px !important;
+}
+
+.ql-toolbar.ql-snow .ql-picker-label {
+  display: flex;
 }
