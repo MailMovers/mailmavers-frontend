@@ -3,10 +3,13 @@ import { memo, useEffect, useMemo, useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import Toolbar from './EditorToolBar';
 
+import { Common } from 'styles/common';
 import { PadData } from '@/type/letterData';
 import useSWR from 'swr';
 import { getPadData } from '@/api/letter';
 import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { letterWritingPadIdState } from '@/recoil/letter/atom';
 
 type QuillEditorProps = {
   quillRef: React.MutableRefObject<ReactQuill | null>;
@@ -186,7 +189,7 @@ const QuillEditor = memo(
       }
 
       > div > div {
-        padding: 3.4392rem 1.8196rem !important;
+        // padding: 3.438rem 2.188rem;
         line-height: 2.4;
       }
     `;

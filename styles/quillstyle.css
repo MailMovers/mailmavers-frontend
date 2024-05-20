@@ -8,9 +8,20 @@
   font-family: 'Noto Sans KR';
   overflow: hidden;
   max-height: 49.606rem;
-  max-width: 34.488rem;
+  width: 34.488rem;
   border: none;
-  padding: 0;
+  padding: 3.438rem 2.188rem;
+}
+
+@media all and (max-width: 767px) {
+  .ql-editor {
+    font-size: calc(1.5rem + 1vw); /* 뷰포트 너비에 따라 폰트 크기 조절 */
+    line-height: calc(100 * (1.5rem + 1vw) / 16px);
+    max-width: calc(100vw - 3rem);
+    max-height: calc(100vw * (49.606 / 34.488));
+    padding: calc(1rem + 2vw);
+    margin-top: 0.5rem; /*  모바일 뷰포트에서 margin-top 조절 */
+  }
 }
 
 .ql-picker.ql-font {
@@ -94,6 +105,8 @@
 }
 .ql-font-개구체 {
   font-family: 'Gaegu', sans-serif;
+  font-size: 18px;
+  line-height: 1.5px;
 }
 .ql-font-나눔펜 {
   font-family: 'Nanum Pen Script', sans-serif;
