@@ -14,6 +14,23 @@ pnpm dev
 bun dev
 ```
 
+PR & commit
+feat: 새로운 기능 추가
+
+fix: 버그 수정
+
+docs: 문서 수정
+
+style: 코드 포맷 변경, 세미콜론 누락, 코드 변경 없음
+
+refactor: 프로덕션 코드 리팩터링
+
+test: 테스트 추가, 테스트 코드 리팩터링, 프로덕션 코드 변경 없음
+
+chore: 패키지 매니저 설정할 경우, 코드 수정 없이 설정을 변경
+
+revert: 작업 되돌리기
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
