@@ -7,7 +7,6 @@ export type TNewProduct = {
 
 
 export interface MainPageUIProps {
-  setProductId: (id: number) => void;
   goLetterProducts: () => void;
   goSignUp: () => void;
   goLetterDetail: (productId: number) => void;

@@ -8,24 +8,26 @@ import { productIdAtom } from '@/recoil/letter-product/atom';
 import type { TNewProduct } from '@/type/main';
 import MainPageUI from './main.presenter';
 
-
+const NEW_PRODUCT_URL = '/product/new';
+const POPULAR_PRODUCT_URL = '/product/popular';
+const LETTER_PRODUCTS_URL = '/letterproducts';
+const SIGNUP_URL = '/signup';
+const LETTER_PRODUCT_DETAIL_URL = 'letterproducts/letter-product-detail';
 
 export default function MainPage() {
   const router = useRouter();
 
-  const setProductId = useSetRecoilState(productIdAtom);
 
-  const goLetterProducts = () => router.push('/letterproducts');
-  const goSignUp = () => router.push('/signup');
+  const goLetterProducts = () => router.push(LETTER_PRODUCTS_URL);
+  const goSignUp = () => router.push(SIGNUP_URL);
   const goLetterDetail = (productId: number) => {
-    setProductId(productId);
-    const product = String(productId);
-    localStorage.setItem('product', product);
-    router.push('letterproducts/letter-product-detail');
+
+    localStorage.setItem('product', String(productId));
+    router.push(LETTER_PRODUCT_DETAIL_URL);
   };
 
-  const { data: reviewList = [] } = useSWR<TNewProduct[]>(
-    () => '/product/new',
+  const { data: reviewList = [], error: reviewError } = useSWR<TNewProduct[]>(
+    NEW_PRODUCT_URL,
     getNewList,
     {
       fallbackData: [],
@@ -35,8 +37,8 @@ export default function MainPage() {
     }
   );
 
-  const { data: populars = [] } = useSWR<TNewProduct[]>(
-    () => '/product/popular',
+  const { data: populars = [], error: popularError } = useSWR<TNewProduct[]>(
+    POPULAR_PRODUCT_URL,
     getPopularList,
     {
       fallbackData: [],
@@ -46,29 +48,14 @@ export default function MainPage() {
     }
   );
 
-  useEffect(() => {
-    const status = router.query.status as string;
-
-    if (status === 'expire') {
-      // modal.confirm({
-      //   title: '인증 만료',
-      //   content: '인증이 만료 되었습니다.',
-      //   okText: '확인',
-      //   cancelText: '취소',
-      // });
-      // router.push('/logout');
-    }
-  }, []);
-
   return (
     <MainPageUI 
-    setProductId={setProductId}
-    goLetterProducts={goLetterProducts}
-    goSignUp={goSignUp}
-    goLetterDetail={goLetterDetail}
-    populars={populars}
-    reviewList={reviewList}
+
+      goLetterProducts={goLetterProducts}
+      goSignUp={goSignUp}
+      goLetterDetail={goLetterDetail}
+      populars={populars}
+      reviewList={reviewList}
     />
-  )
+  );
 }
- 
