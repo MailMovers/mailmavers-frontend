@@ -48,29 +48,24 @@ export const ContainerWrapper = styled.div`
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+
 
 
   }
 `;
 
-export const BannerWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  border: 1px solid red;
-`;
-
 export const TitleWrapper = styled.div`
-  ${globalStyle}
+  width: 1200px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-starts;
+  justify-content: center;
+  align-items: center;
 
 `;
 
-export const Title = styled.p`
+export const Title = styled.div`
   margin-top: 50px;
   width: 100%;
   height: 100%;
@@ -109,8 +104,8 @@ export const BestProductList = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -202,12 +197,11 @@ export const ProductReviewCount = styled.p`
 export const ViewBestProductsListButtonWrapper = styled.div`
   width: 100%;
   font-size: ${Common.fontSize.fs16};
-  padding-top: 10px;
-  margin-top: 10px;
-  margin-left: 16px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  margin-top: 20px;
+  margin-left: 16px;
   align-items: flex-end;
   @media (max-width: 768px) {
     display: none;
@@ -218,7 +212,6 @@ export const ViewBestProductsListButton = styled.a`
   height: 100%;
   padding: 10px 20px;
   border-radius: 10px;
-  text-decoration: underline;
   font-size: ${Common.fontSize.fs16};
   font-weight: 700;
   color: ${Common.colors.gray};
@@ -227,26 +220,36 @@ export const ViewBestProductsListButton = styled.a`
 
 export const MenuList = styled.ul`
   width: 500px;
-  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   text-align: center;
-
   font-size: ${Common.fontSize.fs16};
   color: ${Common.colors.gray01};
 `;
 
+
 export const MenuItem = styled.li<{ isActive: boolean }>`
-  width: 100%;
-  border-radius: 10px;
+  width: 100px;
+  border-radius: 20px 20px 20px 60px;
   margin-top: 20px;
+  margin-left: 0;
   padding: 10px 20px;
   cursor: pointer;
+  border: 1px solid ${Common.colors.gray02};
   font-size: ${Common.fontSize.fs20};
-  color: ${({ isActive }) => (isActive ? Common.colors.theme : 'initial')};
-  background-color: ${({ isActive }) => (isActive ? Common.colors.gray02 : 'initial')};
+  color: ${({ isActive }) => (isActive ? Common.colors.white : 'initial')};
+  background: ${({ isActive }) => (isActive ? Common.colors.yellow : 'initial')};
   &:hover {
-    color: ${Common.colors.theme};
-    background-color: ${Common.colors.gray02};
+    background: ${Common.colors.yellow};
+    color: ${Common.colors.white};
   }
+`;
+
+export const AddIcon = styled.img`
+  width: 14px;
+  height: 14px;
+  margin-left: 5px;
+  object-fit: cover;
+  font-size: ${Common.fontSize.fs10};
+  font-weight: 200;
 `;

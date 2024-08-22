@@ -191,7 +191,7 @@ const Frame = styled.div`
   width: 1200px;
   height: 85px;
   margin: 0 auto;
-  margin-bottom: 10px;
+
   display: flex;
   justify-content: center;
   align-items: center;

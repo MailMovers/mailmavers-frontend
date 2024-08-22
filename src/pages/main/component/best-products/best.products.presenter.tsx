@@ -9,6 +9,10 @@ const pcResponsive = {
   1024: { items: 4 }
 };
 
+const icon = {
+  add : '/icon/plus.png',
+};
+
 export default function BestProductsUI(props: MainPageUIProps) {
   const carouselItems = props.items.map((mockData, id) => (
     <S.ProductWrapper key={id}>
@@ -44,7 +48,8 @@ export default function BestProductsUI(props: MainPageUIProps) {
       <S.BesProductListWrapper>
         <S.ViewBestProductsListButtonWrapper>
           <S.ViewBestProductsListButton onClick={() => props.goLetterProducts()}>
-            전체보기
+            전체보기 
+            <S.AddIcon src={icon.add} alt='추가' />
           </S.ViewBestProductsListButton>
         </S.ViewBestProductsListButtonWrapper>
         <S.BestProductList>

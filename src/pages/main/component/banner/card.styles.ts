@@ -10,6 +10,7 @@ export const ContainerWrapper = styled.div`
   align-items: center;
   margin: 0 auto;
   background-color: #fff;
+  background-position: center;
 `;
 
 export const CardWrapper = styled.div`
@@ -17,8 +18,10 @@ export const CardWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 20px;
-  background-color: #F5F5F5;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+
 `;
 
 export const Card = styled.div`
@@ -53,7 +56,6 @@ export const CardIcon = styled.img`
 export const CardStep = styled.div`
   font-size: ${Common.fontSize.fs24};
   color: ${Common.colors.gray};
-
   padding: 10px;
   font-weight: bold;
 `;
