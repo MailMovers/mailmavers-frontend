@@ -1,20 +1,20 @@
-import styled from "@emotion/styled"
+import styled from "@emotion/styled";
 
-export const ContainerWrapper = styled.div`
+export const Container = styled.div`
   width: 1200px;
-  border: 1px solid red;
   height: 460px;
   display: flex;
   margin: 0 auto;
   justify-content: center;
-  align-items: center;   
-  flex: 1;
+  align-items: center;
+  flex-direction: column;
+`;  
 
-
-`;
-
-export const BannerWrapper = styled.div`
-  flex: 2;
+export const BannerWrapper = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-image: url(${'/images/main_img.png'});
 `;
 
 

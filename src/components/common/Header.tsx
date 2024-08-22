@@ -87,7 +87,7 @@ export default function Header() {
       <Frame>
         <Wrap>
           <Link href={'/'}>
-            <StyledImage src='/images/logo.png' alt='로고' />
+            <StyledImage src='/images/logo.png' alt='로고'/>
           </Link>
 
           {windowSizeWidth > 767 ? (
@@ -188,14 +188,14 @@ export default function Header() {
 }
 
 const Frame = styled.div`
-  width: 100%;
+  width: 1200px;
   height: 85px;
-
+  margin: 0 auto;
+  margin-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background-color: #fffff0;
+;
 
   @media all and (max-width: 767px) {
     background-color: #fffff0;

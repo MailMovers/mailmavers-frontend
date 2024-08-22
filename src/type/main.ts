@@ -1,3 +1,5 @@
+
+
 export type TNewProduct = {
   description: string; // 'test';
   id: number; // 1;

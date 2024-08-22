@@ -1,13 +1,11 @@
 import * as S from './banner.styles'
 
-
 export default function BannerUI():JSX.Element {
-    return (
-
-        <S.ContainerWrapper>
+    return (    
+        <S.Container>
             <S.BannerWrapper>
-                <img src='/images/' alt='메인 이미지' />
+            
             </S.BannerWrapper>
-        </S.ContainerWrapper>
-        )
-}   
+        </S.Container>
+    )
+}
