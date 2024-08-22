@@ -65,6 +65,10 @@ export const Title = styled.p`
   margin-top: 50px;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   font-size: ${Common.fontSize.fs28};
   color: ${Common.colors.gray};
   font-weight: 700;
@@ -177,4 +181,31 @@ export const ViewBestProductsListButton = styled.a`
   font-size: ${Common.fontSize.fs16};
   font-weight: 700;
   color: ${Common.colors.gray};
+`;
+
+
+export const MenuList = styled.ul`
+  width: 500px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+
+  font-size: ${Common.fontSize.fs16};
+  color: ${Common.colors.gray01};
+`;
+
+export const MenuItem = styled.li<{ isActive: boolean }>`
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: ${Common.fontSize.fs20};
+  color: ${({ isActive }) => (isActive ? Common.colors.theme : 'initial')};
+  background-color: ${({ isActive }) => (isActive ? Common.colors.gray02 : 'initial')};
+  &:hover {
+    color: ${Common.colors.theme};
+    background-color: ${Common.colors.gray02};
+  }
 `;

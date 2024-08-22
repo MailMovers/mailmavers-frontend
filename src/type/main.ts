@@ -5,13 +5,23 @@ export type TNewProduct = {
   name: string; // 'Pad1';
 };
 
+export interface Item {
+  id: number;
+  category: string;
+  productImage: string;
+  productTitle: string;
+  productSubTitle: string;
+  productPrice: string;
+  productStarRate: string;
+  productReviewCount: string;
+}
 
 export interface MainPageUIProps {
   goLetterProducts: () => void;
   goSignUp: () => void;
   goLetterDetail: (productId: number) => void;
-  populars: TNewProduct[];
-  reviewList: TNewProduct[];
-}
-
-
+  onCategoryChange: (category: string) => void;
+  selectedCategory: string;
+  items: Item[];
+  isActive: boolean;
+};
