@@ -1,5 +1,5 @@
-// import BannerUI from './banner.presenter'    
+import BannerUI from './banner.presenter'    
 
-// export default function BannerContainer(){  
-//     return <BannerUI />
-// }
+export default function BannerContainer(){  
+    return <BannerUI />
+}

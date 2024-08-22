@@ -44,6 +44,15 @@ export const ContainerWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+  }
 `;
 
 export const BannerWrapper = styled.div`
@@ -84,6 +93,15 @@ export const BesProductListWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 100px;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const BestProductList = styled.div`
@@ -94,6 +112,14 @@ export const BestProductList = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+
+
+  }
 `;
 
 export const BestProductListTitleWrapper = styled.div`
@@ -111,11 +137,23 @@ export const ProductWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 10px;
+  }
 `;  
 
 export const ProductImageWrapper = styled.div`
   width: 280px;
   height: 230px;
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 200px;
+  }
 `;
 
 export const ProductImage = styled.img`
@@ -171,6 +209,9 @@ export const ViewBestProductsListButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-end;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const ViewBestProductsListButton = styled.a`

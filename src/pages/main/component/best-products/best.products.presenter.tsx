@@ -4,8 +4,8 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 
 const pcResponsive = {
-  0: { items: 1 },
-  768: { items: 2 },
+  0: { items: 2 },
+  768: { items: 3 },
   1024: { items: 4 }
 };
 
