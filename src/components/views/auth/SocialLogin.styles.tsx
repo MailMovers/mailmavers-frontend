@@ -10,18 +10,22 @@ export const socialBtnWrap = css`
 
 export const socialBtn = css`
   position: relative;
-  width: 100%;
+  width: 50px;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid ${Common.colors.gray01};
-  border-radius: 5px;
+  border-radius: 50%;
   background-color: ${Common.colors.white};
 
   > img {
-    position: absolute;
-    left: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover {
+    box-shadow: 0px 0px 10px 0px ${Common.colors.gray02};
   }
 `;
 
@@ -40,5 +44,5 @@ export const socialText = css`
 
 export const errorMessage = css`
   color: ${Common.colors.red};
-  font-size: ${Common.fontSize.fs14};
+  font-size: ${Common.fontSize.fs10};
 `;

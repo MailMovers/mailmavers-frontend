@@ -26,7 +26,7 @@ export default function KakaoLogin() {
           width={22}
           height={19}
         />
-        <span>카카오</span>
+        {/* <span>카카오</span> */}
       </button>
     </div>
   );

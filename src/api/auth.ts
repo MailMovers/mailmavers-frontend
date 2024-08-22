@@ -7,7 +7,7 @@ export function kakaoSocailLogin() {
 }
 
 export function naverSocailLogin() {
-  window.location.href = `${process.env.NEXT_PUBLIC_API_HOST}user/naver`;
+  window.location.href = `${process.env.NEXT_PUBLIC_API_HOST}user/naver`;// 테스트
 }
 
 export function postUserLogin(email: string, password: string) {

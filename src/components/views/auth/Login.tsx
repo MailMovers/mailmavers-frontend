@@ -17,9 +17,12 @@ import { formDivDefalutMagin } from './Signup.styles';
 import { errorMessage } from './SocialLogin.styles';
 import {
   wrap,
+  titleContainer,
   title,
+  subTitle,
   form,
   submitBtn,
+  submitBtnText,
   layout,
   socialBtnContainer,
   inputGroup,
@@ -38,7 +41,8 @@ export default function LoginPage() {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const [errorMsg, setErrorMsg] = useState('');
+  const [IdErrorMsg, setIdErrorMsg] = useState('');
+  const [PwErrorMsg, setPwErrorMsg] = useState('');
 
   const [token, setTokenState] = useRecoilState(tokenAtom);
 
@@ -49,12 +53,12 @@ export default function LoginPage() {
       e.preventDefault();
 
       if (!email) {
-        setErrorMsg('이메일을 작성해주세요.');
+        setIdErrorMsg('이메일을 작성해주세요.');
         return;
       }
 
       if (!password) {
-        setErrorMsg('비밀번호를 작성해주세요.');
+        setPwErrorMsg('비밀번호를 작성해주세요.');
         return;
       }
 
@@ -76,7 +80,7 @@ export default function LoginPage() {
         })
         .catch((error) => {
           console.log(error);
-          setErrorMsg(error.response?.data?.message as string);
+          setIdErrorMsg(error.response?.data?.message as string);
         });
     },
     [email, password]
@@ -91,7 +95,10 @@ export default function LoginPage() {
     <div css={layout}>
       <section>
         <div css={wrap}>
-          <h1 css={title}>로그인</h1>
+          <div css={titleContainer}>
+            <h1 css={title}>Mailtree</h1>
+            <p css={subTitle}>마음을 전하다</p>
+          </div>
           <form css={form} onSubmit={(e) => onSubmit(e)}>
             <div>
               <div css={inputGroup}>
@@ -108,6 +115,7 @@ export default function LoginPage() {
                 </span>
               </div>
             </div>
+            {IdErrorMsg && <p css={errorMessage}>{IdErrorMsg}</p>}
             <div css={formDivDefalutMagin}>
               <div css={inputGroup}>
                 <span css={inputLocal}>
@@ -123,18 +131,18 @@ export default function LoginPage() {
                 </span>
               </div>
             </div>
-            {errorMsg && <p css={errorMessage}>{errorMsg}</p>}
+            {PwErrorMsg && <p css={errorMessage}>{PwErrorMsg}</p>}
             <button css={submitBtn} type='submit'>
-              로그인
+              <p css={submitBtnText}>로그인</p>
             </button>
           </form>
           <div css={socialBtnContainer}>
             <div css={socialBtnTitle}>SNS 계정으로 간편하게 회원가입</div>
             <div css={socialBtn}>
+              <NaverLogin />
               <KakaoLogin />
               <GoogleLogin />
-              <NaverLogin />
-            </div>
+            </div>  
           </div>
           <p css={isMemberPrompt}>아직 메일트리 회원이 아니신가요?</p>
 
