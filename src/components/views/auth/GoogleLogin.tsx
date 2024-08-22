@@ -21,7 +21,7 @@ export default function GoogleLogin() {
           width={22}
           height={22}
         />
-        <span>구글</span>
+        {/* <span>구글</span> */}
       </button>
     </div>
   );

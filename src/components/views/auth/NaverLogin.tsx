@@ -21,7 +21,7 @@ export default function NaverLogin() {
           width={20}
           height={20}
         />
-        <span>네이버</span>
+        {/* <span>네이버</span> */}
       </button>
     </div>
   );

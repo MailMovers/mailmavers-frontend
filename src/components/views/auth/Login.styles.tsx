@@ -4,6 +4,7 @@ import { Common } from 'styles/common';
 // TODO :글로벌 스타일로 변경하여 layout으로 잡을 것
 export const layout = css`
   height: 100%;
+  margin-top: 10px;
 `;
 
 export const wrap = css`
@@ -17,10 +18,22 @@ export const wrap = css`
   padding: 20px 0px;
 `;
 
+export const titleContainer = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 10px;
+`;
+
 export const title = css`
-  font-size: ${Common.fontSize.fs26};
-  font-weight: bold;
-  margin-bottom: 30px;
+  font-size: ${Common.fontSize.fs28};
+  color: ${Common.colors.theme};
+`;
+
+export const subTitle = css`
+  font-size: ${Common.fontSize.fs14};
+  color: ${Common.colors.theme};
 `;
 
 export const form = css`
@@ -113,27 +126,49 @@ export const submitBtn = css`
   color: ${Common.colors.yellowgreen};
   font-size: 16px;
   font-weight: 700;
+  box-shadow: 0px 0px 10px 0px ${Common.colors.gray02};
+
+  &:hover {
+    background-color: ${Common.colors.yellowgreen};
+  }
+`;
+
+export const submitBtnText = css`
+  height: 100%;
+  font-size: ${Common.fontSize.fs16};
+  font-weight: 700;
+  color: ${Common.colors.white};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: ${Common.colors.theme};
+  }
 `;
 
 export const socialBtnContainer = css`
   margin: 30px 0px;
   padding-bottom: 30px;
+  padding-top: 10px;
   border-bottom: 1px solid ${Common.colors.gray02};
+  border-top: 1px solid ${Common.colors.gray02};
   width: 100%;
 `;
 
 export const socialBtnTitle = css`
   font-size: ${Common.fontSize.fs14};
   text-align: center;
-  margin: 15px 0px;
+  margin: 20px 0px;
   color: ${Common.colors.gray};
+  font-weight: bold;
 `;
 
 export const socialBtn = css`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   list-style: none;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 export const signUpPageBtn = css`
@@ -148,7 +183,7 @@ export const signUpPageBtn = css`
   cursor: pointer;
   color: ${Common.colors.theme};
   &:hover {
-    background-color: ${Common.colors.yellowgreen};
+    box-shadow: 0px 0px 10px 0px ${Common.colors.gray02};
   }
 `;
 
