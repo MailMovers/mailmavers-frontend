@@ -14,7 +14,6 @@ const baseStyle = css`
     /* width: 100vw; */
     height: 100vh;
     min-height: 100%;
-    background-color: #fffaf0;
 
     /* 기본 데스크 사이즈 */
     @media (max-width: 450px) {
