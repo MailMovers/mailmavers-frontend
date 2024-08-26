@@ -1,5 +1,5 @@
-import Signup from '@/components/views/auth/Signup';
+import SignUpContainer from '@/components/views/auth/signUp/signUp.container';
 
-export default function Home() {
-  return <Signup />;
+export default function SignUpPage() {
+  return <SignUpContainer />;
 }
