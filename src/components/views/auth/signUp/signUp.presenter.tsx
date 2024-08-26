@@ -63,7 +63,7 @@ const domainOptions = [
                                 placeholder='직접 입력'
                               />
                               <button type='button' onClick={handleInputModeChange}>
-                                뒤로
+                                =
                               </button>
                             </S.SelectToInputButton>
                           )}

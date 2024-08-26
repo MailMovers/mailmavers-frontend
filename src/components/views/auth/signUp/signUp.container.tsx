@@ -112,6 +112,7 @@ export default function SignUpContainer() {
   // 도메인 직접 입력 클릭시 셀렉트바 보이게 돌아가기
   function handleInputModeChange() {
     setInputMode((prevMode) => (prevMode === 'input' ? 'select' : 'input'));
+    console.log("버튼 클릭됨")
   }
 
   // 이메일 중복 확인 버튼

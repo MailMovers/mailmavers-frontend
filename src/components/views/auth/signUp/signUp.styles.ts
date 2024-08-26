@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from 'styles/common';
+import { Common } from "styles/common";
 
 export const Layout = styled.div`
   height: 100%;
@@ -14,7 +14,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid ${Common.colors.theme};
+  //   border: 1px solid ${Common.colors.theme};
+  border: 1px solid lightgray;
+
   border-radius: 10px;
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
 `;
@@ -39,7 +41,7 @@ export const Title = styled.h1`
 export const Form = styled.form`
   padding-bottom: 30px;
   border-bottom: 1px solid ${Common.colors.gray02};
-  
+
   label {
     display: flex;
     margin: 20px 0 10px 0;
@@ -53,8 +55,9 @@ export const Form = styled.form`
 export const InputGroup = styled.div`
   display: flex;
   align-items: center;
-  
-  input, select {
+
+  input,
+  select {
     width: 100%;
     box-sizing: border-box;
     height: 35px;
@@ -116,11 +119,16 @@ export const EmailAt = styled.span`
 
 export const SelectToInputButton = styled.div`
   position: relative;
-  
+
   button {
     position: absolute;
-    top: 0;
+    top: 1.5px;
     right: 5px;
+    background: ${Common.colors.white};
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: ${Common.colors.gray};
   }
 `;
 
@@ -133,7 +141,7 @@ export const CheckboxWrap = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  
+
   label {
     align-items: center;
     cursor: pointer;
