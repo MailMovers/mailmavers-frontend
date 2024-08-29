@@ -5254,15 +5254,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"slick-carousel@npm:1.8.1":
-  version: 1.8.1
-  resolution: "slick-carousel@npm:1.8.1"
-  peerDependencies:
-    jquery: ">=1.8.0"
-  checksum: acaad391e4d8bc1c7fdb8d361faa1f1d60829b31d618b54bc38c0550a59b26de36537e0ab4bc0364176ec11d1a61d0cf11e99d8d5b1285d656673c9a1a719257
-  languageName: node
-  linkType: hard
-
 "smart-buffer@npm:^4.2.0":
   version: 4.2.0
   resolution: "smart-buffer@npm:4.2.0"
@@ -5612,7 +5603,6 @@ __metadata:
     react-quill: ^2.0.0
     react-slick: ^0.30.2
     recoil: ^0.7.7
-    slick-carousel: 1.8.1
     swr: ^2.2.5
     tailwindcss: ^3.3.0
     typescript: ^5
