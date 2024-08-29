@@ -4,9 +4,13 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 
 const pcResponsive = {
-  0: { items: 1 },
-  768: { items: 2 },
+  0: { items: 2 },
+  768: { items: 3 },
   1024: { items: 4 }
+};
+
+const icon = {
+  add : '/icon/plus.png',
 };
 
 export default function BestProductsUI(props: MainPageUIProps) {
@@ -44,7 +48,8 @@ export default function BestProductsUI(props: MainPageUIProps) {
       <S.BesProductListWrapper>
         <S.ViewBestProductsListButtonWrapper>
           <S.ViewBestProductsListButton onClick={() => props.goLetterProducts()}>
-            전체보기
+            전체보기 
+            <S.AddIcon src={icon.add} alt='추가' />
           </S.ViewBestProductsListButton>
         </S.ViewBestProductsListButtonWrapper>
         <S.BestProductList>
