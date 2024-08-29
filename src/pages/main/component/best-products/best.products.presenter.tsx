@@ -40,25 +40,27 @@ export default function BestProductsUI(props: MainPageUIProps) {
     <S.ContainerWrapper>
       <S.TitleWrapper>
         <S.Title>이번달 인기상품</S.Title>
+        <S.FlexWrapper>
         <S.MenuList>
           {['흑백', '컬러', '카드', '엽서'].map(category => (
             <S.MenuItem 
-              key={category} 
-              onClick={() => props.onCategoryChange(category)} 
-              isActive={props.selectedCategory === category}
+            key={category} 
+            onClick={() => props.onCategoryChange(category)} 
+            isActive={props.selectedCategory === category}
             >
               {category}
             </S.MenuItem>
           ))}
         </S.MenuList>
-      </S.TitleWrapper>
-      <S.BesProductListWrapper>
         <S.ViewBestProductsListButtonWrapper>
           <S.ViewBestProductsListButton onClick={() => props.goLetterProducts()}>
             전체보기 
             <S.AddIcon src={icon.add} alt='추가' />
           </S.ViewBestProductsListButton>
         </S.ViewBestProductsListButtonWrapper>
+          </S.FlexWrapper>
+      </S.TitleWrapper>
+      <S.BesProductListWrapper>
         <S.BestProductList>
           <AliceCarousel 
             items={carouselItems} 
@@ -67,6 +69,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
             autoPlayInterval={4000}
             infinite
             disableButtonsControls
+            disableDotsControls 
           />
         </S.BestProductList>
       </S.BesProductListWrapper>

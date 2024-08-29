@@ -198,6 +198,7 @@ const Frame = styled.div`
 ;
 
   @media all and (max-width: 767px) {
+    
     background-color: #fffff0;
     position: fixed;
     top: 0;
