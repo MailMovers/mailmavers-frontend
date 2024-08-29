@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-
-import {Common} from "../../../../styles/common";
+import { Common } from "../../../../styles/common";
 
 export const ContainerWrapper = styled.div`
   width: 1200px;
@@ -20,26 +19,25 @@ export const CardWrapper = styled.div`
   justify-content: space-between;
   padding-top: 20px;
   padding-bottom: 20px;
-
-
 `;
 
 export const Card = styled.div`
   width: 23%;
   height: 200px;
   background-color: #fff;
-  border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const CardTitle = styled.div`
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
-
 `;
 
 export const CardContent = styled.div`
@@ -58,4 +56,10 @@ export const CardStep = styled.div`
   color: ${Common.colors.gray};
   padding: 10px;
   font-weight: bold;
+`;
+
+export const Line = styled.div`
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
 `;

@@ -36,7 +36,6 @@ export const Common = {
     },
   };
 
-
 export const ContainerWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -46,13 +45,7 @@ export const ContainerWrapper = styled.div`
   align-items: center;
   margin: 0 auto;
   @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-
-
-
+    padding: 0 20px;
   }
 `;
 
@@ -62,26 +55,30 @@ export const TitleWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 20px;
+  }
 `;
 
 export const Title = styled.div`
   margin-top: 50px;
   width: 100%;
-  height: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   font-size: ${Common.fontSize.fs28};
   color: ${Common.colors.gray};
   font-weight: 700;
-
+  @media (max-width: 768px) {
+    font-size: ${Common.fontSize.fs20};
+    justify-content: center;
+    padding: 0;
+  }
 `;
 
-
 export const BesProductListWrapper = styled.div`
-   width: 1200px;
+  width: 1200px;
   height: 400px;
   display: flex;
   flex-direction: column;
@@ -90,39 +87,25 @@ export const BesProductListWrapper = styled.div`
   margin-bottom: 100px;
   @media (max-width: 768px) {
     width: 100%;
-    height: 100%;
-    display: flex;
-    margin: 0 auto;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    height: auto;
   }
 `;
 
 export const BestProductList = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-
   @media (max-width: 768px) {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-
-
+    align-items: space-around;
   }
 `;
 
 export const BestProductListTitleWrapper = styled.div`
-
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
 export const ProductWrapper = styled.div`
@@ -133,21 +116,19 @@ export const ProductWrapper = styled.div`
   justify-content: center;
   align-items: center;
   @media (max-width: 768px) {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 10px;
+    margin: 10;
   }
-`;  
+`;
 
 export const ProductImageWrapper = styled.div`
-  width: 280px;
-  height: 230px;
+  width: 300px; 
+  height: 250px; 
+  padding: 6px;
   @media (max-width: 768px) {
-    width: 200px;
-    height: 200px;
+    display: flex;
+    width: 100%;
+    height: 180px; 
+    padding: 0
   }
 `;
 
@@ -155,50 +136,68 @@ export const ProductImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  @media (max-width: 768px) {
+    display: flex;
+    padding: 10px;
+  }
 `;
 
 export const ProductTitle = styled.p`
-  
-  font-size: ${Common.fontSize.fs20};
+  font-size: ${Common.fontSize.fs18}; // 텍스트 크기 감소
+  @media (max-width: 768px) {
+    font-size: ${Common.fontSize.fs16}; // 작은 화면에서 텍스트 크기 조정
+  }
 `;
 
 export const ProductSubTitle = styled.p`
   margin-top: 3px;
-  font-size: ${Common.fontSize.fs16};
+  font-size: ${Common.fontSize.fs14}; // 텍스트 크기 감소
+  @media (max-width: 768px) {
+    font-size: ${Common.fontSize.fs12}; // 작은 화면에서 텍스트 크기 조정
+  }
 `;
 
-export const ProductPrice = styled.p`  
+export const ProductPrice = styled.p`
   margin-top: 3px;
-  font-size: ${Common.fontSize.fs16};
-`;  
+  font-size: ${Common.fontSize.fs14}; // 텍스트 크기 감소
+  @media (max-width: 768px) {
+    font-size: ${Common.fontSize.fs12}; // 작은 화면에서 텍스트 크기 조정
 
+  }
+`;
 
 export const ProductStarRateWrapper = styled.div`
   margin-top: 3px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;  
+  @media (max-width: 768px) {
+    font-size: ${Common.fontSize.fs12}; // 작은 화면에서 텍스트 크기 조정
+  }
+
+`;
 
 export const ProductStarRate = styled.p`
   margin-top: 3px;
-
-  font-size: ${Common.fontSize.fs16};
+  font-size: ${Common.fontSize.fs14}; // 텍스트 크기 감소
+  @media (max-width: 768px) {
+    font-size: ${Common.fontSize.fs12}; // 작은 화면에서 텍스트 크기 조정
+  }
 `;
 
 export const ProductReviewCount = styled.p`
   margin-top: 2px;
-  font-size: ${Common.fontSize.fs16};
-`;  
-
+  font-size: ${Common.fontSize.fs14};
+  @media (max-width: 768px) {
+    font-size: ${Common.fontSize.fs12};
+  }
+`;
 
 export const ViewBestProductsListButtonWrapper = styled.div`
   width: 100%;
   font-size: ${Common.fontSize.fs16};
   display: flex;
-  flex-direction: row;
   justify-content: flex-end;
   margin-top: 20px;
   margin-left: 16px;
@@ -217,7 +216,6 @@ export const ViewBestProductsListButton = styled.a`
   color: ${Common.colors.gray};
 `;
 
-
 export const MenuList = styled.ul`
   width: 500px;
   display: flex;
@@ -225,14 +223,15 @@ export const MenuList = styled.ul`
   text-align: center;
   font-size: ${Common.fontSize.fs16};
   color: ${Common.colors.gray01};
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
-
 
 export const MenuItem = styled.li<{ isActive: boolean }>`
   width: 100px;
   border-radius: 20px 20px 20px 60px;
   margin-top: 20px;
-  margin-left: 0;
   padding: 10px 20px;
   cursor: pointer;
   border: 1px solid ${Common.colors.gray02};
@@ -243,6 +242,16 @@ export const MenuItem = styled.li<{ isActive: boolean }>`
     background: ${Common.colors.yellow};
     color: ${Common.colors.white};
   }
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 40px;
+    font-size: ${Common.fontSize.fs12};
+    margin-bottom: 10px;
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+  
+  }
 `;
 
 export const AddIcon = styled.img`
@@ -252,4 +261,4 @@ export const AddIcon = styled.img`
   object-fit: cover;
   font-size: ${Common.fontSize.fs10};
   font-weight: 200;
-`;
+`; 

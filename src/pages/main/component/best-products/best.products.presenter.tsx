@@ -2,18 +2,25 @@ import * as S from "./best.products.styles";
 import { MainPageUIProps } from "@/type/main"; 
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
+import { useMediaQuery } from "react-responsive";
 
 const pcResponsive = {
   0: { items: 2 },
-  768: { items: 3 },
+  768: { items: 4 },
   1024: { items: 4 }
 };
 
+const mobileResponsive = {
+  0: { items: 1 },
+  768: { items: 2 },
+};
+
 const icon = {
-  add : '/icon/plus.png',
+  add: '/icon/plus.png',
 };
 
 export default function BestProductsUI(props: MainPageUIProps) {
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const carouselItems = props.items.map((mockData, id) => (
     <S.ProductWrapper key={id}>
       <S.ProductImageWrapper>
@@ -55,7 +62,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
         <S.BestProductList>
           <AliceCarousel 
             items={carouselItems} 
-            responsive={pcResponsive}
+            responsive={isMobile ? mobileResponsive : pcResponsive}
             autoPlay
             autoPlayInterval={4000}
             infinite

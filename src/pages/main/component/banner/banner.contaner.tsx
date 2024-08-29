@@ -7,7 +7,6 @@ export default function BannerContainer(): JSX.Element {
   return (
     <>
     <BannerUI/>
-    <CardUI/>
     </>
   );
 }
