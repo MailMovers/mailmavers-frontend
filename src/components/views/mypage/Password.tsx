@@ -118,9 +118,9 @@ export default function Password() {
 
       <MyPageLayout>
         <S.Content>
-          <p>비밀번호 관리</p>
-
+          <p>비밀번호 변경</p>
           <S.InputContainer>
+            
             <S.InputContent>
               <span>기존 비밀번호</span>
               <input

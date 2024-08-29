@@ -35,7 +35,7 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
       {windowSizeWidth > 767 && (
         <S.TopWrap>
           <S.TopContent>
-            <S.TopTitle>{userInfo?.name}님, 안녕하세요.</S.TopTitle>
+            <S.TopTitle>{userInfo?.name}이윤재 님, 안녕하세요.</S.TopTitle>
             <S.PageContainer>
               <div className='page_responsive'>
                 <S.PageContent
@@ -48,7 +48,7 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
                   selected={pathname === '/mypage/password'}
                   onClick={() => movePage('/mypage/password')}
                 >
-                  비밀번호 관리
+                  비밀번호 변경
                 </S.PageContent>
                 <S.PageContent
                   selected={pathname === '/mypage/address'}
