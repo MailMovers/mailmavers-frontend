@@ -58,17 +58,17 @@ export default function MyPageMain() {
     }
     return;
   };
-
+  
   const onSubmit = () => {
     if (!userEditInfo.phone) {
       setMsgError('전화번호를 입력해주세요.');
       return;
     }
-
+  
     const params: TPhone = {
       newPhone: userEditInfo.phone,
     };
-
+  
     trigger(params);
   };
 
@@ -95,9 +95,8 @@ export default function MyPageMain() {
               <span>이메일</span>
               <span className='info'>{userEditInfo?.email}</span>
             </S.InputContent>
-
             <S.InputContent>
-              <span>가입한 날짜</span>
+              <span>가입일</span>
               <span className='info'>
                 {userEditInfo.created_at &&
                   new Date(userEditInfo.created_at).toLocaleString()}
@@ -113,11 +112,9 @@ export default function MyPageMain() {
               />
             </S.InputContent>
           </S.InputContainer>
-
-          <S.Button onClick={onSubmit}>전화번호 수정</S.Button>
+          <S.Button onClick={onSubmit}>저장하기</S.Button>
+            {msgError && <S.ErrorWrap>{msgError}</S.ErrorWrap>}
         </S.Content>
-
-        {msgError && <S.ErrorWrap>{msgError}</S.ErrorWrap>}
       </MyPageLayout>
     </>
   );

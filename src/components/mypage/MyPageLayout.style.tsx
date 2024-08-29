@@ -8,39 +8,42 @@ export const Wrap = styled.div`
 
 export const TopWrap = styled.div`
   width: 100%;
-  height: 150px;
+  height: 100px;
   background: #f6f6f6;
-  padding: 0 22em;
 
   @media all and (min-width: 768px) and (max-width: 1199px) {
-    padding: 0 1em;
   }
 `;
 
 export const TopContent = styled.div`
   width: 100%;
-  max-width: 1200px;
   height: 100%;
-  padding-bottom: 34px;
-
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
 
   @media all and (min-width: 768px) and (max-width: 1199px) {
-    padding: 1em 0;
+    padding: 2em 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 `;
 
-export const TopTitle = styled.div`
+export const TopTitleWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  `;
+  
+  export const TopTitle = styled.div`
   color: var(--default, #333);
   font-size: 30px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  margin-right: 40px;
 `;
 
 export const PageContainer = styled.div`

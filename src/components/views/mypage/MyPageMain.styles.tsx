@@ -20,12 +20,18 @@ export const Content = styled.div`
     font-weight: 500;
     line-height: normal;
   }
+
+  @media (max-width: 480px) {
+    border: none;
+    box-shadow: none;
+  }
 `;
 
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
+  margin-top: 10px;
 `;
 
 export const InputContent = styled.div`
@@ -47,7 +53,7 @@ export const InputContent = styled.div`
 
   input {
     padding: 13px 0 13px 10px;
-    width: 280px;
+    width: 100%;
     height: 50px;
     border-radius: 5px;
     border: 1px solid var(--greyD9, #d9d9d9);
@@ -78,10 +84,10 @@ export const Button = styled.button`
   height: 50px;
   border-radius: 5px;
   background: var(--primary, #4a743c);
-
   color: var(--white, #fff);
   font-size: 16px;
   font-weight: 500;
+  margin-top: 25px;
 
   @media (max-width: 480px) {
     width: 300px;
@@ -89,11 +95,30 @@ export const Button = styled.button`
 `;
 
 export const ErrorWrap = styled.div`
-  padding-top: 10px;
   width: 100%;
-  height: 40px;
+  height: 20px;
   display: flex;
   justify-content: center;
-
-  color: #666666;
+  font-size: 12px;
+  color: red;
 `;
+
+export const EditBtn = styled.div`
+  width: 20%;
+  height: 40px;
+  border-radius: 5px;
+  background: var(--primary, #4a743c);
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white, #fff);
+  font-size: 12px;
+  font-weight: 500;
+
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+
