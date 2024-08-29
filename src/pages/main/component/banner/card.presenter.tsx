@@ -34,9 +34,10 @@ const cards: Card[] = [
 export default function CardUI(): JSX.Element {
   return (
     <S.ContainerWrapper>
+      <S.Line/>
       <S.CardWrapper>
         {cards.map((card, index) => (
-            <S.Card key={index}>
+            <S.Card key={index}> 
               <S.CardStep>{card.step}</S.CardStep>
             <S.CardIcon src={card.icon} alt={`${card.title} icon`} />
             <S.CardTitle>{card.title}</S.CardTitle>
@@ -44,6 +45,7 @@ export default function CardUI(): JSX.Element {
           </S.Card>
         ))}
       </S.CardWrapper>
+      <S.Line/>
     </S.ContainerWrapper>
   );
 }
