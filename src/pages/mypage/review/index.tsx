@@ -10,7 +10,7 @@ import { tokenAtom } from '@/recoil/auth/atom';
 import { getMyReivewList } from '@/api/mypage';
 import type { TMyReiview } from '@/type/mypage';
 
-import * as S from '../../../components/views/mypage/Review.styles';
+import * as S from '../../../components/views/mypage/Review/Review.styles';
 
 export default function ReviewPage() {
   const token = useRecoilValue(tokenAtom);

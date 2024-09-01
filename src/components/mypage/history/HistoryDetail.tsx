@@ -9,7 +9,7 @@ import { tokenAtom } from '@/recoil/auth/atom';
 import MyPageLayout from '../MyPageLayout';
 
 import { getMyLetterHistoryDetail } from '@/api/mypage';
-
+  
 import { addComma } from '@/common/util';
 
 import type { THistoryDetail } from '@/api/mypage';

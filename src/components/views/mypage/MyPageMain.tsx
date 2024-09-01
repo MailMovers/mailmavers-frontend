@@ -82,6 +82,7 @@ export default function MyPageMain() {
       <Loading spinning={isMutating} />
 
       <MyPageLayout>
+        <>여기는 헤더</>
         <S.Content>
           <p>내 정보 관리</p>
 

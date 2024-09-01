@@ -11,6 +11,7 @@ type Tprops = {
   close: () => void;
   callback: () => void;
 };
+
 const InquirePopup = ({ close, callback }: Tprops) => {
   const [modal, contextHolder] = Modal.useModal();
 

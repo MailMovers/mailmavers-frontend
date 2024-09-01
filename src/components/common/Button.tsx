@@ -22,6 +22,7 @@ export default function Button({
     </div>
   );
 }
+
 export const emailDuplicationCheck = css`
   margin-bottom: 30px;
   padding-top: 2px;
