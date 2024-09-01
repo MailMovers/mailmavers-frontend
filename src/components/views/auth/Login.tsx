@@ -13,7 +13,6 @@ import { postUserLogin } from '@/api/auth';
 import { setToken } from '@/common/axio-interceptor';
 import { tokenAtom } from '@/recoil/auth/atom';
 
-import { formDivDefalutMagin } from './Signup.styles';
 import { errorMessage } from './SocialLogin.styles';
 import {
   wrap,
@@ -116,7 +115,7 @@ export default function LoginPage() {
               </div>
             </div>
             {IdErrorMsg && <p css={errorMessage}>{IdErrorMsg}</p>}
-            <div css={formDivDefalutMagin}>
+            <div>
               <div css={inputGroup}>
                 <span css={inputLocal}>
                   <input

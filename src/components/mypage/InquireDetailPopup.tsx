@@ -86,7 +86,7 @@ const Header = styled.div`
   align-items: center;
   padding: 0 16px;
 
-  background: var(--yellow, #ffb930);
+  background: red;
 
   span {
     font-size: 20px;

@@ -31,13 +31,11 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
 
   const movePage = (path: string) => router.push(path);
   return (
-    <S.Wrap>
-      {windowSizeWidth > 767 && (
-        <S.TopWrap>
+    <S.Wrapper>
+        <S.Container>
           <S.TopContent>
             <S.TopTitle>{userInfo?.name}이윤재 님, 안녕하세요.</S.TopTitle>
             <S.PageContainer>
-              <div className='page_responsive'>
                 <S.PageContent
                   selected={pathname === '/mypage'}
                   onClick={() => movePage('/mypage')}
@@ -56,9 +54,6 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
                 >
                   주소관리
                 </S.PageContent>
-              </div>
-
-              <div className='page_responsive'>
                 <S.PageContent
                   selected={pathname.includes('/mypage/history')}
                   onClick={() => movePage('/mypage/history')}
@@ -83,16 +78,13 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
                 >
                   포인트 내역
                 </S.PageContent>
-              </div>
             </S.PageContainer>
           </S.TopContent>
-        </S.TopWrap>
-      )}
-
+        </S.Container>
       <S.BodyWrap>
         <S.BodyContent>{children}</S.BodyContent>
       </S.BodyWrap>
-    </S.Wrap>
+    </S.Wrapper>
   );
 };
 
