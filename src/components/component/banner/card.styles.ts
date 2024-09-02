@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common } from "../../../styles/common";
+import { Common } from "../../../../styles/common";
 
 export const ContainerWrapper = styled.div`
   width: 1200px;
@@ -8,10 +8,14 @@ export const ContainerWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  @media (max-width: 768px) {
+  border-radius: 10px;
+
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    @media (max-width: 768px) {
     width: 100%;
+    border-radius: 0;
     flex-direction: column;
-    
+    box-shadow:2px 0px 2px 4px rgba(0, 0, 0, 0.1);
   }
 `;
 

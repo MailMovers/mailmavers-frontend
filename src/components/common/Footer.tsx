@@ -69,7 +69,7 @@ const Frame = styled.div`
   border-top: 1px solid #f3f3f3;
   margin-top: 150px;
   padding: 16px 0 80px 0;
-  margin-left: 50px;
+  margin-left: 20px;
   width:100%;
 
   @media all and (min-width: 1200px) {

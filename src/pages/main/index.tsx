@@ -11,8 +11,8 @@ export default function MainPage(props: MainPageUIProps) {
         <>
             <BannerContainer />
             <BestProductsListPage {...props}/>
-            <CardUI/>
             <BottomBannerContainer/>
+            <CardUI/>
             <FAQContainer />
         </>
     )
