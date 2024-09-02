@@ -1,5 +1,4 @@
 import BannerUI from './banner.presenter';
-import CardUI from './card.presenter';
 
 
 

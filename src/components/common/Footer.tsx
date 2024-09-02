@@ -3,11 +3,10 @@ import Link from 'next/link';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Common } from 'styles/common';
-import { windowSizeWidthAtom } from '@/recoil/width/atom';
-import { useRecoilValue } from 'recoil';
+
 
 const Footer = () => {
-  const windowSizeWidth = useRecoilValue(windowSizeWidthAtom);
+
 
   return (
     <Frame>
@@ -24,7 +23,7 @@ const Footer = () => {
             <span className='strong'>사업제휴</span>
           </div>
 
-          {windowSizeWidth > 480 ? (
+
             <div className='company_info mobile'>
               <p className='green_text'>메일트리</p>
               <p className='gray_text'>
@@ -41,8 +40,8 @@ const Footer = () => {
                 메일트리© 메일트리 Co., Ltd. All rights reserved.
               </p>
             </div>
-          ) : (
-            <div className='company_info'>
+
+            {/* <div className='company_info'>
               <p className='green_text'>메일트리</p>
               <p className='gray_text'>
                 대표: 김창훈 | 사업자등록번호: 176-07-02809
@@ -61,7 +60,7 @@ const Footer = () => {
                 메일트리© 메일트리 Co., Ltd. All rights reserved.
               </p>
             </div>
-          )}
+         */}
         </div>
         <div css={footerContent}>
           <div className='service_center'>
