@@ -40,27 +40,6 @@ const Footer = () => {
                 메일트리© 메일트리 Co., Ltd. All rights reserved.
               </p>
             </div>
-
-            {/* <div className='company_info'>
-              <p className='green_text'>메일트리</p>
-              <p className='gray_text'>
-                대표: 김창훈 | 사업자등록번호: 176-07-02809
-              </p>
-              <p className='gray_text'>통신판매업신고: 2024-대전서구-0889</p>
-              <p className='gray_text'>
-                E-mail: mailtreeletterservice@gmail.com
-              </p>
-              <p className='gray_text'>
-                주소: 대전광역시 서구 도안중로305번안길 7-22, 3층 302호(도안동,
-                피렌체)
-              </p>
-              <br />
-              <br />
-              <p className='gray_text'>
-                메일트리© 메일트리 Co., Ltd. All rights reserved.
-              </p>
-            </div>
-         */}
         </div>
         <div css={footerContent}>
           <div className='service_center'>
@@ -90,6 +69,8 @@ const Frame = styled.div`
   border-top: 1px solid #f3f3f3;
   margin-top: 150px;
   padding: 16px 0 80px 0;
+  margin-left: 50px;
+  width:100%;
 
   @media all and (min-width: 1200px) {
     min-width: 1200px;
@@ -97,10 +78,12 @@ const Frame = styled.div`
 
   @media all and (min-width: 768px) and (max-width: 1199px) {
     width: 100%;
+    margin: 0;
   }
 
   @media all and (max-width: 767px) {
     width: 100%;
+    margin: 0;
   }
 `;
 
