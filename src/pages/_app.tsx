@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Layout from '@/components/common/Layout';
 import GlobalStyle from '@/styles/globalStyles';
+import { Suspense } from 'react';
 
 import type { AppProps } from 'next/app';
 import type { PageProps } from '@/type/common';
@@ -49,9 +50,11 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <RecoilRoot>
         <GlobalStyle />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Suspense>
       </RecoilRoot>
     </>
   );

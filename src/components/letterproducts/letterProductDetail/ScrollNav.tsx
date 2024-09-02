@@ -4,7 +4,6 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { windowSizeWidthAtom } from '@/recoil/width/atom';
 import { Common } from 'styles/common';
 
 export type ScrollNavProps = {
@@ -13,14 +12,11 @@ export type ScrollNavProps = {
 
 const ScrollNav = ({ isFixed }: ScrollNavProps) => {
   const [activeSection, setActiveSection] = useState<string>('');
-  const windowSizeWidth = useRecoilValue(windowSizeWidthAtom);
 
   const handleNavBtn = (place: 'productDetail' | 'review') => {
     const element = document.getElementById(place);
-    if (element && windowSizeWidth > 767) {
-      window.scrollTo({ top: element.offsetTop - 78, behavior: 'smooth' });
-    } else if (element && windowSizeWidth <= 767) {
-      window.scrollTo({ top: element.offsetTop - 168, behavior: 'smooth' });
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -32,13 +28,8 @@ const ScrollNav = ({ isFixed }: ScrollNavProps) => {
     let reviewOffsetTop: number = 0;
 
     if (productDetailSection && reviewSection) {
-      if (windowSizeWidth > 767) {
-        productDetailOffsetTop = productDetailSection.offsetTop - 83;
-        reviewOffsetTop = reviewSection.offsetTop - 83;
-      } else if (windowSizeWidth <= 766) {
-        productDetailOffsetTop = productDetailSection.offsetTop - 168;
-        reviewOffsetTop = reviewSection.offsetTop - 168;
-      }
+      productDetailOffsetTop = productDetailSection.offsetTop - 83;
+      reviewOffsetTop = reviewSection.offsetTop - 83;
 
       if (scrollY >= productDetailOffsetTop && scrollY < reviewOffsetTop) {
         setActiveSection('productDetail');
@@ -60,7 +51,7 @@ const ScrollNav = ({ isFixed }: ScrollNavProps) => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [windowSizeWidth]);
+  }, []);
 
   return (
     <ScrollNavContainer isFixed={isFixed}>

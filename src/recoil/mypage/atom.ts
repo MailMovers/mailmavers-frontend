@@ -1,7 +1,11 @@
-import { TUserInfo } from '@/type/auth';
 import { atom } from 'recoil';
+import type { TUserInfo } from '@/type/auth';
 
 export const userInfoAtom = atom<TUserInfo | null>({
   key: 'userInfoAtom',
   default: null,
 });
+
+if (module.hot) {
+  module.hot.accept();
+}
