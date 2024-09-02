@@ -70,18 +70,20 @@ const Frame = styled.div`
   margin-top: 150px;
   padding: 16px 0 80px 0;
   margin-left: 50px;
-  width:1200px;
-  margin: 0 auto;
+  width:100%;
+
   @media all and (min-width: 1200px) {
     min-width: 1200px;
   }
 
   @media all and (min-width: 768px) and (max-width: 1199px) {
     width: 100%;
+    margin: 0;
   }
 
   @media all and (max-width: 767px) {
     width: 100%;
+    margin: 0;
   }
 `;
 
