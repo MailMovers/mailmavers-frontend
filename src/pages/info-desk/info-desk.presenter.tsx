@@ -17,7 +17,6 @@ const FAQPresenter: React.FC<Props> = ({ categories, selectedCategory, faqs, onS
   return (
     <S.Container>
         <S.Title>자주묻는질문</S.Title>
-
         <S.Line />
       <S.CategoryList>
         {categories.map((category) => (
@@ -43,6 +42,11 @@ const FAQPresenter: React.FC<Props> = ({ categories, selectedCategory, faqs, onS
           </S.FAQCard>
         ))}
       </S.FAQList>
+        {/* <S.InfoWrapper>
+          <S.InfoText>원하는 답변을 찾지 못하셨나요? <br /></S.InfoText>
+          <S.InfoDescription>직접 상담직원에게 물어보세요. <br /> 꼼꼼히 확인하여 담변드리겠습니다.</S.InfoDescription>
+          <S.InfoBtn>직적 문의하기</S.InfoBtn>
+        </S.InfoWrapper> */}
     </S.Container>
   );
 };
