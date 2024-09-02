@@ -6,7 +6,6 @@ import {
   ActiveTabAtom,
   productIdAtom,
 } from '@/recoil/letter-product/atom';
-import { windowSizeWidthAtom } from '@/recoil/width/atom';
 import { tokenAtom } from '@/recoil/auth/atom';
 import {
   DetailData,
@@ -28,7 +27,7 @@ const LetterProductDetail = () => {
   const [activeTab, setActiveTab] = useRecoilState(ActiveTabAtom);
   const token = useRecoilValue(tokenAtom);
   const productId = useRecoilValue(productIdAtom);
-  const windowSizeWidth = useRecoilValue(windowSizeWidthAtom);
+
   const [tabTitle, setTabTitle] = useState<string>('');
   const [letterProductDetail, setLetterProductDetail] = useState<DetailData>();
   const [writingPadDetail, setWritingPadDetail] =
@@ -152,22 +151,14 @@ const LetterProductDetail = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [windowSizeWidth]);
+  }, []);
 
   useEffect(() => {
     if (productImg.current) {
       const width = productImg.current.offsetWidth;
       setProductImgWidth(width);
     }
-  }, [windowSizeWidth, images]);
-
-  useEffect(() => {
-    if (contentsHeight && windowSizeWidth > 767) {
-      setIsFixed(scrollPosition > contentsHeight + 85);
-    } else if (contentsHeight && windowSizeWidth <= 767) {
-      setIsFixed(scrollPosition > contentsHeight);
-    }
-  }, [scrollPosition]);
+  }, [images]);
 
   useEffect(() => {
     const productId = Number(localStorage.getItem('product'));
@@ -210,8 +201,8 @@ const LetterProductDetail = () => {
                   </S.ProductPrevImg>
                 ))}
             </ul>
-            <div css={S.ProductDescripWrap}>
-              <S.FirstImg windowSizeWidth={windowSizeWidth}>
+            <div>
+              <>
                 {images.length > 0 ? (
                   <img
                     css={S.Img}
@@ -221,7 +212,7 @@ const LetterProductDetail = () => {
                 ) : (
                   <div css={S.EmptyImg}>등록된 이미지가 없습니다.</div>
                 )}
-              </S.FirstImg>
+              </>
               <div css={S.ProductContent}>
                 <div>
                   <h3 css={S.Title}>{letterProductDetail?.name}</h3>

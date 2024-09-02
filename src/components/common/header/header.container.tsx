@@ -25,7 +25,11 @@ export default function HeaderContainer() {
       fallbackData: null,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      onSuccess: (data) => data && setUserInfo(data),
+      onSuccess: (data: TUserInfo | null) => {
+        if (data) {
+          setUserInfo(data);
+        }
+      },
     }
   );
 

@@ -1,17 +1,18 @@
 /** @jsxImportSource @emotion/react */
-
 import Link from 'next/link';
 import { CloseOutlined, MenuOutlined } from '@ant-design/icons';
 import * as S from './header.styles';
 import { MenuIcon } from './header.styles';
+import type { TUserInfo } from '@/type/auth';
 
 interface HeaderPresenterProps {
   isOpenMenu: boolean;
   setIsOpenMenu: (isOpen: boolean) => void;
-  userInfo: any; // TUserInfo 타입으로 변경 가능
+  userInfo: TUserInfo | null;
   movePage: (path: string) => void;
   token: string | null;
 }
+
 export default function HeaderPresenter({ isOpenMenu, setIsOpenMenu, userInfo, movePage, token }: HeaderPresenterProps) {
   return (
     <>

@@ -21,7 +21,7 @@ import {
   postLetterContent,
 } from '@/api/letter';
 import { tokenAtom } from '@/recoil/auth/atom';
-import { windowSizeWidthAtom } from '@/recoil/width/atom';
+
 import { letterContentState, letterWriteList } from '@/recoil/letter/atom';
 
 import type { TempLetterData } from '@/type/letterData';
@@ -68,7 +68,6 @@ const Edit = ({ params }: { params: Params }) => {
     currentContent ? currentContent.content : ''
   );
   const [isContentChanged, setIsContentChanged] = useState(false);
-  const getWindowWidth = useRecoilValue(windowSizeWidthAtom);
   const [actualLength, setActualLength] = useState(0);
 
   const token = useRecoilValue(tokenAtom);
@@ -237,7 +236,6 @@ const Edit = ({ params }: { params: Params }) => {
     }
   };
 
-  const mobileWidth = getWindowWidth > 480;
 
   return (
     <div css={Wrap}>
@@ -282,35 +280,10 @@ const Edit = ({ params }: { params: Params }) => {
             다음 페이지
           </Button>
         </div>
-        {mobileWidth ? (
-          <Button
-            type='button'
-            backgroundColor={Common.colors.theme}
-            color={Common.colors.white}
-            borderColor={Common.colors.theme}
-            onClick={submitLetter}
-          >
-            작성완료
-          </Button>
-        ) : (
-          ''
-        )}
       </div>
-      {!mobileWidth ? (
-        <Button
-          type='button'
-          backgroundColor={Common.colors.theme}
-          color={Common.colors.white}
-          borderColor={Common.colors.theme}
-          onClick={submitLetter}
-        >
-          작성완료
-        </Button>
-      ) : (
-        ''
-      )}
-    </div>
+      </div>
+    
   );
-};
+}
 
 export default Edit;
