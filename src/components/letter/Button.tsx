@@ -6,7 +6,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Common } from 'styles/common';
 import { useRecoilValue } from 'recoil';
-import { windowSizeWidthAtom } from '@/recoil/width/atom';
+
 
 export type ButtonProps = {
   children?: React.ReactNode;
@@ -27,9 +27,9 @@ type ButtonTypeProps = {
 };
 
 const Button = ({ children, onClick, type, disabled, backgroundColor, borderColor, color, display }: ButtonProps) => {
-  const getWindowWidth = useRecoilValue(windowSizeWidthAtom);
+
   const isComplete = React.Children.toArray(children).some((child) => child === '작성완료');
-  const isMobileWidth = getWindowWidth < 480 && isComplete;
+
 
   return (
     <ButtonStyle
@@ -40,7 +40,6 @@ const Button = ({ children, onClick, type, disabled, backgroundColor, borderColo
       borderColor={borderColor}
       color={color}
       display={display}
-      css={isMobileWidth ? completeButtonStyle : undefined}
     >
       {children}
     </ButtonStyle>
