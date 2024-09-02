@@ -11,6 +11,10 @@ export const Searchbar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const SearchOutlinedIcon = styled(SearchOutlined)`
