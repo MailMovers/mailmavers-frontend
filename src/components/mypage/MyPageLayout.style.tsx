@@ -9,11 +9,12 @@ export const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  border: 1px solid #000;
+  border: 1px solid lightgray;
   padding: 10px;
   height: 450px;
   margin-left: 30px;
   padding: 15px;
+  border-radius: 10px;
 `;
 
 export const TopContent = styled.div`

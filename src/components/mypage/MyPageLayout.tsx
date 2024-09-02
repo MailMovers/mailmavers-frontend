@@ -37,8 +37,8 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
             <S.TopTitle>{userInfo?.name}이윤재 님, 안녕하세요.</S.TopTitle>
             <S.PageContainer>
                 <S.PageContent
-                  selected={pathname === '/mypage'}
-                  onClick={() => movePage('/mypage')}
+                  selected={pathname === '/mypage/profile'}
+                  onClick={() => movePage('/mypage/profile')}
                 >
                   내 정보 관리
                 </S.PageContent>

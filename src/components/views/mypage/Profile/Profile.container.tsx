@@ -1,4 +1,4 @@
-import useSWRMutation from "swr/dist/mutation";
+import useSWRMutation from "swr/mutation";
 import ProfilePageUI from "./Profile.presenter";
 import { putPhone, TPhone } from "@/api/mypage";
 import { AxiosError } from "axios";
