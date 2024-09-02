@@ -1,11 +1,10 @@
 import { atom } from 'recoil';
 
-type TToken = {
-  accessToken: string;
-  refreshToken: string;
-};
-
-export const tokenAtom = atom<TToken | null>({
+export const tokenAtom = atom({
   key: 'tokenAtom',
   default: null,
 });
+
+if (module.hot) {
+  module.hot.accept();
+}
