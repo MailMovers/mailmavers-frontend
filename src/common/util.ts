@@ -3,8 +3,8 @@ export const emailRegex = /^[a-zA-Z0-9!@#%^&*-_+=]+@[a-zA-Z0-9.-]+$/;
 export const passwordRegex =
   /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-={}|;':",.<>/?~`])[A-Za-z\d!@#$%^&*()_+\-={}|;':",.<>/?~`]{8,}$/;
 
-export const nameRegex = /^[a-zA-Z가-힣]{2,16}$/;
-export const numberRegex = /^0\d{1,2}\d{3,4}\d{4}$/;
+export const nameRegex = /^[a-zA-Z가-힣]{2,}$/;
+export const numberRegex = /^01[01]\d{3,4}\d{4}$/;
 
 // 천원단위 콤마 추가
 export const addComma = (price: number) => {

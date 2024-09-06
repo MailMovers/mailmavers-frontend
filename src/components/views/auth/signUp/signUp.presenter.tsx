@@ -127,7 +127,7 @@ const domainOptions = [
                             name='name'
                             value={name}
                             onChange={onChangeName}
-                            placeholder='성명(2~7자)'
+                            placeholder='성명(2자 이상)'
                           />
                         </S.InputLocal>
                       </S.InputGroup>

@@ -19,7 +19,8 @@ export function postUserSignup(
   email: string,
   phone: string,
   password: string,
-  passwordCheck: string
+  passwordCheck: string,
+  isMarketingAgree: boolean
 ) {
   return axios.post('/user/signup', {
     name,
@@ -27,6 +28,7 @@ export function postUserSignup(
     phone,
     password,
     passwordCheck,
+    isMarketingAgree,
   });
 }
 
