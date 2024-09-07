@@ -1,7 +1,7 @@
 'use client';
 
 import { naverSocailLogin } from '@/api/auth';
-import { socialBtnWrap, socialBtn, socialText } from './SocialLogin.styles';
+import * as S from './SocialLogin.styles';
 import Image from 'next/image';
 
 export default function NaverLogin() {
@@ -13,16 +13,16 @@ export default function NaverLogin() {
   // };
 
   return (
-    <div css={socialBtnWrap}>
-      <button css={socialBtn} onClick={naverSocailLogin}>
+    <S.SocialBtnWrap>
+      <S.SocialBtn onClick={naverSocailLogin}>
         <Image
-          src={'/icon/naver_icon.png'}
+          src={'/icon/naver_icon_reverse.png'}
           alt={'네이버 아이콘'}
-          width={20}
-          height={20}
+          width={50}
+          height={50}
         />
         {/* <span>네이버</span> */}
-      </button>
-    </div>
+      </S.SocialBtn>
+    </S.SocialBtnWrap>
   );
 }

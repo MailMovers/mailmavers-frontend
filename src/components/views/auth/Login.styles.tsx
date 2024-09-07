@@ -1,13 +1,20 @@
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { Common } from 'styles/common';
 
-// TODO :글로벌 스타일로 변경하여 layout으로 잡을 것
-export const layout = css`
+export const Layout = styled.div`
   height: 100%;
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    padding-top: 80px;
+    margin-bottom: 30px;
+  }
 `;
 
-export const wrap = css`
+export const Wrap = styled.div`
   display: flex;
   max-width: 330px;
   margin: 0px auto;
@@ -18,7 +25,7 @@ export const wrap = css`
   padding: 20px 0px;
 `;
 
-export const titleContainer = css`
+export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,17 +33,17 @@ export const titleContainer = css`
   gap: 10px;
 `;
 
-export const title = css`
+export const Title = styled.h1`
   font-size: ${Common.fontSize.fs28};
   color: ${Common.colors.theme};
 `;
 
-export const subTitle = css`
+export const SubTitle = styled.h2`
   font-size: ${Common.fontSize.fs14};
   color: ${Common.colors.theme};
 `;
 
-export const form = css`
+export const Form = styled.form`
   label {
     display: block;
     margin-bottom: 12px;
@@ -47,7 +54,7 @@ export const form = css`
   }
 `;
 
-export const inputGroup = css`
+export const InputGroup = styled.div`
   display: flex;
   input {
     width: 330px;
@@ -67,12 +74,12 @@ export const inputGroup = css`
   }
 `;
 
-export const inputLocal = css`
+export const InputLocal = styled.div`
   position: relative;
   flex: 1 1 0px;
 `;
 
-export const inputForm = css`
+export const InputForm = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -80,19 +87,17 @@ export const inputForm = css`
   gap: 14px;
 `;
 
-export const input = css`
+export const Input = styled.input`
   width: 100%;
   height: 50px;
-
   border-radius: 8px;
   background: ${Common.colors.white};
   border: 0;
 `;
 
-export const ectForm = css`
+export const EctForm = styled.div`
   width: 100%;
   padding-top: 8px;
-
   display: flex;
   justify-content: space-between;
   color: ${Common.colors.black};
@@ -100,7 +105,7 @@ export const ectForm = css`
   font-weight: 400;
 `;
 
-export const labelInfo = css`
+export const LabelInfo = styled.div`
   height: 17px;
   display: flex;
   align-items: center;
@@ -109,12 +114,11 @@ export const labelInfo = css`
   > span {
     color: ${Common.colors.black};
     font-size: 14px;
-
     font-weight: 400;
   }
 `;
 
-export const submitBtn = css`
+export const SubmitBtn = styled.button`
   margin-top: 10px;
   width: 100%;
   height: 50px;
@@ -133,7 +137,7 @@ export const submitBtn = css`
   }
 `;
 
-export const submitBtnText = css`
+export const SubmitBtnText = styled.span`
   height: 100%;
   font-size: ${Common.fontSize.fs16};
   font-weight: 700;
@@ -147,7 +151,7 @@ export const submitBtnText = css`
   }
 `;
 
-export const socialBtnContainer = css`
+export const SocialBtnContainer = styled.div`
   margin: 30px 0px;
   padding-bottom: 30px;
   padding-top: 10px;
@@ -156,7 +160,7 @@ export const socialBtnContainer = css`
   width: 100%;
 `;
 
-export const socialBtnTitle = css`
+export const SocialBtnTitle = styled.h3`
   font-size: ${Common.fontSize.fs14};
   text-align: center;
   margin: 20px 0px;
@@ -164,14 +168,14 @@ export const socialBtnTitle = css`
   font-weight: bold;
 `;
 
-export const socialBtn = css`
+export const SocialBtn = styled.ul`
   display: flex;
   justify-content: space-evenly;
   list-style: none;
   flex-direction: row;
 `;
 
-export const signUpPageBtn = css`
+export const SignUpPageBtn = styled.a`
   width: 330px;
   height: 50px;
   margin: 10px 0;
@@ -187,7 +191,7 @@ export const signUpPageBtn = css`
   }
 `;
 
-export const isMemberPrompt = css`
+export const IsMemberPrompt = styled.span`
   font-size: ${Common.fontSize.fs14};
   color: ${Common.colors.gray01};
   font-weight: bold;
