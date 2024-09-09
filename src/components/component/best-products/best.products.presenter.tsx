@@ -3,15 +3,16 @@ import { MainPageUIProps } from "@/type/main";
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { useEffect, useState } from "react";
+import { useMoveToPage } from "@/hooks/useMoveToPage"
 
 const pcResponsive = {
   0: { items: 2 },
-  768: { items: 4 },
+  768: { items: 2 },
   1024: { items: 4 }
 };
 
 const mobileResponsive = {
-  0: { items: 1 },
+  0: { items: 2 },
   768: { items: 2 },
 };
 
@@ -20,7 +21,8 @@ const icon = {
 };
 
 export default function BestProductsUI(props: MainPageUIProps) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
+    const { onClickMoveToPage } = useMoveToPage();
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,7 +35,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
   }, []);
 
   const carouselItems = props.items.map((mockData, id) => (
-    <S.ProductWrapper key={id}>
+    <S.ProductWrapper key={id} onClick={onClickMoveToPage(`/letter-product-detail${id}`)}>
       <S.ProductImageWrapper>
         <S.ProductImage src={mockData.productImage} alt='메인 이미지' />
       </S.ProductImageWrapper>
@@ -64,7 +66,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
             ))}
           </S.MenuList>
           <S.ViewBestProductsListButtonWrapper>
-            <S.ViewBestProductsListButton onClick={() => props.goLetterProducts()}>
+            <S.ViewBestProductsListButton onClick={onClickMoveToPage("/letterproducts")}>
               전체보기 
               <S.AddIcon src={icon.add} alt='추가' />
             </S.ViewBestProductsListButton>
@@ -84,6 +86,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
           />
         </S.BestProductList>
       </S.BesProductListWrapper>
+      {isMobile && <S.AddButton onClick={onClickMoveToPage("/letterproducts")}>더 보기</S.AddButton>}
     </S.ContainerWrapper>
   );
 }
