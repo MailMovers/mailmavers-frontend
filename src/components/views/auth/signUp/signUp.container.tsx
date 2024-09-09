@@ -40,6 +40,7 @@ export default function SignUpContainer() {
   const [nameError, setNameError] = useState<string | null>(null);
   const [phoneError, setphoneError] = useState<string | null>(null);
   const [checkList, setCheckList] = useState<string[]>([]);
+  const [isMarketingAgree, setIsMarketingAgree] = useState<boolean>(false);
   const [buttonColor, setButtonColor] = useState<boolean>(false);
 
   // 약관 체크
@@ -54,7 +55,13 @@ export default function SignUpContainer() {
     } else {
       setButtonColor(false);
     }
+    if(checkList.includes('checkMarketing')){
+      setIsMarketingAgree(true);
+    } else {
+      setIsMarketingAgree(false);
+    }
   }, [checkList]);
+  console.log(isMarketingAgree);
 
   // 이메일 형식 확인기능 / 에러메세지
   const checkEmail = (email: string) => {
@@ -240,6 +247,7 @@ export default function SignUpContainer() {
           'checkMarketing',
         ])
       : setCheckList([]);
+
   };
 
   // 약관 개별 체크
@@ -253,7 +261,6 @@ export default function SignUpContainer() {
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      console.log('회원가입 제출 버튼 클릭');
 
       // Check if any of the required fields is empty
       if (!emailSendSuccess || !password || !passwordCheck || !name || !phone) {
@@ -264,7 +271,7 @@ export default function SignUpContainer() {
       if (checkEmail(email) && !mismatchError) {
         setSignUpError(false);
         setSignUpSuccess(false);
-        postUserSignup(name, email, phone, password, passwordCheck)
+        postUserSignup(name, email, phone, password, passwordCheck, isMarketingAgree)
           .then((res) => {
             setSignUpSuccess(true);
             modal.confirm({
@@ -285,7 +292,7 @@ export default function SignUpContainer() {
           });
       }
     },
-    [name, email, phone, password, passwordCheck, mismatchError]
+    [name, email, phone, password, passwordCheck, mismatchError, isMarketingAgree]
   );
   
   const signUpProps: SignUpPageUIProps = {
