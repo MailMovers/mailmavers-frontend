@@ -36,7 +36,8 @@ export const ReviewContainer = styled.div`
 export const TitleWrapper = styled.div`
     width: 100%;
     display: flex;
-    margin-bottom: 10px;
+    padding-left: 10px;
+
     flex-direction: row;
     @media (max-width: 768px){
         width: 100%;
@@ -48,8 +49,8 @@ export const SubTitle = styled.h4`
     font-size: 20px;
     font-weight: 600;
     color: pink;
-    padding-top: 6px;
-    padding-left: 3px;
+    padding-top: 3px;
+    padding-left: 10px;
     @media (max-width: 768px){
         padding-top: 6px;
         padding-left: 3px;
