@@ -6,31 +6,14 @@ import { useRecoilState } from 'recoil';
 
 import KakaoLogin from '@/components/views/auth/KakaoLogin';
 import NaverLogin from '@/components/views/auth/NaverLogin';
-import GoogleLogin from '@/components/views/auth/GoogleLogin';
 
 import useInput from '@/hooks/useInput';
 import { postUserLogin } from '@/api/auth';
 import { setToken } from '@/common/axio-interceptor';
 import { tokenAtom } from '@/recoil/auth/atom';
 
-import { errorMessage } from './SocialLogin.styles';
-import {
-  wrap,
-  titleContainer,
-  title,
-  subTitle,
-  form,
-  submitBtn,
-  submitBtnText,
-  layout,
-  socialBtnContainer,
-  inputGroup,
-  inputLocal,
-  socialBtnTitle,
-  socialBtn,
-  signUpPageBtn,
-  isMemberPrompt,
-} from './Login.styles';
+import { ErrorMessage } from './SocialLogin.styles';
+import * as S from './Login.styles';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -91,17 +74,17 @@ export default function LoginPage() {
   }
 
   return (
-    <div css={layout}>
+    <S.Layout>
       <section>
-        <div css={wrap}>
-          <div css={titleContainer}>
-            <h1 css={title}>Mailtree</h1>
-            <p css={subTitle}>마음을 전하다</p>
-          </div>
-          <form css={form} onSubmit={(e) => onSubmit(e)}>
+        <S.Wrap>
+          <S.TitleContainer>
+            <S.Title>Mailtree</S.Title>
+            <S.SubTitle>마음을 전하다</S.SubTitle>
+          </S.TitleContainer>
+          <S.Form onSubmit={(e) => onSubmit(e)}>
             <div>
-              <div css={inputGroup}>
-                <span css={inputLocal}>
+              <S.InputGroup>
+                <S.InputLocal>
                   <input
                     type='email'
                     id='email'
@@ -111,13 +94,13 @@ export default function LoginPage() {
                     ref={emailRef}
                     placeholder='이메일'
                   />
-                </span>
-              </div>
+                </S.InputLocal>
+              </S.InputGroup>
             </div>
-            {IdErrorMsg && <p css={errorMessage}>{IdErrorMsg}</p>}
+            {IdErrorMsg && <ErrorMessage>{IdErrorMsg}</ErrorMessage>}
             <div>
-              <div css={inputGroup}>
-                <span css={inputLocal}>
+              <S.InputGroup>
+                <S.InputLocal>
                   <input
                     type='password'
                     id='password'
@@ -127,29 +110,26 @@ export default function LoginPage() {
                     ref={passwordRef}
                     placeholder='비밀번호'
                   />
-                </span>
-              </div>
+                </S.InputLocal>
+              </S.InputGroup>
             </div>
-            {PwErrorMsg && <p css={errorMessage}>{PwErrorMsg}</p>}
-            <button css={submitBtn} type='submit'>
-              <p css={submitBtnText}>로그인</p>
-            </button>
-          </form>
-          <div css={socialBtnContainer}>
-            <div css={socialBtnTitle}>SNS 계정으로 간편하게 회원가입</div>
-            <div css={socialBtn}>
+            {PwErrorMsg && <ErrorMessage>{PwErrorMsg}</ErrorMessage>}
+            <S.SubmitBtn type='submit'>
+              <S.SubmitBtnText>로그인</S.SubmitBtnText>
+            </S.SubmitBtn>
+          </S.Form>
+          <S.SocialBtnContainer>
+            <S.SocialBtnTitle>SNS 계정으로 간편하게 회원가입</S.SocialBtnTitle>
+            <S.SocialBtn>
               <NaverLogin />
               <KakaoLogin />
-              <GoogleLogin />
-            </div>  
-          </div>
-          <p css={isMemberPrompt}>아직 메일트리 회원이 아니신가요?</p>
+            </S.SocialBtn>
+          </S.SocialBtnContainer>
+          <S.IsMemberPrompt>아직 메일트리 회원이 아니신가요?</S.IsMemberPrompt>
 
-          <Link css={signUpPageBtn} href='/signup'>
-            회원가입 하러 가기
-          </Link>
-        </div>
+          <S.SignUpPageBtn href='/signup'>회원가입 하러 가기</S.SignUpPageBtn>
+        </S.Wrap>
       </section>
-    </div>
+    </S.Layout>
   );
 }

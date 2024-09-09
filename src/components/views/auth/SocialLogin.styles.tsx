@@ -1,14 +1,14 @@
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { Common } from 'styles/common';
 
-export const socialBtnWrap = css`
+export const SocialBtnWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 5px 0;
 `;
 
-export const socialBtn = css`
+export const SocialBtn = styled.button`
   position: relative;
   width: 50px;
   height: 50px;
@@ -18,6 +18,7 @@ export const socialBtn = css`
   border: 1px solid ${Common.colors.gray01};
   border-radius: 50%;
   background-color: ${Common.colors.white};
+  
 
   > img {
     align-items: center;
@@ -29,20 +30,19 @@ export const socialBtn = css`
   }
 `;
 
-export const kakao = css`
+export const KakaoBtn = styled(SocialBtn)`
   background-color: #fee500;
   border: none;
 `;
 
-export const socialText = css`
+export const SocialText = styled.span`
   display: flex;
   flex-direction: column;
-
   font-size: ${Common.fontSize.fs14};
   font-weight: 500;
 `;
 
-export const errorMessage = css`
+export const ErrorMessage = styled.p`
   color: ${Common.colors.red};
-  font-size: ${Common.fontSize.fs10};
+  font-size: ${Common.fontSize.fs12};
 `;
