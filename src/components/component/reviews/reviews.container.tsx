@@ -3,7 +3,6 @@ import { reviews } from "./mocks"
 import { useMoveToPage } from "@/hooks/useMoveToPage"
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import { Title } from '../../views/letterproducts/LetterProductDetail.styles';
 
 
 
@@ -29,8 +28,8 @@ export default function BestReviews() {
         <S.Container>
             <S.ReviewContainer>
                 <S.TitleWrapper>
-            <S.Title>소중한리뷰</S.Title>
-            {/* <S.SubTitle>best-reviews</S.SubTitle> */}
+            <S.Title style={{"color": "orange"}}>메일트리</S.Title>
+            <S.SubTitle>회원님들의 이용후기🥰</S.SubTitle>
                 </S.TitleWrapper>
             <S.ReviewList>
                 <AliceCarousel
