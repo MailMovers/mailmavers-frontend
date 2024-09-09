@@ -1,34 +1,15 @@
 import styled from "@emotion/styled";
-import { Common } from '../../../styles/common';
-
-
-
-
-
-export const Container = styled.div`
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-top: 70px;
-    margin-bottom: 100px;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-
-    @media (max-width: 768px){
-        width: 100%;
-        max-width: 768px;
-        margin-top: 60px;
-        height: 100%;
-        flex-direction: column;
-    }
-`;
+import { Common } from '../../../../styles/common';
 
 export const ReviewContainer = styled.div`
     width: 50%;
     height: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
     @media (max-width: 768px){
         width: 100%;
+        margin-bottom: 60px;
+        border: none;
     }
 
 `
@@ -37,10 +18,12 @@ export const TitleWrapper = styled.div`
     width: 100%;
     display: flex;
     padding-left: 10px;
-
+    padding: 20px;
+    padding-bottom: 0px;
     flex-direction: row;
     @media (max-width: 768px){
         width: 100%;
+        padding-left: 0;
     }
 
 `
@@ -76,7 +59,6 @@ export const Title = styled.h2`
 export const ReviewList = styled.div`
     display: flex;
     justify-content: space-between;
-
     @media (max-width: 768px){
         width: 100%;
     }
@@ -86,7 +68,6 @@ export const ReviewCard = styled.div`
     width: 100%;
     height: 100%;
     padding: 20px;
-    border: 1px solid #e0e0e0;
     border-radius: 8px;
     text-align: left;
     display: flex;
@@ -123,7 +104,8 @@ export const TextWrapper = styled.div`
     @media (max-width: 768px){
         width: 100%;
         font-size: 12px;
-        padding: 30px;
+        padding: 10px;
+        padding-top: 0
 
     }
 `;

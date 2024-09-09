@@ -25,7 +25,6 @@ export default function BestReviews() {
     ));
 
     return (
-        <S.Container>
             <S.ReviewContainer>
                 <S.TitleWrapper>
             <S.Title style={{"color": "orange"}}>메일트리</S.Title>
@@ -42,7 +41,6 @@ export default function BestReviews() {
                     />
             </S.ReviewList>
              </S.ReviewContainer>
-        </S.Container>
 
     );
 }
