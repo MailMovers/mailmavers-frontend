@@ -3,6 +3,7 @@ import { reviews } from "./mocks"
 import { useMoveToPage } from "@/hooks/useMoveToPage"
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
+import { Title } from '../../views/letterproducts/LetterProductDetail.styles';
 
 
 
@@ -27,7 +28,10 @@ export default function BestReviews() {
     return (
         <S.Container>
             <S.ReviewContainer>
-            <S.Title> BEST REVIEWS</S.Title>
+                <S.TitleWrapper>
+            <S.Title>소중한리뷰</S.Title>
+            {/* <S.SubTitle>best-reviews</S.SubTitle> */}
+                </S.TitleWrapper>
             <S.ReviewList>
                 <AliceCarousel
                     items={carouselItems}
@@ -37,11 +41,6 @@ export default function BestReviews() {
                     disableButtonsControls
                     disableDotsControls
                     />
-            </S.ReviewList>
-             </S.ReviewContainer>
-             <S.ReviewContainer>
-            <S.Title> 공지사항 </S.Title>
-            <S.ReviewList>
             </S.ReviewList>
              </S.ReviewContainer>
         </S.Container>
