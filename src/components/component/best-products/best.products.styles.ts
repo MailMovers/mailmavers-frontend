@@ -226,6 +226,8 @@ export const MenuItem = styled.li<{ isActive: boolean }>`
   &:hover {
     background: ${Common.colors.yellow};
     color: ${Common.colors.white};
+
+    
   }
   @media (max-width: 768px) {
     width: 100%;
@@ -235,6 +237,9 @@ export const MenuItem = styled.li<{ isActive: boolean }>`
     text-align: center;
     align-items: center;
     padding: 10px;
+    border-radius: 40px;
+    color: ${({ isActive }) => (isActive ? Common.colors.white : 'none')};
+    background: ${({ isActive }) => (isActive ? Common.colors.yellow : 'initial')};
   }
 `;
 
