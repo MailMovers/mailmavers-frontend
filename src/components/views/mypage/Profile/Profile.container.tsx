@@ -60,7 +60,7 @@ export default function ProfilePageContainer ():JSX.Element {
     }
     return;
   };
-  
+
   const onSubmit = () => {
     if (!userEditInfo.phone) {
       setMsgError('전화번호를 입력해주세요.');

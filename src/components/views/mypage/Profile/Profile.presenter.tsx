@@ -7,17 +7,17 @@ export default function ProfilePageUI (props: any):JSX.Element {
         <>
           {props.contextHolder}
           <Loading spinning={props.isMutating} />
-    
-          <MyPageLayout>
-            <S.Content>
-              <p>내 정보 관리</p>
-    
-              <S.InputContainer>
-                <S.InputContent>
-                  <span>성함</span>
-                  <span className='info'>{props.userEditInfo?.name}</span>
+          <S.Wrap>
+              <S.TitleContainer>
+                <S.Title>안녕하세요! {props.userEditInfo?.name} 테스트 님,</S.Title>
+                <S.SubTitle>이곳은 <S.TitleContent>내 정보 관리</S.TitleContent> 입니다.</S.SubTitle>
+              </S.TitleContainer>
+              <S.Content>
+                <S.InputContainer>
+                  <S.InputContent>
+                    <span>성함</span>
+                    <span className='info'>{props.userEditInfo?.name}</span>
                 </S.InputContent>
-    
                 <S.InputContent>
                   <span>이메일</span>
                   <span className='info'>{props.userEditInfo?.email}</span>
@@ -29,7 +29,6 @@ export default function ProfilePageUI (props: any):JSX.Element {
                       new Date(props.userEditInfo.created_at).toLocaleString()}
                   </span>
                 </S.InputContent>
-    
                 <S.InputContent>
                   <span>전화번호</span>
                   <input
@@ -41,8 +40,8 @@ export default function ProfilePageUI (props: any):JSX.Element {
               </S.InputContainer>
               <S.Button onClick={props.onSubmit}>저장하기</S.Button>
                 {props.msgError && <S.ErrorWrap>{props.msgError}</S.ErrorWrap>}
-            </S.Content>
-          </MyPageLayout>
+              </S.Content>
+            </S.Wrap>
         </>
       );
 }

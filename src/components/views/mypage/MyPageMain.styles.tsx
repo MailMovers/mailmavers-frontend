@@ -80,7 +80,7 @@ export const InputContent = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 100%;
+  width: 20%;
   height: 50px;
   border-radius: 5px;
   background: var(--primary, #4a743c);
