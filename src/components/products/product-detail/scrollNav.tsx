@@ -3,7 +3,7 @@
 
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+
 import { Common } from 'styles/common';
 
 export type ScrollNavProps = {
