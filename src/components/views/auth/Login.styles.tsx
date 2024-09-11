@@ -7,7 +7,6 @@ export const Layout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   @media (max-width: 768px) {
     padding-top: 80px;
     margin-bottom: 30px;
@@ -16,13 +15,24 @@ export const Layout = styled.div`
 
 export const Wrap = styled.div`
   display: flex;
-  max-width: 330px;
   margin: 0px auto;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 20px 0px;
+  border: 1px solid ${Common.colors.gray02};
+  box-shadow: 0px 0px 3px 0px ${Common.colors.gray02};
+  border-radius: 10px;
+  padding: 40px;
+  margin-top: 30px;
+
+  @media (max-width: 768px) {
+    border: none;
+  }
+
+  @media (min-width: 768px) and (max-width: 1200px) {
+    margin-bottom: 40px;
+  }
 `;
 
 export const TitleContainer = styled.div`
