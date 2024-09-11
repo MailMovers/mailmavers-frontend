@@ -35,7 +35,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
   }, []);
 
   const carouselItems = props.items.map((mockData, id) => (
-    <S.ProductWrapper key={id} onClick={onClickMoveToPage(`/letter-product-detail${id}`)}>
+    <S.ProductWrapper key={id} onClick={onClickMoveToPage(`/product-detail${id}`)}>
       <S.ProductImageWrapper>
         <S.ProductImage src={mockData.productImage} alt='메인 이미지' />
       </S.ProductImageWrapper>
@@ -66,7 +66,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
             ))}
           </S.MenuList>
           <S.ViewBestProductsListButtonWrapper>
-            <S.ViewBestProductsListButton onClick={onClickMoveToPage("/letterproducts")}>
+            <S.ViewBestProductsListButton onClick={onClickMoveToPage("/products")}>
               전체보기 
               <S.AddIcon src={icon.add} alt='추가' />
             </S.ViewBestProductsListButton>
@@ -86,7 +86,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
           />
         </S.BestProductList>
       </S.BesProductListWrapper>
-      {isMobile && <S.AddButton onClick={onClickMoveToPage("/letterproducts")}>더 보기</S.AddButton>}
+      {isMobile && <S.AddButton onClick={onClickMoveToPage("/products")}>더 보기</S.AddButton>}
     </S.ContainerWrapper>
   );
 }
