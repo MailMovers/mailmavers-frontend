@@ -5,7 +5,6 @@ import moment from 'moment';
 import { useState } from 'react';
 
 import ReviewCreate from '@/components/mypage/history/ReviewCreate';
-import MyPageLayout from '@/components/mypage/MyPageLayout';
 import { tokenAtom } from '@/recoil/auth/atom';
 import { TMyLetter } from '@/type/mypage';
 import { getMyLetterHistory } from '@/api/mypage';
@@ -45,11 +44,14 @@ export default function History() {
   };
 
   return (
-    <MyPageLayout>
+    <>
       <S.Wrap>
-        <S.Content>
-          <p>보낸 편지 내역</p>
+      <S.TitleContainer>
+            <S.Title>안녕하세요!  테스트 님,</S.Title>
+            <S.SubTitle>이곳은 <S.TitleContent>보낸 편지 내역</S.TitleContent> 입니다.</S.SubTitle>
+          </S.TitleContainer>
 
+        <S.Content>
           <S.CardContainer>
             {letters &&
               letters.map((letter, idx) => (
@@ -104,6 +106,6 @@ export default function History() {
           letter={selectLetter}
         />
       )}
-    </MyPageLayout>
+    </>
   );
 }

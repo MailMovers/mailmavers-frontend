@@ -79,6 +79,7 @@ export const Content = styled.div`
   align-items: center;
   gap: 26px;
   padding: 20px;
+  margin-top: 50px;
 
   p {
     color: var(--default, #333);
@@ -103,28 +104,21 @@ export const InputContainer = styled.div`
 
 export const InputContent = styled.div`
   width: 100%;
+  height: 50px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 17px;
-
-  span {
-    width: 90px;
-    color: var(--default, #333);
-    font-size: 16px;
-    font-weight: 400;
-
-    // @media (max-width: 480px) {
-    //   width: 80px;
-    // }
-  }
+  border-bottom: 1px dashed var(--greyD9, #d9d9d9);
+  padding-bottom: 10px;
 
   input {
-    padding: 13px 0 13px 10px;
-    width: 100%;
-    height: 50px;
+    padding: 13px 0 13px 0px;
+    width: 80%;
+    height: 40px;
     border-radius: 5px;
     border: 1px solid var(--greyD9, #d9d9d9);
     outline: none;
+    text-align: center;
 
     @media (max-width: 480px) {
       width: 200px;
@@ -132,17 +126,43 @@ export const InputContent = styled.div`
   }
 
   .info {
-    padding: 13px 0 13px 10px;
+    padding: 15px 0 13px 0;
     width: 280px;
     height: 50px;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
     color: var(--default, #000);
 
     @media (max-width: 480px) {
       font-size: 16px;
       width: 200px;
     }
+  }
+`;
+
+export const DataTitle = styled.span`
+  width: 90px;
+  color: var(--default, #333);
+  font-size: 16px;
+  font-weight: 400;
+`;
+
+export const PasswordChangeBtn = styled.span`
+  width: 50px;
+  height: 30px;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--default, #000);
+  cursor: pointer;
+  border: 1px solid var(--greyD9, #d9d9d9); 
+  border-radius: 5px;
+  padding-top: 5px;
+
+
+  @media (max-width: 480px) {
+    font-size: 16px;
   }
 `;
 

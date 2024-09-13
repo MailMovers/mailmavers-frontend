@@ -36,11 +36,14 @@ export default function ReviewPage() {
   }, [page]);
 
   return (
-    <MyPageLayout>
-      <S.Wrap>
+    <S.Wrap>
+      <S.TitleContainer>
+        <S.Title>안녕하세요! 테스트 님,</S.Title>
+        <S.SubTitle>
+            이곳은 <S.TitleContent>작성한 리뷰</S.TitleContent> 입니다.
+          </S.SubTitle>
+        </S.TitleContainer>
         <S.Content>
-          <p>작성한 리뷰</p>
-
           <S.CardContainer>
             {data &&
               data.getReviewList.map((review) => (
@@ -78,13 +81,12 @@ export default function ReviewPage() {
                 </S.CardWrap>
               ))}
           </S.CardContainer>
-          <Pagination
-            total={data ? Number(data?.count || 0) * 2 : 0}
-            current={page}
-            onChange={(value) => handlePage(value)}
-          />
-        </S.Content>
-      </S.Wrap>
-    </MyPageLayout>
+      <Pagination
+        total={data ? Number(data?.count || 0) * 2 : 0}
+        current={page}
+        onChange={(value) => handlePage(value)}
+      />
+      </S.Content>
+    </S.Wrap>
   );
 }

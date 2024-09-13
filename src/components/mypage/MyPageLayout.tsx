@@ -45,14 +45,14 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
                   내 정보 관리
                 </S.PageContent>
                 </S.PageWrapper>
-                <S.PageWrapper>
+                {/* <S.PageWrapper>
                 <S.PageContent
                   selected={pathname === '/mypage/password'}
                   onClick={() => movePage('/mypage/password')}
                 >
                   비밀번호 변경
                 </S.PageContent>
-                </S.PageWrapper>
+                </S.PageWrapper> */}
                 <S.PageWrapper>
                 <S.PageContent
                   selected={pathname === '/mypage/address'}

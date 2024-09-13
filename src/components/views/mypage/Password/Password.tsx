@@ -4,7 +4,6 @@ import { useRecoilValue } from 'recoil';
 import { Modal } from 'antd';
 import { AxiosError } from 'axios';
 
-import MyPageLayout from '@/components/mypage/MyPageLayout';
 import Loading from '@/components/common/Loading';
 
 import { userInfoAtom } from '@/recoil/mypage/atom';
@@ -16,6 +15,7 @@ import type { TPwd } from '@/api/mypage';
 import type { TResMsg } from '@/type/common';
 
 import * as S from './Password.styles';
+import { useRouter } from 'next/router';
 
 interface TWriteInfo extends TUserInfo {
   password: string;
@@ -25,6 +25,7 @@ interface TWriteInfo extends TUserInfo {
 
 export default function Password() {
   const [modal, contextHolder] = Modal.useModal();
+  const router = useRouter();
 
   const { trigger, isMutating } = useSWRMutation(
     'user/update-password',
@@ -36,6 +37,7 @@ export default function Password() {
           content: '비밀번호를 변경하였습니다.',
         });
         setUserEditInfo({ ...DEFAULT_INFO, ...userInfo });
+        router.push('/mypage/profile');
       },
       onError: (res: AxiosError<TResMsg>) => {
         modal.error({
@@ -67,16 +69,6 @@ export default function Password() {
   };
 
   const onSubmit = () => {
-    if (!userEditInfo.name) {
-      setMsgError('이름을 입력해주세요.');
-      return;
-    }
-
-    if (!userEditInfo.password) {
-      setMsgError('기존 비밀번호를 입력해주세요.');
-      return;
-    }
-
     if (!userEditInfo.newPassword) {
       setMsgError('새 비밀번호를 입력해주세요.');
       return;
@@ -115,22 +107,12 @@ export default function Password() {
     <>
       {contextHolder}
       <Loading spinning={isMutating} />
-
-      <MyPageLayout>
-        <S.Content>
-          <p>비밀번호 변경</p>
-          <S.InputContainer>
-            
-            <S.InputContent>
-              <span>기존 비밀번호</span>
-              <input
-                id='password'
-                onChange={handleInput}
-                value={userEditInfo?.password}
-                type='password'
-              />
-            </S.InputContent>
-
+      <S.TitleContainer>
+        <S.Title>안녕하세요! 테스트 님,</S.Title>
+        <S.SubTitle>이곳은 <S.TitleContent>비밀번호 변경</S.TitleContent> 입니다.</S.SubTitle>
+      </S.TitleContainer>
+      <S.Content>
+        <S.InputContainer>
             <S.InputContent>
               <span>새 비밀번호</span>
               <input
@@ -140,7 +122,6 @@ export default function Password() {
                 type='password'
               />
             </S.InputContent>
-
             <S.InputContent>
               <span>비밀번호 확인</span>
               <input
@@ -150,18 +131,13 @@ export default function Password() {
                 type='password'
               />
             </S.InputContent>
-
-            {/* <S.InputContent>
-      <span>연락처</span>
-      <input id="phone" onChange={handleInput} value={userEditInfo?.phone} />
-    </S.InputContent> */}
           </S.InputContainer>
 
-          <S.Button onClick={onSubmit}>저장</S.Button>
+          <S.Button onClick={onSubmit}>저장하기</S.Button>
         </S.Content>
 
         {msgError && <S.ErrorWrap>{msgError}</S.ErrorWrap>}
-      </MyPageLayout>
+
     </>
   );
 }

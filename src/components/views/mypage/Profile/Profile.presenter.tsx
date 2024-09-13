@@ -1,5 +1,4 @@
 import Loading from '@/components/common/Loading';
-import MyPageLayout from '@/components/mypage/MyPageLayout';
 import * as S from 'src/components/views/mypage/Profile/Profile.styles'
 
 export default function ProfilePageUI (props: any):JSX.Element {
@@ -15,22 +14,28 @@ export default function ProfilePageUI (props: any):JSX.Element {
               <S.Content>
                 <S.InputContainer>
                   <S.InputContent>
-                    <span>성함</span>
-                    <span className='info'>{props.userEditInfo?.name}</span>
+                    <S.DataTitle>성함</S.DataTitle>
+                    <span className='info'>{props.userEditInfo?.name} 테스트</span>
                 </S.InputContent>
                 <S.InputContent>
-                  <span>이메일</span>
-                  <span className='info'>{props.userEditInfo?.email}</span>
+                  <S.DataTitle>이메일</S.DataTitle>
+                  <span className='info'>{props.userEditInfo?.email}text12@test.com</span>
                 </S.InputContent>
                 <S.InputContent>
-                  <span>가입일</span>
+                  <S.DataTitle>비밀번호</S.DataTitle>
+                  <span className='info' style={{width: '150px', paddingTop: '18px'}}>********</span>
+                  <S.PasswordChangeBtn onClick={props.movePasswordChange}>변경</S.PasswordChangeBtn>
+                </S.InputContent>
+                <S.InputContent>
+                  <S.DataTitle>가입일</S.DataTitle>
                   <span className='info'>
                     {props.userEditInfo.created_at &&
                       new Date(props.userEditInfo.created_at).toLocaleString()}
+                      2024-05-20
                   </span>
                 </S.InputContent>
                 <S.InputContent>
-                  <span>전화번호</span>
+                  <S.DataTitle>전화번호</S.DataTitle>
                   <input
                     id='phone'
                     onChange={props.handleInput}

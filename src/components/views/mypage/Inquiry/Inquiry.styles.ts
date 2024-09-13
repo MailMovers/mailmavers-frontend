@@ -1,12 +1,39 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-export const Wrap = styled.form`
+
+export const Wrap = styled.div`
   width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 10px;
+
+  @media (max-width: 480px) {
+    max-width: 400px;
+  }
+`;
+
+export const Header = styled.div`
+  width: 100%;
+  height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 50px;
+  gap: 20px;
+  border-bottom: 1px solid lightgray;
+  border-radius: 10px 10px 0 0;
+  background-image: url('/images/bottom.SVG.png');
+  background-size: cover;
+  background-position: top;
+
+  @media (max-width: 768px) {
+    height: 100px;
+    border-radius: 0;
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -71,39 +98,36 @@ export const TitleContent = styled.span`
   }
 `;
 
-export const Content = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 26px;
-  margin-top: 30px;
+export const Body = styled.div`
+  margin-top: 50px;
+  width: 1000px;
+  min-height: 200px;
 
-  p {
-    color: var(--default, #333);
-    font-size: 26px;
-    font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  @media (max-width: 480px) {
+    max-width: 400px;
   }
 `;
 
 export const InfoContaier = styled.div`
+  width: 650px;
   display: flex;
   gap: 50px;
 
   @media (max-width: 480px) {
-    flex-direction: column;
+    max-width: 400px;
+    padding: 0 20px;
   }
 `;
 
 export const InfoWrap = styled.div`
-  width: 450px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-
-  @media (max-width: 480px) {
-    width: 300px;
-  }
 `;
 
 export const TitleWrap = styled.div`
@@ -122,10 +146,6 @@ export const TitleWrap = styled.div`
     color: var(--primary, #4a743c);
     font-size: 16px;
     font-weight: 500;
-  }
-
-  .anticon {
-    cursor: pointer;
   }
 `;
 
@@ -146,6 +166,7 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
   font-weight: 400;
 
   border-bottom: ${({ isLast }) => (isLast ? '' : '1px solid #f3f3f3')};
+  cursor: pointer;
 
   .text_container {
     display: flex;
@@ -155,12 +176,73 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
     .text_wrap {
       display: flex;
       gap: 20px;
+      color: var(--grey666, #666);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+
+      @media (max-width: 480px) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .created_at {
+    display: flex;
+    gap: 20px;
+    border: 1px solid bl;
+
+    color: var(--grey666, #666);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    @media (max-width: 480px) {
+      font-size: 14px;
     }
   }
 
   .del_btn {
-    width: 40px;
-    text-align: center;
     cursor: pointer;
+  }
+`;
+
+export const InquireBtn = styled.div`
+  position: fixed;
+  bottom: 5%;
+  left: 90%;
+
+  width: 80px;
+  height: 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50px;
+  background: var(--yellow, #ffb930);
+
+  z-index: 8;
+
+  cursor: pointer;
+
+  span {
+    color: #fff;
+    font-size: 50px;
+  }
+
+  @media all and (max-width: 480px) {
+    left: 75%;
+    bottom: 10%;
+
+    width: 50px;
+    height: 50px;
+
+    span {
+      color: #fff;
+      font-size: 30px;
+    }
   }
 `;
