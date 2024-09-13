@@ -18,7 +18,7 @@ export const Wrap = styled.div`
 
 export const Header = styled.div`
   width: 100%;
-  height: 150px;
+  height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -23,6 +23,19 @@ interface TWriteInfo extends TUserInfo {
   newPasswordCheck: string;
 }
 
+const DEFAULT_INFO: TWriteInfo = {
+  name: '',
+  email: '',
+  phone: '',
+  created_at: '',
+  password: '',
+  newPassword: '',
+  newPasswordCheck: '',
+};
+
+const regexNumber = /^[0-9]+$/;
+
+
 export default function Password() {
   const [modal, contextHolder] = Modal.useModal();
   const router = useRouter();
@@ -79,16 +92,9 @@ export default function Password() {
       return;
     }
 
-    if (userEditInfo.password === userEditInfo.newPassword) {
-      setMsgError('기존 비밀번호와 일치한 비밀번호입니다.');
+    if (userEditInfo.newPassword !== userEditInfo.newPasswordCheck) {
+      setMsgError('새 비밀번호가 일치하지 않습니다. 확인해주세요.');
       return;
-    }
-
-    if (userEditInfo.newPassword && userEditInfo.newPasswordCheck) {
-      if (userEditInfo.newPassword !== userEditInfo.newPasswordCheck) {
-        setMsgError('새 비밀번호가 일치하지 않습니다. 확인해주세요.');
-        return;
-      }
     }
 
     const params: TPwd = {
@@ -142,14 +148,3 @@ export default function Password() {
   );
 }
 
-const DEFAULT_INFO: TWriteInfo = {
-  name: '',
-  email: '',
-  phone: '',
-  created_at: '',
-  password: '',
-  newPassword: '',
-  newPasswordCheck: '',
-};
-
-const regexNumber = /^[0-9]+$/;

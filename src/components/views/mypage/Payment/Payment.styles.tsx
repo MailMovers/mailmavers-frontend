@@ -9,7 +9,7 @@ export const Wrap = styled.form`
 
 export const TitleContainer = styled.div`
   width: 100%;
-  height: 150px;
+  height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: center;
