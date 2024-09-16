@@ -88,8 +88,9 @@ export default function ProductList(props: PProductListProps) {
                 <S.ProductName>{product.productTitle}</S.ProductName>
                 <S.ProductDescription>{product.productSubTitle}</S.ProductDescription>
                 <S.ProductPrice>
+                  <span className="category">삼풍종류: {product.category}</span>
                   <span className="productPrice">{product.productPrice}</span>
-                  <span className="category">{product.category}</span>
+                  <span className="sendDate">내일 모레 도착 예정</span>
                 </S.ProductPrice>
                 <S.ProductRating>
                   {product.productStarRate} ({product.productReviewCount} 리뷰)

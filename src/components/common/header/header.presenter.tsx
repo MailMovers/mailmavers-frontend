@@ -77,6 +77,7 @@ export default function HeaderPresenter({ isOpenMenu, setIsOpenMenu, userInfo, m
               <>
                 <S.Menu onClick={() => movePage('/signup')}>회원가입</S.Menu>
                 <S.Menu onClick={() => movePage('/login')}>로그인</S.Menu>
+                <S.Menu onClick={() => movePage('/product/list')}>상품</S.Menu>
               </>
             )}
           </S.MoblileBody>

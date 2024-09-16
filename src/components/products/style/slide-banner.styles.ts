@@ -9,6 +9,14 @@ export const BannerWrapper = styled.div`
   overflow: hidden;
   display: flex;
   align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    max-width: 768px;
+    display: flex;
+    margin-top: 70px;
+  }
 `;
 
 export const Slide = styled.div<{ active: boolean }>`
