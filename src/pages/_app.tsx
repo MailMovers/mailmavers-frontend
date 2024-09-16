@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Layout from '@/components/common/Layout';
 import GlobalStyle from '@/styles/globalStyles';
+import { CacheProvider } from '@emotion/react';
+import createEmotionCache from '../utils/createEmotionCache';
 import { Suspense } from 'react';
 
 import type { AppProps } from 'next/app';
@@ -10,6 +12,8 @@ import { RecoilRoot } from 'recoil';
 
 import 'react-quill/dist/quill.snow.css';
 import '../styles/quillstyle.css';
+
+const emotionCache = createEmotionCache();
 
 export default function App({ Component, pageProps }: AppProps) {
   const pagePropsInfo: PageProps = pageProps;
@@ -52,7 +56,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <Suspense fallback={<div>Loading...</div>}>
           <Layout>
+          <CacheProvider value={emotionCache}>
             <Component {...pageProps} />
+            </CacheProvider>
           </Layout>
         </Suspense>
       </RecoilRoot>

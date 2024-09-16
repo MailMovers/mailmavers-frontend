@@ -13,7 +13,7 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const token = useRecoilValue<{ accessToken: string; refreshToken: string } | null>(tokenAtom);
+  const token = useRecoilValue(tokenAtom);
   const [userInfo, setUserInfo] = useRecoilState<TUserInfo | null>(userInfoAtom);
 
   useSWR<TUserInfo | null>(

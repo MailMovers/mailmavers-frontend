@@ -10,7 +10,7 @@ import { Common } from 'styles/common';
 const NurseryAddressList = (props: { clickModal: any }) => {
   const { clickModal } = props;
 
-  const token = useRecoilValue<{ accessToken: string; refreshToken: string } | null>(tokenAtom);
+  const token = useRecoilValue(tokenAtom);
 
   const url = `${process.env.NEXT_PUBLIC_API_HOST}letter/nurserySchools`;
 
