@@ -21,6 +21,7 @@ export const Container = styled.div`
   border: 1px solid lightgray;
   border-radius: 10px;
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 70px;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -28,6 +29,7 @@ export const Container = styled.div`
     border-bottom: 1px solid ${Common.colors.gray02};
     border-radius: 0;
     box-shadow: none;
+    margin-bottom: 0;
   }
 `;
 
