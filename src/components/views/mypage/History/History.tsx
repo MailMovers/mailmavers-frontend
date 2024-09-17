@@ -95,6 +95,7 @@ export default function History() {
                   </S.StatusContainer>
                 </S.CardWrap>
               ))}
+              {letters && letters.length === 0 && <S.EmptyMessage>작성하신 편지가 없습니다.</S.EmptyMessage>}
           </S.CardContainer>
         </S.Content>
       </S.Wrap>

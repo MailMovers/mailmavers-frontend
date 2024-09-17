@@ -1,7 +1,8 @@
 import Loading from '@/components/common/Loading';
 import * as S from 'src/components/views/mypage/Profile/Profile.styles'
+import { IProfileProps } from './Profile.types';
 
-export default function ProfilePageUI (props: any):JSX.Element {
+export default function ProfilePageUI (props: IProfileProps):JSX.Element {
     return (
         <>
           {props.contextHolder}
@@ -23,7 +24,7 @@ export default function ProfilePageUI (props: any):JSX.Element {
                 </S.InputContent>
                 <S.InputContent>
                   <S.DataTitle>비밀번호</S.DataTitle>
-                  <span className='info' style={{width: '150px', paddingTop: '18px'}}>********</span>
+                  <span className='info' style={{width: '150px', paddingTop: '18px', marginLeft: '20px'}}>********</span>
                   <S.PasswordChangeBtn onClick={props.movePasswordChange}>변경</S.PasswordChangeBtn>
                 </S.InputContent>
                 <S.InputContent>

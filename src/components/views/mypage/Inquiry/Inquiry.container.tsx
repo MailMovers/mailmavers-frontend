@@ -59,14 +59,16 @@ export default function InquiryPageContainer (): JSX.Element {
 
     return (
         <InquiryPageUI 
+        userEditInfo={userEditInfo}
         data={data}
-      page={page}
-      setPage={setPage}
-      openInquire={openInquire}
-      setOpenInquire={setOpenInquire}
-      selectCs={selectCs}
-      setSelectCs={setSelectCs}
-      refetch={refetch}/>
+        page={page}
+        setPage={setPage}
+        openInquire={openInquire}
+        setOpenInquire={setOpenInquire}
+        selectCs={selectCs}
+        setSelectCs={setSelectCs}
+        refetch={refetch}
+        />
     )
 }
 

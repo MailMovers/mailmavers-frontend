@@ -5,8 +5,9 @@ import { Pagination } from 'antd';
 
 import InquireDetailPopup from '@/components/mypage/InquireDetailPopup';
 import InquirePopup from '@/components/mypage/InquirePopup';
+import { IInquiryProps } from './Inquiry.types';
 
-export default function InquiryPageUI(props: any): JSX.Element {
+export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
     return (
         <S.Wrap>
           <S.Header>
@@ -22,7 +23,7 @@ export default function InquiryPageUI(props: any): JSX.Element {
                 </S.TitleWrap>
 
                 <S.CardContainer>
-                  {props.data &&
+                  {props.data ?
                     props.data.csList.map((csInfo: any) => {
                       return (
                         <S.CardWrap
@@ -44,7 +45,8 @@ export default function InquiryPageUI(props: any): JSX.Element {
                           </div>
                         </S.CardWrap>
                       );
-                    })}
+                    })
+                    : <S.EmptyMessage>작성하신 문의가 없습니다.</S.EmptyMessage>}
                 </S.CardContainer>
               </S.InfoWrap>
             </S.InfoContaier>

@@ -5,6 +5,11 @@ export const Wrap = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    margin-top: 60px;
+    margin-bottom: 50px;
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -183,5 +188,20 @@ export const CardInfoContent = styled.div`
       display: flex;
       gap: 20px;
     }
+  }
+`;
+
+export const EmptyMessage = styled.div`
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #999;
+  margin: 50px 0;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    height: 200px;
   }
 `;

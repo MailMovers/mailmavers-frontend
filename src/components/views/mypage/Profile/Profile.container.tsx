@@ -46,7 +46,6 @@ export default function ProfilePageContainer ():JSX.Element {
       }
     );
   
-
   const userInfo = useRecoilValue(userInfoAtom);
 
   const [userEditInfo, setUserEditInfo] = useState<TUserInfo>(DEFAULT_INFO);

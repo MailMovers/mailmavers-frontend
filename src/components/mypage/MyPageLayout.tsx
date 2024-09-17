@@ -39,7 +39,7 @@ const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
             <S.PageContainer>
                 <S.PageWrapper>
                 <S.PageContent
-                  selected={pathname === '/mypage/profile'}
+                  selected={pathname === '/mypage/profile' || pathname === '/mypage'}
                   onClick={() => movePage('/mypage/profile')}
                 >
                   내 정보 관리

@@ -7,6 +7,11 @@ export const Wrap = styled.form`
   justify-content: center;
   align-items: center;
   padding-bottom: 50px;
+
+  @media (max-width:768px) {
+    margin-top: 60px;
+    margin-bottom: 50px;
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -127,6 +132,12 @@ export const TitleWrap = styled.div`
   .anticon {
     cursor: pointer;
   }
+
+  @media (max-width: 768px) {
+    span {
+      font-size: 12px;
+    }
+  }
 `;
 
 export const CardContainer = styled.div`
@@ -162,5 +173,20 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
     width: 40px;
     text-align: center;
     cursor: pointer;
+  }
+`;
+
+export const EmptyMessage = styled.div`
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #999;
+  margin: 100px 0 0 0;
+
+  @media (max-width: 768px) {
+    height: 50px;
+    font-size: 12px;
   }
 `;

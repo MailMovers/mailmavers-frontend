@@ -11,8 +11,9 @@ export const Wrap = styled.div`
 
   gap: 10px;
 
-  @media (max-width: 480px) {
-    max-width: 400px;
+  @media (max-width: 768px) {
+    margin-top: 60px;
+    margin-bottom: 50px;
   }
 `;
 
@@ -244,5 +245,20 @@ export const InquireBtn = styled.div`
       color: #fff;
       font-size: 30px;
     }
+  }
+`;
+
+export const EmptyMessage = styled.div`
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #999;
+  margin: 50px 0;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    height: 200px;
   }
 `;

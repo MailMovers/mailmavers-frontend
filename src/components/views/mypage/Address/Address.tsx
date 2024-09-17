@@ -238,6 +238,9 @@ export default function Address(props: any): JSX.Element {
               </S.CardContainer>
             </S.InfoWrap>
           </S.Content>
+          {sendList && receiveList && sendList.length === 0 && receiveList.length === 0 && (
+        <S.EmptyMessage>등록하신 주소가 없습니다.</S.EmptyMessage>
+      )}      
       </S.Wrap>
     </>
   );

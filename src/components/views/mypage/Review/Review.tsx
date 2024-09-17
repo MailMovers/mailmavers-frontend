@@ -45,7 +45,7 @@ export default function ReviewPage() {
         </S.TitleContainer>
         <S.Content>
           <S.CardContainer>
-            {data &&
+            {data ?
               data.getReviewList.map((review) => (
                 <S.CardWrap key={`${review.reviewId}`}>
                   <S.CardInfoWrap>
@@ -79,14 +79,15 @@ export default function ReviewPage() {
                     />
                   </S.StatusContainer>
                 </S.CardWrap>
-              ))}
+              )) : <S.EmptyMessage>작성하신 리뷰가 없습니다.</S.EmptyMessage>}
           </S.CardContainer>
-      <Pagination
-        total={data ? Number(data?.count || 0) * 2 : 0}
-        current={page}
-        onChange={(value) => handlePage(value)}
-      />
-      </S.Content>
+          
+          <Pagination
+            total={data ? Number(data?.count || 0) * 2 : 0}
+            current={page}
+            onChange={(value) => handlePage(value)}
+          />
+        </S.Content>
     </S.Wrap>
   );
 }

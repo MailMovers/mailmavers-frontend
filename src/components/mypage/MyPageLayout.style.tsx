@@ -70,11 +70,12 @@ export const BodyWrap = styled.div`
   height: 100%;
   padding-bottom: 50px;
   margin-top: 30px;
+  border: 1px solid #e0e0e0;
   border-radius: 10px 10px 0 0;
-  border: 1px solid lightgray;
 
   @media (max-width: 768px) {
     width: 100%;
+    border: none;
   }
 
   @media (min-width: 768px) and (max-width: 1200px) {

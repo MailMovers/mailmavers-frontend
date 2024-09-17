@@ -1,70 +1,56 @@
-import { useEffect, useState } from 'react';
-import useSWRMutation from 'swr/mutation';
 import { useRecoilValue } from 'recoil';
-import { Modal } from 'antd';
-import { AxiosError } from 'axios';
-import { putPhone } from '@/api/mypage';
-
-import MyPageLayout from '@/components/mypage/MyPageLayout';
-import Loading from '@/components/common/Loading';
-
-import { userInfoAtom } from '@/recoil/mypage/atom';
-
-import type { ChangeEvent } from 'react';
-import type { TUserInfo } from '@/type/auth';
-import type { TResMsg } from '@/type/common';
-import type { TPhone } from '@/api/mypage';
-
 import * as S from './MyPageMain.styles';
-
-
-const DEFAULT_INFO: TUserInfo = {
-  name: '',
-  email: '',
-  phone: '',
-  created_at: '',
-};
-
-const regexNumber = /^[0-9]+$/;
-
+import ProfilePageContainer from './Profile/Profile.container';
+import { useMediaQuery } from 'react-responsive';
+import { userInfoAtom } from '@/recoil/mypage/atom';
+import { UserOutlined, MailOutlined, AlertOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router';
 
 
 export default function MyPageMain() {
-  const [modal, contextHolder] = Modal.useModal();
-
-  const { trigger, isMutating } = useSWRMutation(
-    '/user/update-phone',
-    putPhone,
-    {
-      onSuccess: (res) => {
-        modal.success({
-          title: '정보 변경 완료',
-          content: '정보를 변경하였습니다.',
-        });
-        setUserEditInfo({ ...DEFAULT_INFO, ...userInfo });
-      },
-      onError: (res: AxiosError<TResMsg>) => {
-        modal.error({
-          title: '정보 변경 실패',
-          content: res.response?.data.message,
-        });
-        setMsgError(
-          res.response?.data.message || '예상치 못한 에러가 발생했습니다.'
-        );
-      },
-    }
-  );
-
+ const router = useRouter();
+  
+  const mobile = useMediaQuery({ query: '(max-width: 768px)' });
   const userInfo = useRecoilValue(userInfoAtom);
 
-  const [userEditInfo, setUserEditInfo] = useState<TUserInfo>(DEFAULT_INFO);
-  const [msgError, setMsgError] = useState<string>('');
+  const onClickMenu = (path: string) => {
+    router.push(path);
+  }
 
   return (
     <>
-      {contextHolder}
-      <Loading spinning={isMutating} />
-      
+    {mobile ?
+    <S.MobileWrapper>
+      <S.HeaderContainer>
+        <S.HeaderTitle>{userInfo?.name}테스트 님 안녕하세요!</S.HeaderTitle>
+      </S.HeaderContainer>
+      <S.MenuWrapper>
+        <S.MenuContainer>
+          <S.MenuTitle><UserOutlined /> 계정 관리</S.MenuTitle>
+          <S.MenuItem onClick={() => onClickMenu('/mypage/profile')}>내 정보 관리</S.MenuItem>
+          <S.MenuItem onClick={() => onClickMenu('/mypage/password')}>비밀번호 변경</S.MenuItem>
+        </S.MenuContainer>
+        <S.MenuContainer>
+          <S.MenuTitle><MailOutlined /> 내 주문 관리</S.MenuTitle>
+          <S.MenuItem onClick={() => onClickMenu('/mypage/address')}>내 주소 관리</S.MenuItem>
+          <S.MenuItem onClick={() => onClickMenu('/mypage/history')}>보낸 편지 내역</S.MenuItem>
+          <S.MenuItem onClick={() => onClickMenu('/mypage/payment')}>포인트 내역</S.MenuItem>
+          <S.MenuItem onClick={() => onClickMenu('/mypage/review')}>내 후기</S.MenuItem>
+        </S.MenuContainer>
+        <S.MenuContainer>
+          <S.MenuTitle><AlertOutlined /> 고객센터</S.MenuTitle>
+          <S.MenuItem>공지사항</S.MenuItem>
+          <S.MenuItem>자주 묻는 질문</S.MenuItem>
+          <S.MenuItem onClick={() => onClickMenu('/mypage/inquiry')}>1:1 문의</S.MenuItem>
+        </S.MenuContainer>
+      </S.MenuWrapper>
+    </S.MobileWrapper>
+    :
+    <S.Wrapper>
+      <ProfilePageContainer />
+    </S.Wrapper>
+     }
+     
     </>
   );
 }

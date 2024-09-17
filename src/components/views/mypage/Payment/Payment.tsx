@@ -25,7 +25,7 @@ export default function Payment() {
     <S.Wrap>
       <S.TitleContainer>
         <S.Title>안녕하세요! 테스트 님,</S.Title>
-        <S.SubTitle>이곳은 <S.TitleContent>적립 내역</S.TitleContent> 입니다.</S.SubTitle>
+        <S.SubTitle>이곳은 <S.TitleContent>포인트 내역</S.TitleContent> 입니다.</S.SubTitle>
       </S.TitleContainer>
       <S.Content>
         <S.CardContainer>
@@ -58,6 +58,7 @@ export default function Payment() {
           ))}
         </S.CardContainer>
       </S.Content>
+        <S.EmptyMessage>적립 또는 사용한 포인트 내역이 없습니다.</S.EmptyMessage>
     </S.Wrap>
   );
 }
