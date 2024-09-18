@@ -1,124 +1,51 @@
 import styled from '@emotion/styled';
+import { Common } from 'styles/common';
 
-export const Wrap = styled.form`
-  width: 100%;
-  display: flex;
-  justify-content: center;
+export const Wrapper = styled.div`
+
+@media (max-width: 768px) {
+  display: none;
+}
 `;
 
-export const Content = styled.div`
+
+export const MobileWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 26px;
-  padding-bottom: 15px;
-
-  p {
-    color: var(--default, #333);
-    font-size: 26px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-
-  @media (max-width: 480px) {
-    border: none;
-    box-shadow: none;
-  }
-`;
-
-export const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  margin-top: 70px;
+  padding: 0 20px;
   gap: 20px;
-  margin-top: 10px;
 `;
 
-export const InputContent = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 17px;
+export const HeaderContainer = styled.div`
+  border-bottom: 1px solid black;
+  padding: 10px 0;
+`
 
-  span {
-    width: 90px;
-    color: var(--default, #333);
-    font-size: 16px;
-    font-weight: 400;
+export const MenuWrapper = styled.div`
 
-    @media (max-width: 480px) {
-      width: 80px;
-    }
-  }
+`
 
-  input {
-    padding: 13px 0 13px 10px;
-    width: 100%;
-    height: 50px;
-    border-radius: 5px;
-    border: 1px solid var(--greyD9, #d9d9d9);
-    outline: none;
+export const MenuContainer = styled.div`
+  border-bottom: 1px dashed lightgray;
+  padding: 10px 0;
+`
+export const HeaderTitle = styled.h2`
+font-weight: 700;
+font-size: 20px;
+margin-bottom: 10px;
+color: ${Common.colors.theme};
+`
 
-    @media (max-width: 480px) {
-      width: 200px;
-    }
-  }
+export const MenuTitle = styled.p`
+font-weight: 700;
+font-size: 18px;
+margin-bottom: 8px;
+color: ${Common.colors.yellow};
+`
 
-  .info {
-    padding: 13px 0 13px 10px;
-    width: 280px;
-    height: 50px;
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--default, #000);
-
-    @media (max-width: 480px) {
-      font-size: 16px;
-      width: 200px;
-    }
-  }
-`;
-
-export const Button = styled.button`
-  width: 100%;
-  height: 50px;
-  border-radius: 5px;
-  background: var(--primary, #4a743c);
-  color: var(--white, #fff);
+export const MenuItem = styled.p`
   font-size: 16px;
-  font-weight: 500;
-  margin-top: 25px;
-
-  @media (max-width: 480px) {
-    width: 300px;
-  }
-`;
-
-export const ErrorWrap = styled.div`
-  width: 100%;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  font-size: 12px;
-  color: red;
-`;
-
-export const EditBtn = styled.div`
-  width: 20%;
-  height: 40px;
-  border-radius: 5px;
-  background: var(--primary, #4a743c);
-  padding: 3px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--white, #fff);
-  font-size: 12px;
-  font-weight: 500;
-
-  :hover {
-    cursor: pointer;
-  }
-`;
-
+  margin-bottom: 5px;
+`
 
