@@ -6,7 +6,6 @@ import { useRecoilValue } from 'recoil';
 import { Modal } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
-import MyPageLayout from '@/components/mypage/MyPageLayout';
 import { tokenAtom } from '@/recoil/auth/atom';
 
 import {
@@ -23,7 +22,7 @@ import * as S from './Address.styles';
 
 const { confirm } = Modal;
 
-export default function Address() {
+export default function Address(props: any): JSX.Element {
   const [modal, contextHolder] = Modal.useModal();
 
   const token = useRecoilValue(tokenAtom);
@@ -35,10 +34,10 @@ export default function Address() {
     () => (!!token ? 'address/send' : null),
     getSendAddrList,
     {
-      fallbackData: [],
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      revalidateOnMount: true,
+      fallbackData: [], // 데이터 로드전 빈배열이 기본값
+      revalidateOnFocus: false, // 포커스 재활성화 시 재검증 X
+      revalidateOnReconnect: false, // 네트워크 재연결 시 재검증 X
+      revalidateOnMount: true, // 컴포넌트 마운트 시 재검증 O
     }
   );
 
@@ -156,15 +155,17 @@ export default function Address() {
   const isMaxReceiveList = receiveList && receiveList.length > 3;
 
   return (
-    <MyPageLayout>
+    <>
       {contextHolder}
       <S.Wrap>
-        <S.Content>
-          <p>주소관리</p>
-          <S.InfoContaier>
-            <S.InfoWrap>
-              <S.TitleWrap>
-                <span>보내는 사람 (총 {sendList?.length || 0}개)</span>
+          <S.TitleContainer>
+            <S.Title>안녕하세요! {props.userEditInfo?.name} 테스트 님,</S.Title>
+            <S.SubTitle>이곳은 <S.TitleContent>주소 관리</S.TitleContent> 입니다.</S.SubTitle>
+          </S.TitleContainer>
+          <S.Content>
+          <S.InfoWrap>
+            <S.TitleWrap>
+              <span>보내는 사람 (총 {sendList?.length || 0}개)</span>
 
                 {isMaxSendList && isShowSend ? (
                   <UpOutlined onClick={() => setIsShowSend(false)} />
@@ -236,9 +237,11 @@ export default function Address() {
                 })}
               </S.CardContainer>
             </S.InfoWrap>
-          </S.InfoContaier>
-        </S.Content>
+          </S.Content>
+          {sendList && receiveList && sendList.length === 0 && receiveList.length === 0 && (
+        <S.EmptyMessage>등록하신 주소가 없습니다.</S.EmptyMessage>
+      )}      
       </S.Wrap>
-    </MyPageLayout>
+    </>
   );
 }
