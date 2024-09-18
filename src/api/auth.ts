@@ -8,6 +8,7 @@ export function kakaoSocailLogin() {
 
 export function naverSocailLogin() {
   window.location.href = `${process.env.NEXT_PUBLIC_API_HOST}user/naver`;// 테스트
+  
 }
 
 export function postUserLogin(email: string, password: string) {
@@ -19,7 +20,8 @@ export function postUserSignup(
   email: string,
   phone: string,
   password: string,
-  passwordCheck: string
+  passwordCheck: string,
+  isMarketingAgree: boolean
 ) {
   return axios.post('/user/signup', {
     name,
@@ -27,6 +29,7 @@ export function postUserSignup(
     phone,
     password,
     passwordCheck,
+    isMarketingAgree,
   });
 }
 

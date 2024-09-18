@@ -10,7 +10,7 @@ export type FAQCategory = {
     id: string;
     category: string;
     question: string;
-    tags: string[];
+    answer: string[];
   };
   export interface ISearchbarsProps {
     onChangeSearchbar: (event: ChangeEvent<HTMLInputElement>) => void;

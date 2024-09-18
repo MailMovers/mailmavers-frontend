@@ -13,12 +13,13 @@ export const Frame = styled.div`
 
   @media all and (max-width: 768px) {
     background-color: #fffff0;
+    height: auto;
     position: fixed;
     top: 0;
     z-index: 10;
     width: 100%;
     justify-content: space-between;
-    padding: 0 1.5em;
+    padding: 15px;
   }
 `;
 

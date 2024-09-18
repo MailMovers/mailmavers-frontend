@@ -10,7 +10,7 @@ import { Common } from 'styles/common';
 const AddressList = (props: { clickModal: any; subTitle: string }) => {
   const { clickModal, subTitle } = props;
   const receiver = subTitle === '받는 사람';
-  const token = useRecoilValue<{ accessToken: string; refreshToken: string } | null>(tokenAtom);
+  const token = useRecoilValue(tokenAtom);
 
   const url = receiver
     ? `${process.env.NEXT_PUBLIC_API_HOST}address/delivery`

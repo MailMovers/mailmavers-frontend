@@ -1,13 +1,16 @@
 import { atom } from 'recoil';
 
-export interface TokenState {
-  accessToken: string;
-  refreshToken: string;
+interface TokenState {
+  accessToken: string | null;
+  refreshToken: string | null;
 }
 
-export const tokenAtom = atom<TokenState | null>({
-  key: 'tokenAtom',
-  default: null,
+export const tokenAtom = atom<TokenState>({
+  key: 'tokenState',
+  default: {
+    accessToken: null,
+    refreshToken: null,
+  },
 });
 
 if (module.hot) {

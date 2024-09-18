@@ -72,10 +72,8 @@ export const FAQQuestion = styled.p`
   font-weight: bold;
   margin-bottom: 10px;  
   padding: 20px ;
-
   
   @media (max-width: 768px) {
-
     padding: 5;
   }
 `;
@@ -93,18 +91,6 @@ export const FAQTags = styled.div`
   }
 `;
 
-export const FAQTag = styled.span`
-  background-color: ${Common.colors.yellow};
-  padding: 6px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  color: ${Common.colors.white};
-
-  @media (max-width: 768px) {
-    font-size: 10px;
-    padding: 3.5px;
-  }
-`;
 
 export const Title = styled.h1` 
     font-size: ${Common.fontSize.fs28};
@@ -148,17 +134,28 @@ export const InfoWrapper = styled.div`
 
 `
 
-export const InfoText = styled.text`
+export const FAQIcon = styled.div`
+  background-color:  ${Common.colors.yellow};
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 14px;
+`;
 
+export const FAQTitle = styled.div`
+  padding: 20px;
+  color: ${Common.colors.white};
 `
 
-export const InfoIcon = styled.img`
-
-`
-
-export const InfoDescription = styled.text`
-`
-
-export const InfoBtn = styled.button`
+export const FAQAnswer = styled.p`
+    font-weight: 300;
+    padding: 10px;
+    margin-left: 40px;
+    text-align: start;
 
 `

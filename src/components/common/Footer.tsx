@@ -66,11 +66,14 @@ const Footer = () => {
 export default Footer;
 
 const Frame = styled.div`
+  width: 1200px;
   border-top: 1px solid #f3f3f3;
+  background-color: ${Common.colors.gray03};
   margin-top: 150px;
-  padding: 16px 0 80px 0;
-  margin-left: 20px;
-  width:100%;
+  padding-top: 40px;
+  margin: 0 auto;
+
+
 
   @media all and (min-width: 1200px) {
     min-width: 1200px;
@@ -113,6 +116,12 @@ const footerContent = css`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  padding-left: 30px;
+
+  @media all and (max-width: 767px) {
+    padding-left: 0px;
+    padding-bottom: 20px;
+  }
 
   .category {
     display: flex;
@@ -122,6 +131,7 @@ const footerContent = css`
     @media all and (min-width: 1200px),
       all and (min-width: 768px) and (max-width: 1199px) {
       gap: 1.25em;
+
     }
 
     @media all and (max-width: 767px) {

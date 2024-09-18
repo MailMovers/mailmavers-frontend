@@ -27,3 +27,5 @@ export interface MainPageUIProps {
   items: Item[];
   isActive: boolean;
 };
+
+
