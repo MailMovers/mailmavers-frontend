@@ -1,35 +1,10 @@
 import { useRouter, usePathname } from 'next/navigation';
-import useSWR from 'swr';
-import { useRecoilState, useRecoilValue } from 'recoil';
-
-import { getUserInfo } from '@/api/auth';
-import { tokenAtom } from '@/recoil/auth/atom';
-import { userInfoAtom } from '@/recoil/mypage/atom';
-import type { TUserInfo } from '@/type/auth';
 
 import * as S from './MyPageLayout.style';
 
 const MyPageLayout = ({ children }: { children?: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
-
-  // const token = useRecoilValue<{ accessToken: string; refreshToken: string } | null>(tokenAtom);
-  // const [userInfo, setUserInfo] = useRecoilState<TUserInfo | null>(userInfoAtom);
-
-  // useSWR<TUserInfo | null>(
-  //   () => (!!token && !userInfo ? 'getUserInfo' : null),
-  //   getUserInfo,
-  //   {
-  //     fallbackData: null,
-  //     revalidateOnFocus: false,
-  //     revalidateOnReconnect: false,
-  //     onSuccess: (data: TUserInfo | null) => {
-  //       if (data) {
-  //         setUserInfo(data);
-  //       }
-  //     },
-  //   }
-  // );
 
   const movePage = (path: string) => router.push(path);
   return (
