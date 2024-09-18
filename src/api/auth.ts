@@ -47,7 +47,7 @@ export function postEmailAuthenticationNumber(
 }
 
 export function postUserEmailCheck(email: string) {
-  return axios.post('/user/email-check', { email });
+  return axios.post('/users/email-duplicate-check', { email });
 }
 
 export function googleSocailLogin() {
