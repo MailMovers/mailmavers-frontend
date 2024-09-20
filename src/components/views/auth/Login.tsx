@@ -28,7 +28,7 @@ export default function LoginPage() {
 
   const [token, setTokenState] = useRecoilState(tokenAtom);
 
-  const { data: user } = useSWR(`${process.env.NEXT_PUBLIC_API_HOST}user/info`);
+  // const { data: user } = useSWR(`${process.env.NEXT_PUBLIC_API_HOST}user/info`);
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -69,11 +69,10 @@ export default function LoginPage() {
     [email, password]
   );
 
-  console.log('user', user);
-  if (user) {
-    router.push('/');
-    return;
-  }
+  // if (user) {
+  //   router.push('/');
+  //   return;
+  // }
 
   return (
     <S.Layout>
