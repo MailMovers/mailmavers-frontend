@@ -12,7 +12,7 @@ export function naverSocailLogin() {
 }
 
 export function postUserLogin(email: string, password: string) {
-  return axios.post('/user/signin', { email, password });
+  return axios.post('/auth/login', { email, password });
 }
 
 export function postUserSignup(
@@ -23,7 +23,7 @@ export function postUserSignup(
   passwordCheck: string,
   isMarketingAgree: boolean
 ) {
-  return axios.post('/user/signup', {
+  return axios.post('/users/sign-up', {
     name,
     email,
     phone,

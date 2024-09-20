@@ -61,7 +61,6 @@ export default function SignUpContainer() {
       setIsMarketingAgree(false);
     }
   }, [checkList]);
-  console.log(isMarketingAgree);
 
   // 이메일 형식 확인기능 / 에러메세지
   const checkEmail = (email: string) => {

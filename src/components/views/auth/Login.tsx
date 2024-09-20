@@ -50,6 +50,7 @@ export default function LoginPage() {
             const { accessToken, refreshToken } = res.data;
             setToken(accessToken, refreshToken);
             setTokenState({ accessToken, refreshToken });
+            console.log(res.status);
 
             if (localStorage.getItem('상세페이지에서로그인') === 'true') {
               localStorage.removeItem('상세페이지에서로그인');
@@ -58,6 +59,7 @@ export default function LoginPage() {
             } else {
               router.push('/');
             }
+            return;
           }
         })
         .catch((error) => {
@@ -68,10 +70,10 @@ export default function LoginPage() {
     [email, password]
   );
 
-  if (user) {
-    // router.push('/');
-    return;
-  }
+  // if (user) {
+  //   // router.push('/');
+  //   return;
+  // }
 
   return (
     <S.Layout>
