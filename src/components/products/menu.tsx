@@ -1,3 +1,4 @@
+
 import * as S from "./style/productsList.styles";
 import * as SM from './style/menubar.styles';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -82,7 +83,7 @@ export default function ProductList(props: PProductListProps) {
       >
         <S.ProductList>
           {items.map((product: Item) => (
-            <S.ProductCard key={product.id }>
+            <S.ProductCard key={product.id}>
               <S.ProductImage src={product.productImage}/>
               <S.ProductInfo>
                 <S.ProductName>{product.productTitle}</S.ProductName>

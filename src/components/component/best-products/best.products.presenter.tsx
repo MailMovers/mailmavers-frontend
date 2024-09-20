@@ -66,7 +66,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
             ))}
           </S.MenuList>
           <S.ViewBestProductsListButtonWrapper>
-            <S.ViewBestProductsListButton onClick={onClickMoveToPage("/products")}>
+            <S.ViewBestProductsListButton onClick={onClickMoveToPage("/product/list")}>
               전체보기 
               <S.AddIcon src={icon.add} alt='추가' />
             </S.ViewBestProductsListButton>
@@ -86,7 +86,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
           />
         </S.BestProductList>
       </S.BesProductListWrapper>
-      {isMobile && <S.AddButton onClick={onClickMoveToPage("/products")}>더 보기</S.AddButton>}
+      {isMobile && <S.AddButton onClick={onClickMoveToPage("/product/list")}>더 보기</S.AddButton>}
     </S.ContainerWrapper>
   );
 }
