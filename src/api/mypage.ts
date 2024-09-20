@@ -43,7 +43,7 @@ export const putPhone = async (
   params: { arg: TPhone }
 ): Promise<TResMsg> => {
   const res: AxiosResponse<TResMsg> = await axios.post(
-    `/user/update-phone`,
+    `/mypage`,
     params.arg
   );
 

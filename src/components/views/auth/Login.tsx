@@ -46,7 +46,7 @@ export default function LoginPage() {
 
       postUserLogin(email, password)
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === 201) {
             const { accessToken, refreshToken } = res.data;
             setToken(accessToken, refreshToken);
             setTokenState({ accessToken, refreshToken });

@@ -9,4 +9,5 @@ export interface IProfileProps {
   onSubmit: () => void;
   msgError: string;
   movePasswordChange: () => void;
+  userInfo: TUserInfo | null;
 }

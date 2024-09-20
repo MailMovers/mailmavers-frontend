@@ -33,6 +33,7 @@ export default function HeaderContainer() {
     }
   );
 
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (!token) {

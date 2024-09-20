@@ -8,11 +8,10 @@ export function kakaoSocailLogin() {
 
 export function naverSocailLogin() {
   window.location.href = `${process.env.NEXT_PUBLIC_API_HOST}user/naver`;// 테스트
-  
 }
 
 export function postUserLogin(email: string, password: string) {
-  return axios.post('/user/signin', { email, password });
+  return axios.post('/auth/login', { email, password });
 }
 
 export function postUserSignup(
@@ -54,12 +53,16 @@ export function googleSocailLogin() {
   window.location.href = `${process.env.NEXT_PUBLIC_API_HOST}user/google`;
 }
 
-type TResult = {
-  success: boolean;
+export type TResult = {
   userInfo: TUserInfo;
 };
 
 export const getUserInfo = async (): Promise<TUserInfo | null> => {
-  const res: AxiosResponse<TResult> = await axios.get('/user/info');
-  return res.data.success ? res.data.userInfo : null;
+  try {
+    const res: AxiosResponse<TUserInfo> = await axios.get('/mypage/info');
+    return res.data
+  } catch (error) {
+    console.error("getUserInfo error:", error);
+    return null;
+  }
 };

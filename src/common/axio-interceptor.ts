@@ -9,13 +9,13 @@ const setToken = (accessToken: string, refreshToken: string) => {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
   axios.defaults.headers['Authorization'] = 'Bearer ' + accessToken;
 
-  LocalStorage.setItem('accessToken', accessToken);
-  LocalStorage.setItem('refreshToken', refreshToken);
+  window.localStorage.setItem('accessToken', accessToken);
+  window.localStorage.setItem('refreshToken', refreshToken);
 };
 
 const removeToken = async () => {
-  LocalStorage.removeItem('accessToken');
-  LocalStorage.removeItem('refreshToken');
+  window.localStorage.removeItem('accessToken');
+  window.localStorage.removeItem('refreshToken');
 
   axios.defaults.headers.common['Authorization'] = 'Bearer ';
   axios.defaults.headers['Authorization'] = 'Bearer ';
@@ -24,12 +24,11 @@ const removeToken = async () => {
 const initAxios = (tokenInfo?: TToken) => {
   axios.defaults.headers.common['Authorization'] =
     'Bearer ' + tokenInfo?.accessToken;
-  axios.defaults.headers['Authorization'] = 'Bearer ' + tokenInfo?.accessToken;
+  axios.defaults.headers['Authorization'] = 'Bearer ' + window.localStorage.getItem('accessToken');
 };
 
 axios.interceptors.request.use(
   (request) => {
-    // request.headers.Authorization = `Bearer ${tokenInfo?.accessToken}`;
     return request;
   },
   (error) => {
