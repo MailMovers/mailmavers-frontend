@@ -4,6 +4,8 @@ import { CloseOutlined, MenuOutlined } from '@ant-design/icons';
 import * as S from './header.styles';
 import { MenuIcon } from './header.styles';
 import type { TUserInfo } from '@/type/auth';
+import { UserOutlined, MailOutlined, AlertOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router';
 
 interface HeaderPresenterProps {
   isOpenMenu: boolean;
@@ -63,20 +65,40 @@ export default function HeaderPresenter({ isOpenMenu, setIsOpenMenu, userInfo, m
           <S.MoblileBody>
             {userInfo ? (
               <>
-                <S.MyInfo>{userInfo.name}님, 안녕하세요.</S.MyInfo>
-                <S.Menu onClick={() => movePage('/mypage')}>내 정보 관리</S.Menu>
-                <S.Menu onClick={() => movePage('/mypage/password')}>비밀번호 관리</S.Menu>
-                <S.Menu onClick={() => movePage('/mypage/address')}>주소관리</S.Menu>
-                <S.Menu onClick={() => movePage('/mypage/history')}>보낸 편지 내역</S.Menu>
-                <S.Menu onClick={() => movePage('/mypage/review')}>내 후기</S.Menu>
-                <S.Menu onClick={() => movePage('/mypage/inquiry')}>내 1:1 문의</S.Menu>
-                <S.Menu onClick={() => movePage('/mypage/payment')}>포인트 내역</S.Menu>
-                <S.Menu onClick={() => movePage('/logout')}>로그아웃</S.Menu>
+                 <S.MobileWrapper>
+                  <S.HeaderContainer>
+                    <S.HeaderTitle>{userInfo?.name}테스트 님 안녕하세요!</S.HeaderTitle>
+                  </S.HeaderContainer>
+                  <S.MenuWrapper>
+                    <S.MenuContainer>
+                      <S.MenuTitle><UserOutlined /> 계정 관리</S.MenuTitle>
+                      <S.MenuItem onClick={() => movePage('/mypage/profile')}>내 정보 관리</S.MenuItem>
+                      <S.MenuItem onClick={() => movePage('/mypage/password')}>비밀번호 변경</S.MenuItem>
+                    </S.MenuContainer>
+                    <S.MenuContainer>
+                      <S.MenuTitle><MailOutlined /> 내 주문 관리</S.MenuTitle>
+                      <S.MenuItem onClick={() => movePage('/mypage/address')}>내 주소 관리</S.MenuItem>
+                      <S.MenuItem onClick={() => movePage('/mypage/history')}>보낸 편지 내역</S.MenuItem>
+                      <S.MenuItem onClick={() => movePage('/mypage/payment')}>포인트 내역</S.MenuItem>
+                      <S.MenuItem onClick={() => movePage('/mypage/review')}>내 후기</S.MenuItem>
+                    </S.MenuContainer>
+                    <S.MenuContainer>
+                      <S.MenuTitle><AlertOutlined /> 고객센터</S.MenuTitle>
+                      <S.MenuItem>공지사항</S.MenuItem>
+                      <S.MenuItem>자주 묻는 질문</S.MenuItem>
+                      <S.MenuItem onClick={() => movePage('/mypage/inquiry')}>1:1 문의</S.MenuItem>
+                    </S.MenuContainer>
+                    <S.MenuContainer>
+                      <S.MenuItem onClick={() => movePage('/logout')}>로그아웃</S.MenuItem>
+                    </S.MenuContainer>
+                  </S.MenuWrapper>
+                </S.MobileWrapper>
               </>
             ) : (
               <>
                 <S.Menu onClick={() => movePage('/signup')}>회원가입</S.Menu>
                 <S.Menu onClick={() => movePage('/login')}>로그인</S.Menu>
+                <S.Menu onClick={() => movePage('/product/list')}>상품</S.Menu>
               </>
             )}
           </S.MoblileBody>

@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 import { ChangeEvent, useEffect, useState } from "react";
 import { TUserInfo } from "@/type/auth";
 import { userInfoAtom } from "@/recoil/mypage/atom";
+import { useRouter } from "next/router";
 
 const DEFAULT_INFO: TUserInfo = {
     name: '',
@@ -20,6 +21,7 @@ const regexNumber = /^[0-9]+$/;
 
 export default function ProfilePageContainer ():JSX.Element {
     const [modal, contextHolder] = Modal.useModal();
+    const router = useRouter();
 
     const { trigger, isMutating } = useSWRMutation(
       '/user/update-phone',
@@ -44,11 +46,14 @@ export default function ProfilePageContainer ():JSX.Element {
       }
     );
   
-
   const userInfo = useRecoilValue(userInfoAtom);
 
   const [userEditInfo, setUserEditInfo] = useState<TUserInfo>(DEFAULT_INFO);
   const [msgError, setMsgError] = useState<string>('');
+
+  const movePasswordChange = () => {
+    router.push('/mypage/password');
+  }
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.value) {
@@ -60,7 +65,7 @@ export default function ProfilePageContainer ():JSX.Element {
     }
     return;
   };
-  
+
   const onSubmit = () => {
     if (!userEditInfo.phone) {
       setMsgError('전화번호를 입력해주세요.');
@@ -87,6 +92,7 @@ export default function ProfilePageContainer ():JSX.Element {
         handleInput = {handleInput}
         onSubmit = {onSubmit}
         msgError = {msgError}
+        movePasswordChange = {movePasswordChange}
         />
     )
 }

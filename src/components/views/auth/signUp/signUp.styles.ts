@@ -2,23 +2,33 @@ import styled from "@emotion/styled";
 import { Common } from "styles/common";
 
 export const Layout = styled.div`
+  width: 100%;
   height: 100%;
   background: ${Common.colors.white};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Container = styled.div`
   width: 550px;
   margin: auto;
-  margin-top: 20px;
+  margin-top: 30px;
   padding-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  //   border: 1px solid ${Common.colors.theme};
   border: 1px solid lightgray;
-
   border-radius: 10px;
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 80px 20px 20px 20px;
+    border-bottom: 1px solid ${Common.colors.gray02};
+    border-radius: 0;
+    box-shadow: none;
+  }
 `;
 
 export const Wrap = styled.div`

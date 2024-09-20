@@ -1,5 +1,10 @@
 import Payment from '@/components/views/mypage/Payment/Payment';
+import MyPageLayout from "@/components/mypage/MyPageLayout";
 
 export default function Page() {
-  return <Payment />;
+  return (
+    <MyPageLayout>
+      <Payment />
+    </MyPageLayout>
+  );
 }

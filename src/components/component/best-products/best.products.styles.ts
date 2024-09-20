@@ -40,7 +40,7 @@ export const ContainerWrapper = styled.div`
   align-items: center;
   margin: 0 auto;
   @media (max-width: 768px) {
-    padding: 0 20px;
+    margin: 0;
   }
 `;
 
@@ -52,7 +52,7 @@ export const TitleWrapper = styled.div`
   align-items: flex-start;
   @media (max-width: 768px) {
     width: 100%;
-    padding: 0 20px;
+    padding: 0 10px;
   }
 `;
 
@@ -67,7 +67,7 @@ export const Title = styled.div`
   font-weight: 700;
   @media (max-width: 768px) {
     font-size: ${Common.fontSize.fs20};
-    justify-content: center;
+    justify-content: flex-start;
     padding: 0;
   }
 `;
@@ -83,6 +83,7 @@ export const BesProductListWrapper = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     height: auto;
+    margin-bottom: 30px;
   }
 `;
 
@@ -111,7 +112,6 @@ export const ProductWrapper = styled.div`
   justify-content: center;
   align-items: center;
   @media (max-width: 768px) {
-    margin: 10;
   }
 `;
 
@@ -123,7 +123,7 @@ export const ProductImageWrapper = styled.div`
     display: flex;
     width: 100%;
     height: 180px; 
-    padding: 0
+    padding: 0;
   }
 `;
 
@@ -186,8 +186,8 @@ export const ViewBestProductsListButtonWrapper = styled.div`
   justify-content: flex-end;
   align-items: flex-end; 
   @media (max-width: 768px) {
-    display : none;
-}
+    display: none;
+  }
 `;
 
 export const ViewBestProductsListButton = styled.a`
@@ -197,7 +197,7 @@ export const ViewBestProductsListButton = styled.a`
   font-weight: 700;
   color: ${Common.colors.gray};
   @media (max-width: 768px) {
-
+    display: none;
   }
 `;
 
@@ -228,9 +228,9 @@ export const MenuItem = styled.li<{ isActive: boolean }>`
     color: ${Common.colors.white};
   }
   @media (max-width: 768px) {
-    width: 70px;
+    width: 100%;
     height: 40px;
-    font-size: ${Common.fontSize.fs12};
+    font-size: ${Common.fontSize.fs16};
     margin-bottom: 10px;
     text-align: center;
     align-items: center;
@@ -245,6 +245,9 @@ export const AddIcon = styled.img`
   object-fit: cover;
   font-size: ${Common.fontSize.fs10};
   font-weight: 200;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const FlexWrapper = styled.div`
@@ -252,4 +255,17 @@ export const FlexWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+export const AddButton = styled.button`
+  width: 150px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 20px;
+
+  :active {
+    background-color: ${Common.colors.yellow};
+    color: ${Common.colors.white};
+  }
 `;
