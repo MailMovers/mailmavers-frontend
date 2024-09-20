@@ -11,7 +11,7 @@ export function naverSocailLogin() {
 }
 
 export function postUserLogin(email: string, password: string) {
-  return axios.post('/user/signin', { email, password });
+  return axios.post('/auth/login', { email, password });
 }
 
 export function postUserSignup(

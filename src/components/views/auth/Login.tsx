@@ -46,10 +46,11 @@ export default function LoginPage() {
 
       postUserLogin(email, password)
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === 201) {
             const { accessToken, refreshToken } = res.data;
             setToken(accessToken, refreshToken);
             setTokenState({ accessToken, refreshToken });
+            console.log('로그인 성공');
 
             if (localStorage.getItem('상세페이지에서로그인') === 'true') {
               localStorage.removeItem('상세페이지에서로그인');
@@ -68,8 +69,9 @@ export default function LoginPage() {
     [email, password]
   );
 
+  console.log('user', user);
   if (user) {
-    // router.push('/');
+    router.push('/');
     return;
   }
 
