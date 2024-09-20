@@ -2,21 +2,18 @@ import styled from '@emotion/styled';
 import { Common } from "styles/common";
 
 export const Wrapper = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  
+  justify-content: center;
+  margin-bottom: 50px;
 `;
 
 export const Container = styled.div`
-  border: 1px solid #000;
-  padding: 10px;
-  height: 450px;
-  margin-left: 30px;
-  padding: 15px;
-`;
-
-export const TopContent = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const TopTitle = styled.div`
@@ -25,36 +22,66 @@ export const TopTitle = styled.div`
 `;
 
 export const PageContainer = styled.div`
+  width: 1200px;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 40px;
-  `;
+  flex-direction: row;
+  padding: 15px;
+  border-radius: 10px;
+  background-image: url('/images/bottom.SVG.png');
+  background-size: cover;
+  background-position: center;
+  margin-top: 10px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  @media (min-width: 768px) and (max-width: 1200px) {
+    width: 100%;
+  }
+`;
+
+export const PageWrapper = styled.div`
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const PageContent = styled.span<{ selected?: boolean }>`
-  width: 100%;
-  height: 30px;
   font-size: 18px;
   font-weight: 500;
-  color: ${({ selected }) => (selected ? '#63794d' : '#333')};
-  border-bottom: ${({ selected }) => (selected ? '2px solid #63794d' : '0')};
+  color: white;
+  border-bottom: ${({ selected }) => (selected ? '2px solid white' : '0')};
+  font-weight: ${({ selected }) => (selected ? '700' : '500')};
   cursor: pointer;
+  text-align: center;
 
   &:hover {
-  font-weight: 600;
+  font-weight: 700;
+  color: white;
   }
- `;
+`;
 
 export const BodyWrap = styled.div`
   width: 1200px;
-  height: 600px;
-  padding: 0;
-  margin: 0;
-  margin-right: 50px;
-  border: 1px solid lightgray;
+  height: 100%;
+  padding-bottom: 50px;
+  margin-top: 30px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px 10px 0 0;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    border: none;
+  }
+
+  @media (min-width: 768px) and (max-width: 1200px) {
+    width: 100%;
+  }
 `;
 
 export const BodyContent = styled.div`
-
-  padding: 20px;
 `;

@@ -44,7 +44,7 @@ const HistoryDetail = ({ id }: Params) => {
     () => (!!token && !!id ? '/history/detail' : null),
     () => getMyLetterHistoryDetail(id),
     {
-      fallbackData: undefined,
+      // fallbackData: null || undefined,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       revalidateOnMount: true,
