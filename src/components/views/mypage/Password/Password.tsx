@@ -42,7 +42,7 @@ export default function Password() {
   const router = useRouter();
 
   const { trigger, isMutating } = useSWRMutation(
-    'user/update-password',
+    'mypage/change-password',
     putPassword,
     {
       onSuccess: (res) => {
@@ -99,9 +99,10 @@ export default function Password() {
     }
 
     const params: TPwd = {
-      password: userEditInfo.password,
-      newPassword: userEditInfo.newPassword,
+      password: userEditInfo.newPassword,
     };
+
+
 
     trigger(params);
   };

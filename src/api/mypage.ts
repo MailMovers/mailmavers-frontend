@@ -21,14 +21,13 @@ interface TResultSendAddress {
 
 export type TPwd = {
   password: string;
-  newPassword: string;
 };
 export const putPassword = async (
   url: string,
   params: { arg: TPwd }
 ): Promise<TResMsg> => {
   const res: AxiosResponse<TResMsg> = await instance.post(
-    `user/update-password`,
+    `mypage/change-password`,
     params.arg
 
   );
