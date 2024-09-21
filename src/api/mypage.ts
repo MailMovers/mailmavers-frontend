@@ -1,4 +1,4 @@
-import axios from 'axios';
+import instance from '@/common/axio-interceptor';
 import type { TSendInfo, TReceiveInfo } from '@/type/address';
 import type { TResMsg } from '@/type/common';
 import type { AxiosResponse } from 'axios';
@@ -27,9 +27,10 @@ export const putPassword = async (
   url: string,
   params: { arg: TPwd }
 ): Promise<TResMsg> => {
-  const res: AxiosResponse<TResMsg> = await axios.post(
+  const res: AxiosResponse<TResMsg> = await instance.post(
     `user/update-password`,
     params.arg
+
   );
 
   return res.data;
@@ -42,18 +43,21 @@ export const putPhone = async (
   url: string,
   params: { arg: TPhone }
 ): Promise<TResMsg> => {
-  const res: AxiosResponse<TResMsg> = await axios.post(
+  const res: AxiosResponse<TResMsg> = await instance.post(
     `/mypage`,
     params.arg
+
   );
 
   return res.data;
 };
 
 export const getSendAddrList = async (): Promise<TSendInfo[]> => {
-  const res: AxiosResponse<TResultSendAddress> = await axios.get(
+  const res: AxiosResponse<TResultSendAddress> = await instance.get(
     `address/send`
   );
+
+
 
   return res.data.data || [];
 };
@@ -64,9 +68,10 @@ interface TResultReceiveAddress {
 }
 
 export const getReceiveAddrList = async (): Promise<TReceiveInfo[]> => {
-  const res: AxiosResponse<TResultReceiveAddress> = await axios.get(
+  const res: AxiosResponse<TResultReceiveAddress> = await instance.get(
     `address/delivery`
   );
+
 
   return res.data.data;
 };
@@ -83,9 +88,10 @@ export const delReceiveAddr = async (
   param: { arg: TParamRec }
 ): Promise<string> => {
   const params = { deliveryAddressId: param.arg.deliveryAddressId };
-  const res: AxiosResponse<TResonse> = await axios.post(
+  const res: AxiosResponse<TResonse> = await instance.post(
     `address/delete`,
     params
+
   );
 
   return res.data.message;
@@ -101,9 +107,10 @@ export const delSendAddr = async (
 ): Promise<string> => {
   const params = { sendAddressId: param.arg.sendAddressId };
 
-  const res: AxiosResponse<TResonse> = await axios.post(
+  const res: AxiosResponse<TResonse> = await instance.post(
     `address/delete/send`,
     params
+
   );
   return res.data.message;
 };
@@ -115,9 +122,10 @@ export const postCs = async (
   param: { arg: TCs }
 ): Promise<TResMsg> => {
   const params = { content: param.arg.content, title: param.arg.title };
-  const res: AxiosResponse<TResMsg> = await axios.post('/cs/', params);
+  const res: AxiosResponse<TResMsg> = await instance.post('/cs/', params);
   return res.data;
 };
+
 
 export type TCsListResult = {
   csList: TCsInfo[];
@@ -129,9 +137,10 @@ interface TResultCsInfoList {
 }
 
 export const getCsList = async (page: string): Promise<TCsListResult> => {
-  const res: AxiosResponse<TResultCsInfoList> = await axios.get(`/cs/?page=1`);
+  const res: AxiosResponse<TResultCsInfoList> = await instance.get(`/cs/?page=1`);
 
   return res.data.data || [];
+
 };
 
 interface TResultCsDetail {
@@ -140,9 +149,10 @@ interface TResultCsDetail {
 }
 
 export const getCsDetail = async (id: number): Promise<TCsInfoDetail> => {
-  const res: AxiosResponse<TResultCsDetail> = await axios.get(
+  const res: AxiosResponse<TResultCsDetail> = await instance.get(
     `/cs/detail?customerServiceId=${id}`
   );
+
 
   return res.data.data;
 };
@@ -153,9 +163,10 @@ interface TResultMyReivewList {
 }
 
 export const getMyReivewList = async (page: number): Promise<TMyReiview> => {
-  const res: AxiosResponse<TResultMyReivewList> = await axios.get(
+  const res: AxiosResponse<TResultMyReivewList> = await instance.get(
     `/product/myReviews?page=${page} `
   );
+
 
   return res.data.data || [];
 };
@@ -169,9 +180,10 @@ export const delMyReview = async (
   url: string,
   params: { arg: TParamDelRv }
 ): Promise<string> => {
-  const res: AxiosResponse<TResonse> = await axios.post(
+  const res: AxiosResponse<TResonse> = await instance.post(
     `product/deleteReview`,
     params.arg
+
   );
   return res.data.message;
 };
@@ -182,9 +194,10 @@ interface TResultMyLetterHistory {
 }
 
 export const getMyLetterHistory = async (): Promise<TMyLetter[]> => {
-  const res: AxiosResponse<TResultMyLetterHistory> = await axios.get(
+  const res: AxiosResponse<TResultMyLetterHistory> = await instance.get(
     `letter/history`
   );
+
   return res.data.data || [];
 };
 
@@ -205,16 +218,18 @@ interface TResultMyLetterHistoryDetail {
 export const getMyLetterHistoryDetail = async (
   letterId: string
 ): Promise<THistoryDetail> => {
-  const res: AxiosResponse<TResultMyLetterHistoryDetail> = await axios.get(
+  const res: AxiosResponse<TResultMyLetterHistoryDetail> = await instance.get(
     `letter/history?letterId=${letterId}`
   );
+
   return res.data.data;
 };
 
 export const getMyPayments = async (): Promise<TMypagePayment> => {
-  const res: AxiosResponse<TMypagePayment> = await axios.get(
+  const res: AxiosResponse<TMypagePayment> = await instance.get(
     `payments/pointTransactions`
   );
+
   return res.data;
 };
 
@@ -233,7 +248,7 @@ export const postReview = async (
   url: string,
   param: { arg: TPostReviewParam }
 ): Promise<TReviewPost> => {
-  const res: AxiosResponse<TResultPostReivew> = await axios.post(
+  const res: AxiosResponse<TResultPostReivew> = await instance.post(
     `/product/${param.arg.productId}`,
     {
       score: param.arg.score,

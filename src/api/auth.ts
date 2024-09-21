@@ -1,7 +1,6 @@
 import { TUserInfo } from '@/type/auth';
-import axios from 'axios';
 import type { AxiosResponse } from 'axios';
-
+import instance from '@/common/axio-interceptor';
 export function kakaoSocailLogin() {
   window.location.href = `${process.env.NEXT_PUBLIC_API_HOST}user/kakao`;
 }
@@ -11,7 +10,7 @@ export function naverSocailLogin() {
 }
 
 export function postUserLogin(email: string, password: string) {
-  return axios.post('/auth/login', { email, password });
+  return instance.post('/auth/login', { email, password });
 }
 
 export function postUserSignup(
@@ -22,7 +21,7 @@ export function postUserSignup(
   passwordCheck: string,
   isMarketingAgree: boolean
 ) {
-  return axios.post('/user/signup', {
+  return instance.post('/user/signup', {
     name,
     email,
     phone,
@@ -34,7 +33,7 @@ export function postUserSignup(
 
 // TODO : 제거 api
 export function postUserEmailAuthentication(email: string) {
-  return axios.post('/user/emailauth', { email });
+  return instance.post('/user/emailauth', { email });
 }
 
 // TODO : 제거 api
@@ -42,11 +41,11 @@ export function postEmailAuthenticationNumber(
   authNumber: string,
   email: string
 ) {
-  return axios.post('/user/authnumber-check', { authNumber, email });
+  return instance.post('/user/authnumber-check', { authNumber, email });
 }
 
 export function postUserEmailCheck(email: string) {
-  return axios.post('/user/email-check', { email });
+  return instance.post('/user/email-check', { email });
 }
 
 export function googleSocailLogin() {
@@ -59,9 +58,10 @@ export type TResult = {
 
 export const getUserInfo = async (): Promise<TUserInfo | null> => {
   try {
-    const res: AxiosResponse<TUserInfo> = await axios.get('/mypage/info');
+    const res: AxiosResponse<TUserInfo> = await instance.get('/mypage/info');
     return res.data
   } catch (error) {
+
     console.error("getUserInfo error:", error);
     return null;
   }

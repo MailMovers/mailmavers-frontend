@@ -2,42 +2,51 @@ import type { TToken } from '@/type/auth';
 import axios, { AxiosError } from 'axios';
 import LocalStorage from './LocalStorage';
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_HOST;
+
+const instance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_HOST,
+  headers: {
+    Authorization: `Bearer `,
+  },
+});
 axios.defaults.withCredentials = true;
 
-const setToken = (accessToken: string, refreshToken: string) => {
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
-  axios.defaults.headers['Authorization'] = 'Bearer ' + accessToken;
-
-  window.localStorage.setItem('accessToken', accessToken);
-  window.localStorage.setItem('refreshToken', refreshToken);
+export const setToken = (accessToken: string, refreshToken: string) => {
+  instance.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+  LocalStorage.setItem('accessToken', accessToken);
+  LocalStorage.setItem('refreshToken', refreshToken);
 };
 
-const removeToken = async () => {
-  window.localStorage.removeItem('accessToken');
-  window.localStorage.removeItem('refreshToken');
-
-  axios.defaults.headers.common['Authorization'] = 'Bearer ';
-  axios.defaults.headers['Authorization'] = 'Bearer ';
+export const removeToken = async () => {
+  LocalStorage.removeItem('accessToken');
+  LocalStorage.removeItem('refreshToken');
+  instance.defaults.headers.common['Authorization'] = 'Bearer ';
+  instance.defaults.headers['Authorization'] = 'Bearer ';
 };
 
-const initAxios = (tokenInfo?: TToken) => {
-  axios.defaults.headers.common['Authorization'] =
-    'Bearer ' + tokenInfo?.accessToken;
-  axios.defaults.headers['Authorization'] = 'Bearer ' + window.localStorage.getItem('accessToken');
+export const initAxios = (tokenInfo?: TToken) => {
+  if (tokenInfo?.accessToken) {
+    instance.defaults.headers.common['Authorization'] = 'Bearer ' + tokenInfo.accessToken;
+    instance.defaults.headers['Authorization'] = 'Bearer ' + tokenInfo.accessToken;
+  }
 };
 
-axios.interceptors.request.use(
-  (request) => {
-    return request;
+instance.interceptors.request.use(
+  (config) => {
+    const accessToken = LocalStorage.getItem('accessToken');
+    if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
+    }
+    return config;
   },
   (error) => {
-    console.log('error', error);
+    console.log('request error > ', error);
     return Promise.reject(error);
   }
 );
 
-axios.interceptors.response.use(
+instance.interceptors.response.use(
+
   (response) => {
     return response;
   },
@@ -89,4 +98,4 @@ axios.interceptors.response.use(
   }
 );
 
-export { setToken, initAxios, removeToken };
+export default instance;

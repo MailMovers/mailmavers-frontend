@@ -27,9 +27,10 @@ const DEFAULT_INFO: TWriteInfo = {
   name: '',
   email: '',
   phone: '',
-  created_at: '',
+  createdAt: '',
   password: '',
   newPassword: '',
+
   newPasswordCheck: '',
 };
 
