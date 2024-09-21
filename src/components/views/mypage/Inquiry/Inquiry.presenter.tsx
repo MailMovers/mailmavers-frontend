@@ -6,6 +6,7 @@ import { Pagination } from 'antd';
 import InquireDetailPopup from '@/components/mypage/InquireDetailPopup';
 import InquirePopup from '@/components/mypage/InquirePopup';
 import { IInquiryProps } from './Inquiry.types';
+import { TCsInfo } from '@/type/mypage';
 
 export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
     return (
@@ -24,9 +25,11 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
 
                 <S.CardContainer>
                   {props.data ?
-                    props.data.csList.map((csInfo: any) => {
+                    props.data.csList.map((csInfo: TCsInfo) => {
                       return (
                         <S.CardWrap
+
+
                           key={csInfo.id}
                           onClick={() => props.setSelectCs(csInfo)}
                         >
@@ -39,9 +42,10 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
                           <div className='created_at'>
                             <span>
                               {' '}
-                              {csInfo.created_at &&
-                                new Date(csInfo.created_at).toLocaleString()}
+                              {csInfo.createdAt &&
+                                new Date(csInfo.createdAt).toLocaleString()}
                             </span>
+
                           </div>
                         </S.CardWrap>
                       );
@@ -51,11 +55,11 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
               </S.InfoWrap>
             </S.InfoContaier>
 
-            <Pagination
+            {/* <Pagination
               total={props.data ? Number(props.data.total || 0) : 0}
               current={Number(props.page)}
               onChange={(value) => props.setPage(String(value))}
-            />
+            /> */}
           </S.Body>
 
           {!props.openInquire && !props.selectCs && (

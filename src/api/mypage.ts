@@ -128,17 +128,16 @@ export const postCs = async (
 
 export type TCsListResult = {
   csList: TCsInfo[];
-  total: string;
 };
 interface TResultCsInfoList {
   message: string;
   data: TCsListResult;
 }
 
-export const getCsList = async (page: string): Promise<TCsListResult> => {
-  const res: AxiosResponse<TResultCsInfoList> = await instance.get(`/cs/?page=1`);
+export const getCsList = async (): Promise<TCsListResult> => {
+  const res: AxiosResponse<TResultCsInfoList> = await instance.get(`/mypage/cs-inquiries/`);
 
-  return res.data.data || [];
+  return res.data.data;
 
 };
 

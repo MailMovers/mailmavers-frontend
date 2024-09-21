@@ -41,8 +41,8 @@ export default function InquiryPageContainer (): JSX.Element {
   const [page, setPage] = useState<string>('1');
 
   const { data, mutate: refetch } = useSWR<TCsListResult>(
-    () => (!!token ? '/cs' : null),
-    () => getCsList(page),
+    () => (!!token ? `/mypage/cs-inquiries` : null),
+    () => getCsList(),
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,

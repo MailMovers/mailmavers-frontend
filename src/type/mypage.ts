@@ -6,10 +6,11 @@ export type TCs = {
 export type TCsInfo = {
   id: number; // 37;
   title: string;
-  user_id: number; //  1;
-  created_at: string; // '2023-12-07T09:23:47.000Z';
-  deleted_at: string; //  null;
+  category: string; //  문의 카테고리
+  createdAt: string; // '2023-12-07T09:23:47.000Z';
+  status: string; //  답변 상태
 };
+
 
 export type TCsInfoDetail = {
   id: number; // 1;
