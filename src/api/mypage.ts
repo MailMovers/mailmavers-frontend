@@ -160,9 +160,9 @@ interface TResultMyReivewList {
   data: TMyReiview;
 }
 
-export const getMyReivewList = async (page: number): Promise<TMyReiview> => {
+export const getMyReivewList = async (): Promise<TMyReiview> => {
   const res: AxiosResponse<TResultMyReivewList> = await instance.get(
-    `/product/myReviews?page=${page} `
+    `/mypage/reviews`
   );
 
 
@@ -193,7 +193,7 @@ interface TResultMyLetterHistory {
 
 export const getMyLetterHistory = async (): Promise<TMyLetter[]> => {
   const res: AxiosResponse<TResultMyLetterHistory> = await instance.get(
-    `letter/history`
+    `/mypage/letters`
   );
 
   return res.data.data || [];

@@ -25,34 +25,39 @@ export type TCsInfoDetail = {
 };
 
 export type TReview = {
-  writing_pad_id: number; // 1;
-  name: string; // 'Pad1';
-  img_url_1: string; // 'img1';
-  reviewId: number; // 2;
-  content: string; // 'Good quality';
-  user_id: number; // 1;
-  writing_pads_deleted_at: string; // null;
-  score: number; // 4;
-  review_created_at: string; // '2024-01-05T08:48:07.000Z';
-  review_deleted_at: string; //  null;
+  name: string;
+    imgUrl1: string;
+    reviewId: number;
+    content: string;
+    userId: number;
+    score: number;
+    reviewCreatedAt: string;
+    reviewDeletedAt: string | null;
 };
 
 export type TMyReiview = {
   count: string;
-  getReviewList: TReview[];
+  data: TReview[];
 };
 
 export type TMyLetter = {
-  delivery_address: string; // '서울 강남구 언주로146길 18 논현동, 동현아파트';
-  delivery_address_detail: string; //  '2동 501호';
-  delivery_name: string; // '이재훈';
-  delivery_phone: string; // '01092964934';
-  letterId: number; // 50;
-  name: string; // 'Pad1';
-  orderCreatedAt: string;
-  status: string;
-  reviewStatus: string;
-  writingPadId: number;
+  letterId: number,
+  status: string,
+  registrationNumber: string,
+  name: string,
+  writingPadId: number,
+  deliveryAddress: string,
+  deliveryAddress_detail: string,
+  deliveryPhone: string,
+  deliveryName: string,
+  sendAddress: string,
+  sendAddress_detail: string,
+  sendPhone: string,
+  sendName: string,
+  orderCreatedAt: string,
+  reviewStatus: string,
+  statusOfDelivery: string
+
 };
 
 export type TLetterInform = {

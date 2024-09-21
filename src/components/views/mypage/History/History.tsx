@@ -17,7 +17,7 @@ export default function History() {
   const token = useRecoilValue(tokenAtom);
 
   const { data: letters, mutate: refetch } = useSWR<TMyLetter[]>(
-    () => (!!token ? '/history' : null),
+    () => (!!token ? '/mypage/letters' : null),
     getMyLetterHistory,
     {
       fallbackData: [],
@@ -68,16 +68,18 @@ export default function History() {
                         <div className='user_info'>
                           <span>{letter.name}</span>
                           <span>
-                            {letter.delivery_phone.replace(
+                            {letter.deliveryPhone.replace(
                               /(\d{3})(\d{4})(\d{4})/,
                               '$1-$2-$3'
+
                             )}
                           </span>
                         </div>
                         <span>
-                          {letter.delivery_address}
-                          {letter.delivery_address_detail}
+                          {letter.deliveryAddress}
+                          {letter.deliveryAddress_detail}
                         </span>
+
                       </div>
                     </S.CardInfoContent>
                   </S.CardInfoWrap>

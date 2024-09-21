@@ -8,7 +8,7 @@ import MyPageLayout from '@/components/mypage/MyPageLayout';
 
 import { tokenAtom } from '@/recoil/auth/atom';
 import { getMyReivewList } from '@/api/mypage';
-import type { TMyReiview } from '@/type/mypage';
+import type { TMyReiview, TReview } from '@/type/mypage';
 
 import * as S from './Review.styles';
 
@@ -18,8 +18,8 @@ export default function ReviewPage() {
   const [page, setPage] = useState<number>(1);
 
   const { data, mutate: refetch } = useSWR<TMyReiview>(
-    () => (!!token && page ? `/reviews/list?page=${page}` : null),
-    () => getMyReivewList(page),
+    () => (!!token ? `/mypage/reviews` : null),
+    () => getMyReivewList(),
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
@@ -45,15 +45,19 @@ export default function ReviewPage() {
         </S.TitleContainer>
         <S.Content>
           <S.CardContainer>
-            {data ?
-              data.getReviewList.map((review) => (
+            {data?.data ?
+              data.data.map((review: TReview) => (
                 <S.CardWrap key={`${review.reviewId}`}>
+
                   <S.CardInfoWrap>
                     <span className='desc_wrap'>
+
                       작성일 :{' '}
-                      {moment(review.review_created_at).format('YYYY/MM/DD')}
+                      {moment(review.reviewCreatedAt).format('YYYY/MM/DD')}
                     </span>
                     <span className='desc_wrap'>{review.content}</span>
+
+
                     <div className='score_wrap'>
                       <S.ScoreWrap>
                         {[...Array(review.score)].map((_, index) => (
@@ -72,9 +76,10 @@ export default function ReviewPage() {
 
                   <S.StatusContainer>
                     <S.ReviceImage
-                      src={review.img_url_1}
+                      src={review.imgUrl1}
                       alt='리뷰이미지'
                       width={0}
+
                       height={0}
                     />
                   </S.StatusContainer>
@@ -86,6 +91,8 @@ export default function ReviewPage() {
             total={data ? Number(data?.count || 0) * 2 : 0}
             current={page}
             onChange={(value) => handlePage(value)}
+
+
           />
         </S.Content>
     </S.Wrap>
