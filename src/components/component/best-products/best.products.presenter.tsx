@@ -35,7 +35,7 @@ export default function BestProductsUI(props: MainPageUIProps) {
   }, []);
 
   const carouselItems = props.items.map((mockData, id) => (
-    <S.ProductWrapper key={id} onClick={onClickMoveToPage(`/product-detail${id}`)}>
+    <S.ProductWrapper key={id} onClick={onClickMoveToPage(`/product/${id}`)}>
       <S.ProductImageWrapper>
         <S.ProductImage src={mockData.productImage} alt='메인 이미지' />
       </S.ProductImageWrapper>
