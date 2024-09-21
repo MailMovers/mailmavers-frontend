@@ -10,6 +10,8 @@ import { FaStar } from "react-icons/fa";
 import { Item, PProductListProps } from './types';
 import  BannerContainer  from './slide-banner'
 import  { IconStyle }  from './style/menubar.styles'
+import { useMoveToPage } from "@/hooks/useMoveToPage"
+
 
 const menuItems = [
     { icon: <IconStyle><AiOutlineMenu id="burgerIcon" /></IconStyle>, category: '전체보기' },
@@ -24,6 +26,8 @@ export default function ProductList(props: PProductListProps) {
   const [hasMore, setHasMore] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('전체보기');
   const [page, setPage] = useState(0);
+  const { onClickMoveToPage } = useMoveToPage();
+
 
   // 카테고리가 변경될 때 필터링된 아이템을 다시 불러옴
   useEffect(() => {
@@ -81,8 +85,8 @@ export default function ProductList(props: PProductListProps) {
         loader={<div key={0}>Loading...</div>}
       >
         <S.ProductList>
-          {items.map((product: Item) => (
-            <S.ProductCard key={product.id }>
+          {items.map((product: Item, id) => (
+            <S.ProductCard key={product.id} onClick={onClickMoveToPage(`/product/${id}`)}>
               <S.ProductImage src={product.productImage}/>
               <S.ProductInfo>
                 <S.ProductName>{product.productTitle}</S.ProductName>
