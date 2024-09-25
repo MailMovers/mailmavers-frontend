@@ -2,6 +2,7 @@ import { Common } from "@/styles/common";
 import styled from "@emotion/styled";
 import Modal from 'react-modal';
 
+
 export const Container = styled.div`
     width: 900px;
     margin : 0 auto;
@@ -57,6 +58,8 @@ export const Header = styled.div`
   border: 1px solid #ddd;
   flex-direction: column;
   background-color: white;
+
+
 
 `;
 
@@ -142,6 +145,8 @@ export const PickerWrapper = styled.div`
     text-align: center;
     margin-top: 7px;
     margin-left: 12px;
+    color: red;
+    font-weight: 500;
   }
 `;
 
@@ -205,3 +210,77 @@ export const StyledModal = styled(Modal)`
     }
   }
 `;
+
+
+export const BottomWrapper = styled.div`
+  margin-top : 20;
+
+`
+
+export const Button = styled.button`
+  width: 100px;
+  height: 50px;
+  border: 1px solid gray;
+  margin-right: 5px;
+  margin-left: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 16px;
+  &#save {
+
+  }
+
+  &#summit {
+    margin-right: 10px;
+    background-color: green;
+    color: white;
+
+    &:active {
+    background-color: ${Common.colors.yellow};
+    color: white;
+    transform: scale(0.98); /* 클릭 시 살짝 작아지는 효과 */
+  }
+
+  }
+
+
+  &:active {
+    background-color: ${Common.colors.yellow};
+    color: white;
+    transform: scale(0.98); /* 클릭 시 살짝 작아지는 효과 */
+  }
+
+`
+
+
+
+export const FooterWrapper = styled.div`
+  display: flex;
+  flex-direction:  row;
+  width: 900px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  height: 100px;
+  margin-bottom: 100px;
+  justify-content: space-between;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  
+`
+
+export const PageInfo = styled.div`
+  width: 65px;
+  height: 65px;
+  background-color: #ddd;
+  padding: 10px;
+  color: ${Common.colors.gray};
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-size: 16px;
+  border-radius: 50%;
+  `

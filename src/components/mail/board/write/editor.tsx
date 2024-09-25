@@ -67,6 +67,7 @@ export default function BoardWriteUI() {
     };
 
     return (
+        <>
         <S.ContainerWrapper>
             <S.Header>
                 <S.FontStyleWrapper>
@@ -95,7 +96,7 @@ export default function BoardWriteUI() {
                             id='small' 
                             isActive={activeButton === 'small'} 
                             onClick={() => handleFontSizeChange('small')}
-                        >
+                            >
                             작은글씨
                         </S.FontSizeButton>
                     </S.FontSizeButtonWrapper>
@@ -103,7 +104,7 @@ export default function BoardWriteUI() {
                         <S.FormatButton 
                             isActive={activeButtons.includes('bold')} 
                             onClick={() => handleButtonClick2('bold')}
-                        >
+                            >
                             <b style={{ color: activeButtons.includes('bold') ? 'white' : 'black' }}>굵게</b>
                         </S.FormatButton>
                         <S.FormatButton 
@@ -115,7 +116,7 @@ export default function BoardWriteUI() {
                         <S.FormatButton 
                             isActive={activeButtons.includes('underline')} 
                             onClick={() => handleButtonClick2('underline')}
-                        >
+                            >
                             <u style={{ color: activeButtons.includes('underline') ? 'white' : 'black' }}>밑줄</u>
                         </S.FormatButton>
                     </S.FormatButtonWrapper>
@@ -131,7 +132,7 @@ export default function BoardWriteUI() {
                             id='center' 
                             isActive={flexButtons === 'center'} 
                             onClick={() => handleFlexButtonClick('center')}
-                        >
+                            >
                             <AlignCenterOutlined />
                         </S.FlexButton>
                         <S.FlexButton 
@@ -149,8 +150,8 @@ export default function BoardWriteUI() {
             <S.TextAreaWrapper>
                 {Array.from({ length: 16 }).map((_, index) => (
                     <S.Content
-                        key={index}
-                        id={`${index + 1}line`}
+                    key={index}
+                    id={`${index + 1}line`}
                         ref={(el) => {
                             inputRefs.current[index] = el;
                             if (index === 0) inputRef.current = el; // 첫 번째 input에 ref 설정
@@ -161,14 +162,14 @@ export default function BoardWriteUI() {
                         }}
                         onChange={
                             fontSize === 'large' 
-                                ? handleInputLargeFontChange(index) 
-                                : fontSize === 'medium' 
-                                    ? handleInputMediumFontChange(index) 
-                                    : handleInputSmallFontChange(index)
+                            ? handleInputLargeFontChange(index) 
+                            : fontSize === 'medium' 
+                            ? handleInputMediumFontChange(index) 
+                            : handleInputSmallFontChange(index)
                         }
                         onKeyPress={handleKeyPress(index)}
                         onKeyDown={handleKeyDown(index)}
-                    />  
+                        />  
                 ))}
             </S.TextAreaWrapper>
             <S.StyledModal
@@ -181,5 +182,29 @@ export default function BoardWriteUI() {
                 <button onClick={() => setIsModalOpen(false)}>닫기</button>
             </S.StyledModal>
         </S.ContainerWrapper>
+            <S.FooterWrapper>
+            <S.BottomWrapper>
+                <S.Button 
+                id='MoveBackPage'
+                >
+                    이전</S.Button>
+                <S.Button 
+                id='MoveNextPage'
+                >
+                    다음</S.Button>
+            </S.BottomWrapper>
+                <S.PageInfo>1/5 page</S.PageInfo>
+            <S.BottomWrapper>
+                <S.Button 
+                id='save'
+                >
+                    임시저장</S.Button>
+                <S.Button 
+                id='summit'
+                >
+                    작성완료</S.Button>
+            </S.BottomWrapper>
+            </S.FooterWrapper>
+                </>
     );
 }
