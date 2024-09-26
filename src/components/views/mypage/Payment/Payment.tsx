@@ -7,9 +7,11 @@ import { TMypagePayment } from '@/type/mypage';
 import { getMyPayments } from '@/api/mypage';
 
 import * as S from './Payment.styles';
+import { userInfoAtom } from '@/recoil/mypage/atom';
 
 export default function Payment() {
   const token = useRecoilValue(tokenAtom);
+  const userInfo = useRecoilValue(userInfoAtom);
 
   const { data: payments = null } = useSWR<TMypagePayment>(
     () => (!!token ? '/payments/pointTransactions' : null),
@@ -24,7 +26,7 @@ export default function Payment() {
   return (
     <S.Wrap>
       <S.TitleContainer>
-        <S.Title>안녕하세요! 테스트 님,</S.Title>
+        <S.Title>안녕하세요! {userInfo?.name} 님,</S.Title>
         <S.SubTitle>이곳은 <S.TitleContent>포인트 내역</S.TitleContent> 입니다.</S.SubTitle>
       </S.TitleContainer>
       <S.Content>

@@ -57,7 +57,6 @@ export type TMyLetter = {
   orderCreatedAt: string,
   reviewStatus: string,
   statusOfDelivery: string
-
 };
 
 export type TLetterInform = {

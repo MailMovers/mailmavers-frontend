@@ -53,7 +53,7 @@ export const putPhone = async (
 
 export const getSendAddrList = async (): Promise<TSendInfo[]> => {
   const res: AxiosResponse<TResultSendAddress> = await instance.get(
-    `address/send`
+    `mypage/address`
   );
 
 
@@ -68,7 +68,7 @@ interface TResultReceiveAddress {
 
 export const getReceiveAddrList = async (): Promise<TReceiveInfo[]> => {
   const res: AxiosResponse<TResultReceiveAddress> = await instance.get(
-    `address/delivery`
+    `mypage/address`
   );
 
 

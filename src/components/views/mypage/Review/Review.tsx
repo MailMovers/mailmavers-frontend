@@ -4,17 +4,16 @@ import { Pagination } from 'antd';
 import useSWR from 'swr';
 import moment from 'moment';
 
-import MyPageLayout from '@/components/mypage/MyPageLayout';
-
 import { tokenAtom } from '@/recoil/auth/atom';
 import { getMyReivewList } from '@/api/mypage';
 import type { TMyReiview, TReview } from '@/type/mypage';
 
 import * as S from './Review.styles';
+import { userInfoAtom } from '@/recoil/mypage/atom';
 
 export default function ReviewPage() {
   const token = useRecoilValue(tokenAtom);
-
+  const userInfo = useRecoilValue(userInfoAtom);
   const [page, setPage] = useState<number>(1);
 
   const { data, mutate: refetch } = useSWR<TMyReiview>(
@@ -38,7 +37,7 @@ export default function ReviewPage() {
   return (
     <S.Wrap>
       <S.TitleContainer>
-        <S.Title>안녕하세요! 테스트 님,</S.Title>
+        <S.Title>안녕하세요! {userInfo?.name} 님,</S.Title>
         <S.SubTitle>
             이곳은 <S.TitleContent>작성한 리뷰</S.TitleContent> 입니다.
           </S.SubTitle>

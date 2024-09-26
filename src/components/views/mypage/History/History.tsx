@@ -10,11 +10,13 @@ import { TMyLetter } from '@/type/mypage';
 import { getMyLetterHistory } from '@/api/mypage';
 
 import * as S from './History.styles';
+import { userInfoAtom } from '@/recoil/mypage/atom';
 
 export default function History() {
   const router = useRouter();
 
   const token = useRecoilValue(tokenAtom);
+  const userInfo = useRecoilValue(userInfoAtom);
 
   const { data: letters, mutate: refetch } = useSWR<TMyLetter[]>(
     () => (!!token ? '/mypage/letters' : null),
@@ -47,7 +49,7 @@ export default function History() {
     <>
       <S.Wrap>
       <S.TitleContainer>
-            <S.Title>안녕하세요!  테스트 님,</S.Title>
+            <S.Title>안녕하세요! {userInfo?.name} 님,</S.Title>
             <S.SubTitle>이곳은 <S.TitleContent>보낸 편지 내역</S.TitleContent> 입니다.</S.SubTitle>
           </S.TitleContainer>
 

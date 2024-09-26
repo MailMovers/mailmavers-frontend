@@ -19,6 +19,7 @@ import type { AxiosError } from 'axios';
 import type { TSendInfo, TReceiveInfo } from '@/type/address';
 
 import * as S from './Address.styles';
+import { userInfoAtom } from '@/recoil/mypage/atom';
 
 const { confirm } = Modal;
 
@@ -26,6 +27,7 @@ export default function Address(props: any): JSX.Element {
   const [modal, contextHolder] = Modal.useModal();
 
   const token = useRecoilValue(tokenAtom);
+  const userInfo = useRecoilValue(userInfoAtom);
 
   const [isShowSend, setIsShowSend] = useState<boolean>(false);
   const [isShowRecive, setIsShowRecive] = useState<boolean>(false);
@@ -159,7 +161,7 @@ export default function Address(props: any): JSX.Element {
       {contextHolder}
       <S.Wrap>
           <S.TitleContainer>
-            <S.Title>안녕하세요! {props.userEditInfo?.name} 테스트 님,</S.Title>
+            <S.Title>안녕하세요! {userInfo?.name} 님,</S.Title>
             <S.SubTitle>이곳은 <S.TitleContent>주소 관리</S.TitleContent> 입니다.</S.SubTitle>
           </S.TitleContainer>
           <S.Content>

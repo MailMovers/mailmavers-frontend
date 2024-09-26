@@ -12,7 +12,7 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
     return (
         <S.Wrap>
           <S.Header>
-          <S.Title>안녕하세요! {props.userEditInfo?.name} 테스트 님,</S.Title>
+          <S.Title>안녕하세요! {props.userEditInfo?.name} 님,</S.Title>
           <S.SubTitle>이곳은 <S.TitleContent>내 1:1문의</S.TitleContent> 입니다.</S.SubTitle>
           </S.Header>
           <S.Body>
