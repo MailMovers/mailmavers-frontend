@@ -26,13 +26,13 @@ export type TCsInfoDetail = {
 
 export type TReview = {
   name: string;
-    imgUrl1: string;
-    reviewId: number;
-    content: string;
-    userId: number;
-    score: number;
-    reviewCreatedAt: string;
-    reviewDeletedAt: string | null;
+  imgUrl1: string;
+  reviewId: number;
+  content: string;
+  userId: number;
+  score: number;
+  reviewCreatedAt: string;
+  reviewDeletedAt: string | null;
 };
 
 export type TMyReiview = {
