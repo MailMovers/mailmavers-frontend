@@ -11,12 +11,15 @@ import { getMyLetterHistory } from '@/api/mypage';
 
 import * as S from './History.styles';
 import { userInfoAtom } from '@/recoil/mypage/atom';
+import { exampleLetters } from './History.mock';
 
 export default function History() {
   const router = useRouter();
 
   const token = useRecoilValue(tokenAtom);
   const userInfo = useRecoilValue(userInfoAtom);
+
+  const [mockLetters] = useState<TMyLetter[]>(exampleLetters);
 
   const { data: letters, mutate: refetch } = useSWR<TMyLetter[]>(
     () => (!!token ? '/mypage/letters' : null),
@@ -55,8 +58,8 @@ export default function History() {
 
         <S.Content>
           <S.CardContainer>
-            {letters &&
-              letters.map((letter, idx) => (
+            {mockLetters.length > 0 ? (
+              mockLetters.map((letter, idx) => (
                 <S.CardWrap key={`${letter.letterId}_${idx}`}>
                   <S.CardInfoWrap>
                     <span className='date_text'>
@@ -98,8 +101,10 @@ export default function History() {
                     </S.StatusReviewWrap>
                   </S.StatusContainer>
                 </S.CardWrap>
-              ))}
-              {letters && letters.length === 0 && <S.EmptyMessage>작성하신 편지가 없습니다.</S.EmptyMessage>}
+              ))
+            ) : (
+              <S.EmptyMessage>작성하신 편지가 없습니다.</S.EmptyMessage>
+            )}
           </S.CardContainer>
         </S.Content>
       </S.Wrap>

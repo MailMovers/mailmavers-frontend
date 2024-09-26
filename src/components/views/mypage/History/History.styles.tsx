@@ -93,6 +93,7 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 10px;
 
   @media (max-width: 480px) {
     padding: 0 10px;
@@ -106,7 +107,7 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
   justify-content: space-between;
 
   border-radius: 5px;
-  border: 1px solid #d9d9d9;
+  border-top: 1px solid #d9d9d9;
 `;
 
 export const StatusContainer = styled.div`
