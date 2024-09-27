@@ -187,12 +187,11 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
     background-color: orange;
     color: white;
     padding-top: 1px;
+    border-radius: 2px;
 
     @media(max-width: 768px) {
-    height: 15px;
-      border-radius: 2px;
+      height: 15px;
       font-size: 10px;
-
     }
   }
 `;
