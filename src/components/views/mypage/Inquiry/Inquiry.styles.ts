@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 export const Wrap = styled.div`
   width: 100%;
   height: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,14 +99,13 @@ export const TitleContent = styled.span`
 `;
 
 export const Body = styled.div`
-  margin-top: 50px;
   width: 1000px;
   min-height: 200px;
+  padding: 30px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
 
   @media (max-width: 480px) {
     max-width: 400px;
@@ -115,9 +113,9 @@ export const Body = styled.div`
 `;
 
 export const InfoContaier = styled.div`
-  width: 650px;
+  width: 900px;
   display: flex;
-  gap: 50px;
+  margin-bottom: 50px;
 
   @media (max-width: 480px) {
     max-width: 400px;
@@ -132,35 +130,66 @@ export const InfoWrap = styled.div`
 `;
 
 export const TitleWrap = styled.div`
-  width: 100%;
   height: 40px;
-  padding: 0 20px;
-
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
   border-radius: 5px;
   background: var(--yellowgreen, #f8f7ea);
 
   span {
     color: var(--primary, #4a743c);
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 600;
+
+    @media (max-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+  .status-span {
+  flex:1;
+  padding-left: 30px;
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+  }
+
+  .category-span {
+  flex: 1;
+  @media (max-width:768px) {
+    display: none;
+  }
+  }
+
+  .title-span {
+    flex:3;
+    @media (max-width: 768px) {
+    flex: 2;
+    }
+  }
+
+  .date-span {
+  flex: 1;
+  @media (max-width: 768px) {
+    padding-left: 40px;
+  }
   }
 `;
 
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0;
 `;
 
 export const CardWrap = styled.div<{ isLast?: boolean }>`
-  padding: 20px 10px 20px 20px;
+  padding: 20px 0 20px 0;
 
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: center;
 
   color: var(--grey666, #666);
   font-size: 14px;
@@ -168,47 +197,102 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
 
   border-bottom: ${({ isLast }) => (isLast ? '' : '1px solid #f3f3f3')};
   cursor: pointer;
+`;
 
-  .text_container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+export const CsDataContainer = styled.div`
+flex: 1;  
+display: flex;
+  justify-content: start;
+  align-items: center;
 
-    .text_wrap {
-      display: flex;
-      gap: 20px;
-      color: var(--grey666, #666);
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-
-      @media (max-width: 480px) {
-        font-size: 14px;
-      }
+  
+  &.status {
+    padding-left: 20px;
+    
+    @media(max-width: 768px) {
+      padding-left: 5px;
+    }
+  }
+      
+  &.category {
+    @media (max-width: 768px) {
+      display: none;
     }
   }
 
-  .created_at {
-    display: flex;
-    gap: 20px;
-    border: 1px solid bl;
+  &.title {
+  flex:3;
 
-    color: var(--grey666, #666);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-
-    @media (max-width: 480px) {
-      font-size: 14px;
-    }
+  @media (max-width:768px) {
+  flex: 2;
+    margin-left:10px;
+  }
   }
 
-  .del_btn {
-    cursor: pointer;
+  &.date {
+  flex: 1;
+  }
+  
+  @media (max-width: 768px) {
+    width: auto;
+  }
+`
+          
+export const CsStatus = styled.div<{status: string}>`
+  width: 70px;
+  height: 24px;
+  border: 2px solid ${({status}) => status === '답변 완료' ? 'var(--primary, #4a743c)' : 'orange'};
+  border-radius: 10px;
+  background: ${({status}) => status === '답변 완료' ? 'white' : 'white'};
+  color: ${({status}) => status === '답변 완료' ? 'var(--primary, #4a743c)' : 'orange'};
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding-top: 2px;
+
+  @media (max-width: 768px) {
+    width: 55px;
   }
 `;
+
+export const CsCategory = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+
+  @media (max-width: 768px) {
+  display: none;
+  }
+`
+
+export const CsTitle = styled.div`
+  width: 100px
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    justify-content: start;
+  }
+`;
+
+export const CsDate = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding-right: 20px;
+  }
+`
 
 export const InquireBtn = styled.div`
   position: fixed;
