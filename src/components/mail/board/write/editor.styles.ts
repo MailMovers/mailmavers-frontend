@@ -12,13 +12,17 @@ export const Container = styled.div`
     background-size: cover;
     background-position: center;
   object-fit: cover;
-  object-position: center; /* 이미지의 중심을 기준으로 정렬 */
+  object-position: center;
+
+
 `
 
 export const TextAreaWrapper = styled.div`
     margin : 0 auto;
     width: 700px;
     height: 800px;
+
+
 `
 
 export const Content = styled.input`
@@ -48,8 +52,10 @@ export const ContainerWrapper = styled.div`
   width: 900px;
   height: 1300px;
   margin: 0 auto;
-  background-color: yellow;
+  background-color: skyblue;
     z-index: 1;
+
+
 `;
 
 export const Header = styled.div`
@@ -58,7 +64,6 @@ export const Header = styled.div`
   border: 1px solid #ddd;
   flex-direction: column;
   background-color: white;
-
 
 
 `;
@@ -90,6 +95,8 @@ export const FontSizeButton = styled.button<{ isActive: boolean }>`
   &#small {
     font-size: 13px;
   }
+
+
 `;
 
 export const FormatButton = styled.button<{ isActive: boolean }>`
@@ -98,6 +105,7 @@ export const FormatButton = styled.button<{ isActive: boolean }>`
   border: 1px solid #ddd;
   cursor: pointer;
   background-color: ${({ isActive }) => (isActive ? Common.colors.yellow : 'white')};
+
 `;
 
 export const EmojiButton = styled.button`
@@ -117,11 +125,14 @@ export const FontStyleInput = styled.input`
 export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin: 10px;
+
 `;
 
 export const FormatButtonWrapper = styled.div`
   display: flex;
+
 `;
 
 export const FontSizeButtonWrapper = styled.div`
@@ -153,6 +164,12 @@ export const PickerWrapper = styled.div`
 
 export const FlexWrapper = styled.div`
     margin-left: 105px;
+
+    @media(max-width: 768px) {
+    display: flex;
+    margin: 0px;
+
+  }
 
 `
 
@@ -215,6 +232,7 @@ export const StyledModal = styled(Modal)`
 export const BottomWrapper = styled.div`
   margin-top : 20;
 
+
 `
 
 export const Button = styled.button`
@@ -224,7 +242,6 @@ export const Button = styled.button`
   margin-right: 5px;
   margin-left: 10px;
   padding: 15px;
-  border-radius: 10px;
   background-color: white;
   font-size: 16px;
   &#save {
@@ -239,7 +256,7 @@ export const Button = styled.button`
     &:active {
     background-color: ${Common.colors.yellow};
     color: white;
-    transform: scale(0.98); /* 클릭 시 살짝 작아지는 효과 */
+    transform: scale(0.98); 
   }
 
   }
@@ -248,7 +265,7 @@ export const Button = styled.button`
   &:active {
     background-color: ${Common.colors.yellow};
     color: white;
-    transform: scale(0.98); /* 클릭 시 살짝 작아지는 효과 */
+    transform: scale(0.98); 
   }
 
 `

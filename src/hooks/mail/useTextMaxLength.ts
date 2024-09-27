@@ -1,7 +1,10 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useState } from 'react';
+import useMoveToPage from './useMoveToPage';
 
 const useTextMaxLength = (inputCount: number) => {
     const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
+    const { moveToNextPage } = useMoveToPage();
+    const [isMaxLengthModalOpen, setIsMaxLengthModalOpen] = useState(false);
 
     const isKorean = (value: string) => {
         return /[\uac00-\ud7af\u1100-\u11ff\u3130-\u318f\uA960-\uA97F\uD7B0-\uD7FF]/.test(value);
@@ -20,6 +23,8 @@ const useTextMaxLength = (inputCount: number) => {
             const nextInput = inputRefs.current[index + 1];
             if (nextInput) {
                 nextInput.focus();
+            } else if (index === inputCount - 1) {
+                setIsMaxLengthModalOpen(true);
             }
         }
     };
@@ -59,6 +64,8 @@ const useTextMaxLength = (inputCount: number) => {
         handleInputMediumFontChange: handleInputChange('medium'),
         handleInputSmallFontChange: handleInputChange('small'),
         setInputMaxLength,
+        isMaxLengthModalOpen,
+        setIsMaxLengthModalOpen,
     };
 };
 
