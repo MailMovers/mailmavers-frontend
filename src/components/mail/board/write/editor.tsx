@@ -9,7 +9,8 @@ interface BoardWriteUIProps {
 }
 
 export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
-    const { inputRefs, handleInputLargeFontChange, handleInputMediumFontChange, handleInputSmallFontChange, handleKeyPress, handleKeyDown, setInputMaxLength, isMaxLengthModalOpen, setIsMaxLengthModalOpen } = useTextMaxLength(16);
+    const [content, setContent] = useState<string[]>(Array(16).fill(''));
+    const { inputRefs, handleInputChange, handleKeyPress, handleKeyDown, setInputMaxLength, isMaxLengthModalOpen, setIsMaxLengthModalOpen, moveToNextPageWithFocus, moveToPreviousPageWithFocus, isFirstPageModalOpen, setIsFirstPageModalOpen, isLastPageModalOpen, setIsLastPageModalOpen } = useTextMaxLength(16, setContent);
     const { moveToNextPage, moveToPreviousPage, isMaxPageModalOpen, setIsMaxPageModalOpen } = useMoveToPage();
     const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large'>('small');
     const [activeButton, setActiveButton] = useState<string | null>(null);
@@ -22,6 +23,13 @@ export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
     useEffect(() => {
         setInputMaxLength(fontSize);
     }, [fontSize, setInputMaxLength]);
+
+    useEffect(() => {
+        const savedContent = localStorage.getItem(`pageContent-${pageNum}`);
+        if (savedContent) {
+            setContent(JSON.parse(savedContent));
+        }
+    }, [pageNum]);
 
     const handleFontSizeChange = (size: 'small' | 'medium' | 'large') => {
         const hasContent = inputRefs.current.some(input => input && input.value.trim() !== '');
@@ -70,6 +78,14 @@ export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
             style.textAlign = 'right';
         }
         return style;
+    };
+
+    const handleInputChangeWrapper = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        handleInputChange(fontSize)(index)(event);
+        const newContent = [...content];
+        newContent[index] = event.target.value;
+        setContent(newContent);
+        localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(newContent));
     };
 
     return (
@@ -164,19 +180,14 @@ export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
                             id={`${index + 1}line`}
                             ref={(el) => {
                                 inputRefs.current[index] = el;
-                                if (index === 0) inputRef.current = el; // 첫 번째 input에 ref 설정
+                                if (index === 0) inputRef.current = el; 
                             }}
                             style={{ 
                                 fontSize: fontSize === 'large' ? '20px' : fontSize === 'medium' ? '17px' : '12px',
                                 ...getTextStyle()
                             }}
-                            onChange={
-                                fontSize === 'large' 
-                                ? handleInputLargeFontChange(index) 
-                                : fontSize === 'medium' 
-                                ? handleInputMediumFontChange(index) 
-                                : handleInputSmallFontChange(index)
-                            }
+                            value={content[index]}
+                            onChange={handleInputChangeWrapper(index)}
                             onKeyPress={handleKeyPress(index)}
                             onKeyDown={handleKeyDown(index)}
                         />  
@@ -204,7 +215,7 @@ export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
                     isOpen={isMaxLengthModalOpen}
                     onRequestClose={() => {
                         setIsMaxLengthModalOpen(false);
-                        moveToNextPage();
+                        moveToNextPageWithFocus(pageNum);
                     }}
                     contentLabel="Max Length Modal"
                 >
@@ -212,21 +223,39 @@ export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
                     <p>16줄을 초과하였습니다. 다음 페이지로 이동합니다.</p>
                     <button onClick={() => {
                         setIsMaxLengthModalOpen(false);
-                        moveToNextPage();
+                        moveToNextPageWithFocus(pageNum);
                     }}>확인</button>
+                </S.StyledModal>
+                <S.StyledModal
+                    isOpen={isFirstPageModalOpen}
+                    onRequestClose={() => setIsFirstPageModalOpen(false)}
+                    contentLabel="First Page Modal"
+                >
+                    <h2>알림</h2>
+                    <p>현재 페이지는 첫 번째 페이지입니다.</p>
+                    <button onClick={() => setIsFirstPageModalOpen(false)}>확인</button>
+                </S.StyledModal>
+                <S.StyledModal
+                    isOpen={isLastPageModalOpen}
+                    onRequestClose={() => setIsLastPageModalOpen(false)}
+                    contentLabel="Last Page Modal"
+                >
+                    <h2>알림</h2>
+                    <p>현재 페이지는 마지막 페이지입니다.</p>
+                    <button onClick={() => setIsLastPageModalOpen(false)}>확인</button>
                 </S.StyledModal>
             </S.ContainerWrapper>
             <S.FooterWrapper>
                 <S.BottomWrapper>
                     <S.Button 
                         id='MoveBackPage'
-                        onClick={moveToPreviousPage}
+                        onClick={() => moveToPreviousPageWithFocus(pageNum)}
                     >
                         이전
                     </S.Button>
                     <S.Button 
                         id='MoveNextPage'
-                        onClick={moveToNextPage}
+                        onClick={() => moveToNextPageWithFocus(pageNum)}
                     >
                         다음
                     </S.Button>

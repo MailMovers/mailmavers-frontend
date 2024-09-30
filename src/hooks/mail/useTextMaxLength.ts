@@ -1,10 +1,12 @@
 import { useRef, useState } from 'react';
 import useMoveToPage from './useMoveToPage';
 
-const useTextMaxLength = (inputCount: number) => {
+const useTextMaxLength = (inputCount: number, setContent: (content: string[]) => void) => {
     const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
-    const { moveToNextPage } = useMoveToPage();
+    const { moveToNextPage, moveToPreviousPage } = useMoveToPage();
     const [isMaxLengthModalOpen, setIsMaxLengthModalOpen] = useState(false);
+    const [isFirstPageModalOpen, setIsFirstPageModalOpen] = useState(false);
+    const [isLastPageModalOpen, setIsLastPageModalOpen] = useState(false);
 
     const isKorean = (value: string) => {
         return /[\uac00-\ud7af\u1100-\u11ff\u3130-\u318f\uA960-\uA97F\uD7B0-\uD7FF]/.test(value);
@@ -56,16 +58,59 @@ const useTextMaxLength = (inputCount: number) => {
         });
     };
 
+    const moveToNextPageWithFocus = (pageNum: string | string[] | undefined) => {
+        if (pageNum === '5') {
+            setIsLastPageModalOpen(true);
+            return;
+        }
+        moveToNextPage();
+        setTimeout(() => {
+            if (inputRefs.current[0]) {
+                inputRefs.current[0].focus();
+            }
+            const nextPageNum = (parseInt(pageNum as string) + 1).toString();
+            const savedContent = localStorage.getItem(`pageContent-${nextPageNum}`);
+            if (savedContent) {
+                setContent(JSON.parse(savedContent));
+            }
+        }, 0);
+    };
+    
+    const moveToPreviousPageWithFocus = (pageNum: string | string[] | undefined) => {
+        if (pageNum === '1') {
+            setIsFirstPageModalOpen(true);
+            return;
+        }
+        moveToPreviousPage();
+        setTimeout(() => {
+            if (inputRefs.current[0]) {
+                inputRefs.current[0].focus();
+            }
+            const prevPageNum = (parseInt(pageNum as string) - 1).toString();
+            const savedContent = localStorage.getItem(`pageContent-${prevPageNum}`);
+            if (savedContent) {
+                setContent(JSON.parse(savedContent));
+            }
+        }, 0);
+    };
+
     return {
         inputRefs,
         handleKeyPress,
         handleKeyDown,
+        handleInputChange,
         handleInputLargeFontChange: handleInputChange('large'),
         handleInputMediumFontChange: handleInputChange('medium'),
         handleInputSmallFontChange: handleInputChange('small'),
         setInputMaxLength,
         isMaxLengthModalOpen,
         setIsMaxLengthModalOpen,
+        moveToNextPageWithFocus,
+        moveToPreviousPageWithFocus,
+        isFirstPageModalOpen,
+        setIsFirstPageModalOpen,
+        isLastPageModalOpen,
+        setIsLastPageModalOpen,
     };
 };
 
