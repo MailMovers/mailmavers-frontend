@@ -28,7 +28,7 @@ export default function LoginPage() {
 
   const [token, setTokenState] = useRecoilState(tokenAtom);
 
-  const { data: user } = useSWR(`${process.env.NEXT_PUBLIC_API_HOST}user/info`);
+  // const { data: user } = useSWR(`${process.env.NEXT_PUBLIC_API_HOST}user/info`);
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,6 +50,7 @@ export default function LoginPage() {
             const { accessToken, refreshToken } = res.data;
             setToken(accessToken, refreshToken);
             setTokenState({ accessToken, refreshToken });
+            console.log('로그인 성공');
 
             if (localStorage.getItem('상세페이지에서로그인') === 'true') {
               localStorage.removeItem('상세페이지에서로그인');
@@ -68,10 +69,10 @@ export default function LoginPage() {
     [email, password]
   );
 
-  if (user) {
-    // router.push('/');
-    return;
-  }
+  // if (user) {
+  //   router.push('/');
+  //   return;
+  // }
 
   return (
     <S.Layout>
