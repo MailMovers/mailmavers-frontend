@@ -46,13 +46,26 @@ export const putPhone = async (phone: TPhone): Promise<TResMsg> => {
   return response.data;
 }
 
+interface TResultAddrList {
+  sendAddresses: TSendInfo[];
+  deliveryAddresses: TReceiveInfo[];
+}
+
+export const getAddrList = async (): Promise<TResultAddrList> => {
+  const res: AxiosResponse<TResultAddrList> = await instance.get(
+    `mypage/address`
+  );
+  return res.data;
+};
+
 export const getSendAddrList = async (): Promise<TSendInfo[]> => {
   const res: AxiosResponse<TResultSendAddress> = await instance.get(
     `mypage/address`
   );
 
-  return res.data.data || [];
+  return res.data.data;
 };
+
 
 interface TResultReceiveAddress {
   message: string;
@@ -73,36 +86,29 @@ type TResonse = {
 };
 
 type TParamRec = {
-  deliveryAddressId: string;
+  deliveryAddressId: number;
 };
-export const delReceiveAddr = async (
-  url: string,
-  param: { arg: TParamRec }
-): Promise<string> => {
-  const params = { deliveryAddressId: param.arg.deliveryAddressId };
-  const res: AxiosResponse<TResonse> = await instance.post(
-    `address/delete`,
-    params
 
+
+export const delReceiveAddr = async (
+  param: TParamRec
+): Promise<string> => {
+  const res: AxiosResponse<TResonse> = await instance.delete(
+    `mypage/delivery-address/${param.deliveryAddressId}`
   );
 
   return res.data.message;
 };
 
 type TParamSend = {
-  sendAddressId: string;
+  sendAddressId: number;
 };
 
 export const delSendAddr = async (
-  url: string,
-  param: { arg: TParamSend }
+  param: TParamSend
 ): Promise<string> => {
-  const params = { sendAddressId: param.arg.sendAddressId };
-
-  const res: AxiosResponse<TResonse> = await instance.post(
-    `address/delete/send`,
-    params
-
+  const res: AxiosResponse<TResonse> = await instance.delete(
+    `mypage/send-address/${param.sendAddressId}`
   );
   return res.data.message;
 };
@@ -210,7 +216,7 @@ export const getMyLetterHistoryDetail = async (
   letterId: string
 ): Promise<THistoryDetail> => {
   const res: AxiosResponse<TResultMyLetterHistoryDetail> = await instance.get(
-    `letter/history?letterId=${letterId}`
+    `mypage/history/${letterId}`
   );
 
   return res.data.data;
