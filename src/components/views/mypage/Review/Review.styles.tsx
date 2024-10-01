@@ -77,9 +77,10 @@ export const TitleContent = styled.span`
 `;
 
 export const Content = styled.div`
-  height: 450px;
+  min-height: 450px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   gap: 26px;
 
@@ -91,66 +92,142 @@ export const Content = styled.div`
 `;
 
 export const CardContainer = styled.div`
-  width: 100%;
+  width: 1200px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 
-  @media (max-width: 480px) {
-    padding: 0 10px;
+  @media (max-width: 768px) {
+    width: 100%;
+    gap: 0;
   }
 `;
 
 export const CardWrap = styled.div<{ isLast?: boolean }>`
-  padding: 20px;
-
+  width: 1200px;
+  height: 150px;
+  padding: 20px 40px;
   display: flex;
-  justify-content: space-between;
-
+  flex-direction: row;
+  align-items: center;
   border-radius: 5px;
-  border: 1px solid #d9d9d9;
+  border-bottom: 1px dashed #999;
+  gap:30px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    padding: 20px;
+  }
 `;
 
-export const StatusContainer = styled.div`
+export const ImgScoreWrap = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 
-  @media (max-width: 480px) {
-    justify-content: end;
+  @media (max-width: 768px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
   }
 `;
 
 export const ReviceImage = styled(Image)`
-  height: 100%;
+  height: 70px;
   width: 120px;
 `;
 
-export const CardInfoWrap = styled.div`
+export const ReviewContentWrap = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 15px;
+  gap: 10px;
+`;
 
-  color: var(--default, #333);
-  font-size: 16px;
-  font-weight: 400;
+export const ReviewContent = styled.div`
+  width: 100%;
 
-  .score_wrap {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+    overflow: auto;
+    scrollbar-width: none;
   }
+`;
+
+export const ReviewDate = styled.div`
+  font-size: 12px;
 `;
 
 export const ScoreWrap = styled.div`
   display: flex;
+  justify-content: start;
 `;
 
 export const ScoreImage = styled(Image)`
   width: 20px;
   height: 20px;
 `;
+
+export const DeleteBtn = styled.div`
+  margin-left: 20px;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  cursor: pointer;
+
+  &:hover {
+    color: #999;
+  }
+
+  &:active {
+    color: #000;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`
+export const MobileDeleteBtn = styled.div`
+  display: none;
+
+  @media (max-width: 768px) {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #999;
+    border-radius: 5px;
+    color: red;
+    font-size: 12px;
+
+    &:active {
+      background-color: #999;
+      color: white;
+    }
+  }
+`;
+
+export const MobileImgDeleteBtnWrapper = styled.div`
+  // display: none;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+`;
+
+
 
 export const EmptyMessage = styled.div`
   height: 300px;
@@ -166,3 +243,8 @@ export const EmptyMessage = styled.div`
     height: 200px;
   }
 `;
+
+export const PaginationContainer = styled.div`
+`;
+
+

@@ -6,53 +6,62 @@ import { Pagination } from 'antd';
 import InquireDetailPopup from '@/components/mypage/InquireDetailPopup';
 import InquirePopup from '@/components/mypage/InquirePopup';
 import { IInquiryProps } from './Inquiry.types';
+import { TCsInfo } from '@/type/mypage';
+import { useState } from 'react';
+import { exampleInfo } from './Inquirt.mock';
 
 export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
+  const [mockData] = useState(exampleInfo);
     return (
         <S.Wrap>
           <S.Header>
-          <S.Title>안녕하세요! {props.userEditInfo?.name} 테스트 님,</S.Title>
+          <S.Title>안녕하세요! {props.userEditInfo?.name} 님,</S.Title>
           <S.SubTitle>이곳은 <S.TitleContent>내 1:1문의</S.TitleContent> 입니다.</S.SubTitle>
           </S.Header>
           <S.Body>
             <S.InfoContaier>
               <S.InfoWrap>
                 <S.TitleWrap>
-                  <span>제목</span>
-                  <span>날짜</span>
+                  <span className='status-span'>상태</span>
+                  <span className='category-span' >카테고리</span>
+                  <span className='title-span'>제목</span>
+                  <span className='date-span'>날짜</span>
                 </S.TitleWrap>
 
                 <S.CardContainer>
-                  {props.data ?
-                    props.data.csList.map((csInfo: any) => {
-                      return (
+                  {mockData ?
+                    mockData.map((csInfo: TCsInfo) =>(
                         <S.CardWrap
                           key={csInfo.id}
                           onClick={() => props.setSelectCs(csInfo)}
                         >
-                          <div className='text_container'>
-                            <div className='text_wrap'>
-                              <span>{csInfo.title}</span>
-                            </div>
-                          </div>
-
-                          <div className='created_at'>
-                            <span>
-                              {' '}
-                              {csInfo.created_at &&
-                                new Date(csInfo.created_at).toLocaleString()}
-                            </span>
-                          </div>
+                          <S.CsDataContainer className='status'>
+                          <S.CsStatus status={csInfo.status}>
+                            {csInfo.status}
+                          </S.CsStatus>
+                          </S.CsDataContainer>
+                          <S.CsDataContainer className='category'>
+                          <S.CsCategory>{csInfo.category}</S.CsCategory>
+                          </S.CsDataContainer>
+                          <S.CsDataContainer className='title'>
+                          <S.CsTitle> {csInfo.title} </S.CsTitle>                      
+                          </S.CsDataContainer>
+                          <S.CsDataContainer className='date'>
+                          <S.CsDate>
+                              {csInfo.createdAt}
+                          </S.CsDate>
+                          </S.CsDataContainer>
                         </S.CardWrap>
-                      );
-                    })
-                    : <S.EmptyMessage>작성하신 문의가 없습니다.</S.EmptyMessage>}
+                    )
+                    ) : (
+                      <S.EmptyMessage>작성하신 문의가 없습니다.</S.EmptyMessage>
+                    )}
                 </S.CardContainer>
               </S.InfoWrap>
             </S.InfoContaier>
 
             <Pagination
-              total={props.data ? Number(props.data.total || 0) : 0}
+              total={props.data ? Number(props.data || 0) : 0}
               current={Number(props.page)}
               onChange={(value) => props.setPage(String(value))}
             />

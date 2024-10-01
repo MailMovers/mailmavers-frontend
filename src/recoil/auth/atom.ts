@@ -6,7 +6,7 @@ interface TokenState {
 }
 
 export const tokenAtom = atom<TokenState>({
-  key: 'tokenState',
+  key: 'tokenState' + Date.now(),
   default: {
     accessToken: null,
     refreshToken: null,
