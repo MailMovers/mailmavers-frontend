@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Wrap = styled.form`
+export const Wrap = styled.div`
   width: 100%;
   max-width: 1200px;
 
@@ -111,20 +111,6 @@ export const InputContent = styled.div`
   border-bottom: 1px dashed var(--greyD9, #d9d9d9);
   padding-bottom: 10px;
 
-  input {
-    padding: 13px 0 13px 0px;
-    width: 80%;
-    height: 40px;
-    border-radius: 5px;
-    border: 1px solid var(--greyD9, #d9d9d9);
-    outline: none;
-    text-align: center;
-
-    @media (max-width: 480px) {
-      width: 200px;
-    }
-  }
-
   .info {
     padding: 15px 0 13px 0;
     width: 280px;
@@ -140,6 +126,30 @@ export const InputContent = styled.div`
     }
   }
 `;
+
+export const PhoneContainer = styled.div`
+width: 240px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+text-align: center;
+align-items: center;
+padding-right: 20px;
+
+  input {
+    padding: 13px 0 13px 0px;
+    width: 60px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid var(--greyD9, #d9d9d9);
+    outline: none;
+    text-align: center;
+
+    @media (max-width: 480px) {
+      width: 200px;
+    }
+  }
+`
 
 export const DataTitle = styled.span`
   width: 90px;

@@ -36,27 +36,20 @@ export const putPassword = async (
 };
 
 export type TPhone = {
-  newPhone: string;
+    phone: string;
 };
-export const putPhone = async (
-  url: string,
-  params: { arg: TPhone }
-): Promise<TResMsg> => {
-  const res: AxiosResponse<TResMsg> = await instance.post(
-    `/mypage`,
-    params.arg
 
-  );
-
-  return res.data;
-};
+export const putPhone = async (phone: TPhone): Promise<TResMsg> => {
+  const response: AxiosResponse<TResMsg> = await instance.post(`mypage/change-phone`,
+    phone
+  )
+  return response.data;
+}
 
 export const getSendAddrList = async (): Promise<TSendInfo[]> => {
   const res: AxiosResponse<TResultSendAddress> = await instance.get(
     `mypage/address`
   );
-
-
 
   return res.data.data || [];
 };

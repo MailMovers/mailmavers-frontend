@@ -36,11 +36,28 @@ export default function ProfilePageUI (props: IProfileProps):JSX.Element {
                 </S.InputContent>
                 <S.InputContent>
                   <S.DataTitle>전화번호</S.DataTitle>
+                  <S.PhoneContainer>
                   <input
-                    id='phone'
+                    id='part1'
                     onChange={props.handleInput}
-                    value={props.userInfo?.phone}
+                    value={props.phoneParts.part1}  // 상태와 바인딩
+                    maxLength={3}
                   />
+                  -
+                  <input
+                    id='part2'
+                    onChange={props.handleInput}
+                    value={props.phoneParts.part2}  // 상태와 바인딩
+                    maxLength={4}
+                  />
+                  -
+                  <input
+                    id='part3'
+                    onChange={props.handleInput}
+                    value={props.phoneParts.part3}  // 상태와 바인딩
+                    maxLength={4}
+                  />
+                  </S.PhoneContainer>
                 </S.InputContent>
               </S.InputContainer>
               <S.Button onClick={props.onSubmit}>저장하기</S.Button>
