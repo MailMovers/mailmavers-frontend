@@ -1,25 +1,18 @@
 import { useMemo, useState } from 'react';
 import useSWR from 'swr';
-import axios from 'axios';
-
 import { useRecoilValue } from 'recoil';
 import { Modal } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-
 import { tokenAtom } from '@/recoil/auth/atom';
-
 import {
   delReceiveAddr,
   delSendAddr,
   getAddrList,
 } from '@/api/mypage';
-
 import type { AxiosError } from 'axios';
 import type { TSendInfo, TReceiveInfo } from '@/type/address';
-
 import * as S from './Address.styles';
 import { userInfoAtom } from '@/recoil/mypage/atom';
-import { mockReceiveList, mockSendList } from './Address.mock';
 
 const { confirm } = Modal;
 
@@ -137,9 +130,9 @@ export default function Address(props: any): JSX.Element {
               <span>보내는 사람 (총 {sendList?.length || 0}개)</span>
 
                 {isMaxSendList && isShowSend ? (
-                  <UpOutlined onClick={() => setIsShowSend(false)} />
+                  <DownOutlined onClick={() => setIsShowSend(false)} />
                 ) : (
-                  <DownOutlined onClick={() => setIsShowSend(true)} />
+                  <UpOutlined onClick={() => setIsShowSend(true)} />
                 )}
               </S.TitleWrap>
 
@@ -173,9 +166,9 @@ export default function Address(props: any): JSX.Element {
                 <span>받는 사람 (총 {receiveList?.length || 0}개)</span>
 
                 {isMaxReceiveList && isShowRecive ? (
-                  <UpOutlined onClick={() => setIsShowRecive(false)} />
+                  <DownOutlined onClick={() => setIsShowRecive(false)} />
                 ) : (
-                  <DownOutlined onClick={() => setIsShowRecive(true)} />
+                  <UpOutlined onClick={() => setIsShowRecive(true)} />
                 )}
               </S.TitleWrap>
 
