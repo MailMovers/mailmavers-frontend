@@ -125,19 +125,21 @@ export default function Address(props: any): JSX.Element {
             <S.SubTitle>이곳은 <S.TitleContent>주소 관리</S.TitleContent> 입니다.</S.SubTitle>
           </S.TitleContainer>
           <S.Content>
-          <S.InfoWrap>
-            <S.TitleWrap>
-              <span>보내는 사람 (총 {sendList?.length || 0}개)</span>
-
-                {isMaxSendList && isShowSend ? (
-                  <DownOutlined onClick={() => setIsShowSend(false)} />
-                ) : (
-                  <UpOutlined onClick={() => setIsShowSend(true)} />
-                )}
-              </S.TitleWrap>
-
-              <S.CardContainer>
-                {viewSendList?.map((sendInfo) => (
+          {sendList.length === 0 && receiveList.length === 0 ? (
+            <S.EmptyMessage>등록하신 주소가 없습니다.</S.EmptyMessage>
+          ) : (
+            <>
+              <S.InfoWrap>
+                <S.TitleWrap>
+                  <span>보내는 사람 (총 {sendList?.length || 0}개)</span>
+                  {isMaxSendList && isShowSend ? (
+                    <DownOutlined onClick={() => setIsShowSend(false)} />
+                  ) : (
+                    <UpOutlined onClick={() => setIsShowSend(true)} />
+                  )}
+                </S.TitleWrap>
+                <S.CardContainer>
+                  {viewSendList?.map((sendInfo) => (
                     <S.CardWrap key={sendInfo.id}>
                       <div className='text_container'>
                         <div className='text_wrap'>
@@ -148,7 +150,6 @@ export default function Address(props: any): JSX.Element {
                           {sendInfo.sendAddress} {sendInfo.sendAddressDetail}
                         </span>
                       </div>
-
                       <span
                         className='del_btn'
                         onClick={() => handleDelSend(sendInfo.id)}
@@ -156,24 +157,21 @@ export default function Address(props: any): JSX.Element {
                         삭제
                       </span>
                     </S.CardWrap>
-                  )
-                )}
-              </S.CardContainer>
-            </S.InfoWrap>
+                  ))}
+                </S.CardContainer>
+              </S.InfoWrap>
 
-            <S.InfoWrap>
-              <S.TitleWrap>
-                <span>받는 사람 (총 {receiveList?.length || 0}개)</span>
-
-                {isMaxReceiveList && isShowRecive ? (
-                  <DownOutlined onClick={() => setIsShowRecive(false)} />
-                ) : (
-                  <UpOutlined onClick={() => setIsShowRecive(true)} />
-                )}
-              </S.TitleWrap>
-
-              <S.CardContainer>
-                {viewReceiveList?.map((receiveInfo) => (
+              <S.InfoWrap>
+                <S.TitleWrap>
+                  <span>받는 사람 (총 {receiveList?.length || 0}개)</span>
+                  {isMaxReceiveList && isShowRecive ? (
+                    <DownOutlined onClick={() => setIsShowRecive(false)} />
+                  ) : (
+                    <UpOutlined onClick={() => setIsShowRecive(true)} />
+                  )}
+                </S.TitleWrap>
+                <S.CardContainer>
+                  {viewReceiveList?.map((receiveInfo) => (
                     <S.CardWrap key={receiveInfo.id}>
                       <div className='text_container'>
                         <div className='text_wrap'>
@@ -185,7 +183,6 @@ export default function Address(props: any): JSX.Element {
                           {receiveInfo.deliveryAddressDetail}
                         </span>
                       </div>
-
                       <span
                         className='del_btn'
                         onClick={() => handleDelReceive(receiveInfo.id)}
@@ -193,14 +190,12 @@ export default function Address(props: any): JSX.Element {
                         삭제
                       </span>
                     </S.CardWrap>
-                  )
-                )}
-              </S.CardContainer>
-            </S.InfoWrap>
-          </S.Content>
-          {sendList && receiveList && sendList.length === 0 && receiveList.length === 0 && (
-        <S.EmptyMessage>등록하신 주소가 없습니다.</S.EmptyMessage>
-      )}      
+                  ))}
+                </S.CardContainer>
+              </S.InfoWrap>
+            </>
+          )}
+        </S.Content>
       </S.Wrap>
     </>
   );
