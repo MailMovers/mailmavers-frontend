@@ -101,7 +101,7 @@ export const ButtonContainer = styled.div`
 
   padding: 0 16px;
 
-  .cancel {
+  .submit {
     width: 130px;
     height: 40px;
     border-radius: 5px;
@@ -112,7 +112,7 @@ export const ButtonContainer = styled.div`
     font-weight: 500;
   }
 
-  .submit {
+  .cancel {
     width: 130px;
     height: 40px;
     border-radius: 5px;

@@ -22,10 +22,12 @@ const ReviewCreate = ({ letter, close, callback }: TProps) => {
     onSuccess: (res) => {
       callback();
     },
-    onError: (e) => {},
+    onError: (e) => {
+      alert('리뷰 작성에 실패했습니다. 다시 시도해주세요.')
+    },
   });
 
-  const onSumbit = () => {
+  const onSubmit = () => {
     if (!content) {
       alert('내용을 작성해주세요.');
       return;
@@ -73,10 +75,10 @@ const ReviewCreate = ({ letter, close, callback }: TProps) => {
 
       <Bottom>
         <ButtonContainer>
-          <button className="submit" onClick={onSumbit}>
+          <button className="cancel" onClick={close}>
             취소
           </button>
-          <button className="cancel" onClick={close}>
+          <button className="submit" onClick={onSubmit}>
             확인
           </button>
         </ButtonContainer>
