@@ -1,23 +1,21 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Common } from 'styles/common';
 
-export const Wrap = css`
-  @media all and (min-width: 1200px) {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  @media all and (min-width: 768px) and (max-width: 1199px), all and (max-width: 767px) {
+export const Wrap = styled.div`
+  max-width: 1200px;
+  margin: 50px auto;
+
+  @media (max-width: 768px) {
     width: calc(100vw - 3em);
-    margin: 0 auto;
+    margin-top: 80px;
   }
 `;
 
-export const Section = css`
+export const Section = styled.div`
   margin-bottom: 70px;
 `;
 
-export const Contents = css`
+export const Contents = styled.div`
   padding: 20px;
   border: 1px solid ${Common.colors.gray02};
   border-radius: 5px;
@@ -30,11 +28,11 @@ export const Contents = css`
   }
 `;
 
-export const InfoLetter = css`
+export const InfoLetter = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 20px;
+  margin-left: 70px;
 
   @media all and (max-width: 767px) {
     margin-left: 0;
@@ -47,18 +45,19 @@ export const InfoLetter = css`
       width: 100%;
       flex-direction: column;
       margin-left: 0;
+      margin-top: 10px;
     }
   }
 `;
 
-export const Title = css`
-  font-size: ${Common.fontSize.fs20};
+export const Title = styled.h1`
+  font-size: ${Common.fontSize.fs24};
   font-weight: bold;
   margin-bottom: 20px;
   color: ${Common.colors.theme};
 `;
 
-export const UserSelect = css`
+export const UserSelect = styled.p`
   width: 150px;
   margin-bottom: 15px;
   font-size: ${Common.fontSize.fs16};
@@ -71,7 +70,16 @@ export const UserSelect = css`
   }
 `;
 
-export const LetterImg = css`
+export const UserSelectInfo = styled.p`
+  margin-left: 50px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+`
+
+export const LetterImg = styled.img`
   width: 170px;
   height: 238px;
 
@@ -80,12 +88,16 @@ export const LetterImg = css`
   }
 `;
 
-export const PhotoContainer = css`
+export const PhotoContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
+
+  @media(max-width: 768px) {
+    flex-wrap: wrap;
+  }
 `;
 
-export const PhotoImg = css`
+export const PhotoImg = styled.img`
   width: 25%;
   margin-left: 20px;
   &:first-child {
@@ -97,33 +109,44 @@ export const PhotoImg = css`
   }
 `;
 
-export const AddressList = css`
+export const AddressList = styled.div`
   display: flex;
   font-size: ${Common.fontSize.fs14};
   color: ${Common.colors.gray};
   line-height: 1.4;
 
-  @media all and (min-width: 768px) and (max-width: 1199px), all and (max-width: 767px) {
+  @media (max-width: 768px) {
     flex-direction: column;
   }
 `;
 
-export const AddressPart = css`
+export const AddressPart = styled.p`
   margin-bottom: 8px;
   font-weight: 600;
   padding-bottom: 10px;
   border-bottom: 1px solid ${Common.colors.gray02};
-`;
 
-export const Address = css`
-  margin-left: 50px;
-
-  @media all and (min-width: 768px) and (max-width: 1199px), all and (max-width: 767px) {
-    margin: 10px 0 0 0;
+  @media (max-width: 768px) {
+    font-weight: 550;
   }
 `;
 
-export const PointInfo = css`
+export const Address = styled.div`
+  margin-left: 50px;
+
+  @media (max-width: 768px) {
+    margin: 20px 0 0 0;
+  }
+
+  &#sendInfo {
+    margin-left: 100px;
+    @media (max-width: 768px) {
+    margin-left: 0;
+    }
+  }
+`;
+
+export const PointInfo = styled.div`
   > div {
     display: flex;
     align-items: center;
@@ -140,18 +163,13 @@ export const PointInfo = css`
   }
 `;
 
-export const UsePoint = css`
-  width: 130px;
-  font-size: ${Common.fontSize.fs14};
-  padding: 5px 8px;
-  margin-right: 8px;
-  &:focus {
-    outline: none;
-  }
-`;
+export const BtnContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 export const Button = styled.button`
-  width: 100%;
+  width: 20%;
   height: 50px;
   border-radius: 5px;
   background: var(--primary, #4a743c);
@@ -159,4 +177,8 @@ export const Button = styled.button`
   color: var(--white, #fff);
   font-size: 16px;
   font-weight: 500;
+
+  @media (max-width: 768px) {
+    width: 50%;
+  }
 `;
