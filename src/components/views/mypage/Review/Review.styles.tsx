@@ -111,8 +111,12 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
   flex-direction: row;
   align-items: center;
   border-radius: 5px;
-  border-bottom: 1px dashed #999;
+  border-bottom: 1px dashed lightgray;
   gap:30px;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   @media (max-width: 768px) {
     width: 100%;
@@ -155,6 +159,7 @@ export const ReviewContentWrap = styled.div`
 
 export const ReviewContent = styled.div`
   width: 100%;
+  margin-top: 10px;
 
   @media (max-width: 768px) {
     font-size: 12px;
