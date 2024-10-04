@@ -25,20 +25,24 @@ const InquireDetailPopup = ({ csInfo, close }: Tprops) => {
   return (
     <Wrap>
       <Header>
-        <span>문의하기</span>
+        <span>문의내용</span>
       </Header>
       <Body>
         <Tiltle>
           <span>제목 :</span>
-          <input id='title' value={data?.title || ''} disabled />
+          <input id='title' value={data?.title || '배송이 언제 완료되나요?'} disabled />
         </Tiltle>
+        <Category>
+          <span>분류 :</span>
+          <input id='category' value={data?.category || '배송 관련'} disabled />
+        </Category>
         <Message>
           <span>내용 :</span>
           <textarea
             id='content'
             value={
               data?.content ||
-              `safdasdfasdf\nasdfadsfads\n\nasdfasdfasd\n\n\nasdfasdf\n\n…sfadsf\n\n\nasdfasdfadsf\n\n\nasdfasdfdsf\n\n\nasdfasdfads`
+              '저장된 데이터가 없습니다.'
             }
             disabled
           />
@@ -48,7 +52,7 @@ const InquireDetailPopup = ({ csInfo, close }: Tprops) => {
       <Bottom>
         <ButtonContainer>
           <button className='submit' onClick={close}>
-            확인
+            닫기
           </button>
         </ButtonContainer>
       </Bottom>
@@ -63,18 +67,20 @@ const Wrap = styled.div`
   right: 5%;
   bottom: 5%;
   width: 500px;
-  height: 500px;
+  height: 570px;
 
   background-color: #ffff;
   border: 1px solid #ccc;
+  border-radius: 10px;
   z-index: 10;
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     width: 100%;
     height: 100%;
     right: 0%;
     bottom: 0%;
     top: 0;
+    border-radius: 0;
   }
 `;
 
@@ -86,13 +92,19 @@ const Header = styled.div`
   align-items: center;
   padding: 0 16px;
 
-  background: red;
+  background-color: #28a745;
+  border-radius: 10px 10px 0 0;
+
 
   span {
     font-size: 20px;
     font-weight: 700;
     color: #fff;
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    border-radius: 0;
   }
 `;
 
@@ -105,7 +117,7 @@ const Body = styled.div`
   flex-direction: column;
   gap: 14px;
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     height: auto;
   }
 `;
@@ -116,7 +128,7 @@ const Tiltle = styled.div<{ isArea?: boolean }>`
   grid-template-columns: 1fr 5fr;
   align-items: center;
 
-  @media all and (max-width: 480px) {
+  @media all and (max-width: 768px) {
     grid-template-columns: none;
   }
 
@@ -126,7 +138,43 @@ const Tiltle = styled.div<{ isArea?: boolean }>`
     font-size: 18px;
     font-weight: 400;
 
-    @media all and (max-width: 480px) {
+    @media all and (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  input {
+    padding: 13px 0 13px 10px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid var(--greyD9, #d9d9d9);
+    font-weight: 600;
+
+    outline: none;
+
+    @media all and (max-width: 768px) {
+      width: 100%;
+    }
+  }
+`;
+
+const Category = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  align-items: center;
+
+  @media all and (max-width: 768px) {
+    grid-template-columns: none;
+  }
+
+  span {
+    color: var(--default, #333);
+
+    font-size: 18px;
+    font-weight: 400;
+
+    @media all and (max-width: 768px) {
       display: none;
     }
   }
@@ -139,11 +187,11 @@ const Tiltle = styled.div<{ isArea?: boolean }>`
 
     outline: none;
 
-    @media all and (max-width: 480px) {
+    @media all and (max-width: 768px) {
       width: 100%;
     }
   }
-`;
+`
 
 const Message = styled.div<{ isArea?: boolean }>`
   width: 100%;
@@ -153,7 +201,7 @@ const Message = styled.div<{ isArea?: boolean }>`
 
   height: ${({ isArea }) => isArea && '400px'};
 
-  @media all and (max-width: 480px) {
+  @media all and (max-width: 768px) {
     grid-template-columns: none;
   }
 
@@ -164,7 +212,7 @@ const Message = styled.div<{ isArea?: boolean }>`
     font-size: 18px;
     font-weight: 400;
 
-    @media all and (max-width: 480px) {
+    @media all and (max-width: 768px) {
       display: none;
     }
   }
@@ -185,7 +233,7 @@ const Message = styled.div<{ isArea?: boolean }>`
     resize: none;
     border: 1px solid var(--greyD9, #d9d9d9);
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       height: 100%;
     }
   }

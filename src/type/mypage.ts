@@ -1,5 +1,6 @@
 export type TCs = {
   title: string;
+  category: string;
   content: string;
 };
 
@@ -15,6 +16,7 @@ export type TCsInfo = {
 export type TCsInfoDetail = {
   id: number; // 1;
   title: string; //  제목입니다;
+  category: string;
   content: string; //  '내용입니다';
   user_id: number; // 1;
   created_at: string; // '2023-12-11T11:24:00.000Z';

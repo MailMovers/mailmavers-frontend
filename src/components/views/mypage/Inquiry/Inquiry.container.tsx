@@ -10,30 +10,13 @@ import { TCsListResult, getCsList } from '@/api/mypage';
 
 import { TCsInfo } from '@/type/mypage';
 
-import type { TUserInfo } from '@/type/auth';
-
 import InquiryPageUI from './Inquiry.presenter';
 
-interface TWriteInfo extends TUserInfo {
-  password: string;
-  newPassword: string;
-  newPasswordCheck: string;
-}
-
-const DEFAULT_INFO: TWriteInfo = {
-    name: '',
-    email: '',
-    phone: '',
-    createdAt: '',
-    password: '',
-    newPassword: '',
-
-    newPasswordCheck: '',
-  };
+const LIST_PER_PAGE = 10;
 
 export default function InquiryPageContainer (): JSX.Element {
- const [modal, contextHolder] = Modal.useModal();
   const token = useRecoilValue(tokenAtom);
+  const userInfo = useRecoilValue(userInfoAtom);
 
   const [openInquire, setOpenInquire] = useState<boolean>(false);
   const [selectCs, setSelectCs] = useState<TCsInfo | null>(null);
@@ -41,8 +24,8 @@ export default function InquiryPageContainer (): JSX.Element {
   const [page, setPage] = useState<string>('1');
 
   const { data, mutate: refetch } = useSWR<TCsListResult>(
-    () => (!!token ? `/mypage/cs-inquiries` : null),
-    () => getCsList(),
+    () => (!!token ? `/mypage/cs-inquiries?page=${page}&limit=${LIST_PER_PAGE}` : null),
+    () => getCsList(page, LIST_PER_PAGE),
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
@@ -50,17 +33,9 @@ export default function InquiryPageContainer (): JSX.Element {
     }
   );
 
-  const userInfo = useRecoilValue(userInfoAtom);
-
-  const [userEditInfo, setUserEditInfo] = useState<TWriteInfo>(DEFAULT_INFO);
-
-  useEffect(() => {
-    if (userInfo) setUserEditInfo({ ...userEditInfo, ...userInfo });
-  }, [userInfo]);
-
     return (
         <InquiryPageUI 
-        userEditInfo={userEditInfo}
+        userInfo={userInfo}
         data={data}
         page={page}
         setPage={setPage}

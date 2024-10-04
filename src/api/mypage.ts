@@ -111,16 +111,14 @@ export const delSendAddr = async (
     `mypage/send-address/${param.sendAddressId}`
   );
   return res.data.message;
-};
-
-// export const post
+};  
 
 export const postCs = async (
   url: string,
   param: { arg: TCs }
 ): Promise<TResMsg> => {
-  const params = { content: param.arg.content, title: param.arg.title };
-  const res: AxiosResponse<TResMsg> = await instance.post('/cs/', params);
+  const params = { content: param.arg.content,category:param.arg.category, title: param.arg.title };
+  const res: AxiosResponse<TResMsg> = await instance.post('/mypage/cs-inquires', params);
   return res.data;
 };
 
@@ -133,11 +131,15 @@ interface TResultCsInfoList {
   data: TCsListResult;
 }
 
-export const getCsList = async (): Promise<TCsListResult> => {
-  const res: AxiosResponse<TResultCsInfoList> = await instance.get(`/mypage/cs-inquiries/`);
+export const getCsList = async (page: string, limit: number): Promise<TCsListResult> => {
+  const res: AxiosResponse<TResultCsInfoList> = await instance.get(`/mypage/cs-inquiries/`, {
+    params: {
+      page,
+      limit,
+    }
+  });
 
   return res.data.data;
-
 };
 
 interface TResultCsDetail {

@@ -3,7 +3,7 @@ import { TUserInfo } from "@/type/auth";
 import { TCsInfo } from "@/type/mypage";
 
 export interface IInquiryProps {
-    userEditInfo: TUserInfo;
+    userInfo: TUserInfo | null;
     data: TCsListResult | undefined;
     page: string;
     setPage: (page: string) => void;

@@ -15,7 +15,7 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
     return (
         <S.Wrap>
           <S.Header>
-          <S.Title>안녕하세요! {props.userEditInfo?.name} 님,</S.Title>
+          <S.Title>안녕하세요! {props.userInfo?.name} 님,</S.Title>
           <S.SubTitle>이곳은 <S.TitleContent>내 1:1문의</S.TitleContent> 입니다.</S.SubTitle>
           </S.Header>
           <S.Body>
@@ -63,6 +63,7 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
             <Pagination
               total={props.data ? Number(props.data || 0) : 0}
               current={Number(props.page)}
+              pageSize={10}
               onChange={(value) => props.setPage(String(value))}
             />
           </S.Body>
