@@ -74,10 +74,10 @@ const ReviewCreate = ({ letter, close, callback }: TProps) => {
       <Bottom>
         <ButtonContainer>
           <button className="submit" onClick={onSumbit}>
-            확인
+            취소
           </button>
           <button className="cancel" onClick={close}>
-            취소
+            확인
           </button>
         </ButtonContainer>
       </Bottom>

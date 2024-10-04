@@ -102,12 +102,14 @@ export const CardContainer = styled.div`
 
 export const CardWrap = styled.div<{ isLast?: boolean }>`
   padding: 20px;
-
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #d9d9d9;
+  
+  &:last-child {
+    border-bottom: none;
+  }
 
-  border-radius: 5px;
-  border-top: 1px solid #d9d9d9;
 `;
 
 export const StatusContainer = styled.div`
