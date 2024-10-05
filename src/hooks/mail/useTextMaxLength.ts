@@ -13,8 +13,8 @@ const useTextMaxLength = (inputCount: number, setContent: (content: string[]) =>
     };
 
     const getMaxLength = (fontSize: 'large' | 'medium' | 'small', value: string) => {
-        const koreanMaxLengths = { large: 37, medium: 44, small: 62 };
-        const englishMaxLengths = { large: 69, medium: 79, small: 123 };
+        const koreanMaxLengths = { large: 28, medium: 32, small: 36 };
+        const englishMaxLengths = { large: 47, medium: 54, small: 62 };
         return isKorean(value) ? koreanMaxLengths[fontSize] : englishMaxLengths[fontSize];
     };
 

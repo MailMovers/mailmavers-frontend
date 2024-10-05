@@ -4,11 +4,14 @@ import { useEffect, useState, useRef, CSSProperties } from 'react';
 import { AlignLeftOutlined, AlignCenterOutlined, AlignRightOutlined } from '@ant-design/icons';
 import useMoveToPage from '../../../../hooks/mail/useMoveToPage';
 
+import {postLetterContent} from './axios'
+
 interface BoardWriteUIProps {
     pageNum: string | string[] | undefined
+    padId: string;
 }
 
-export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
+export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
     const [content, setContent] = useState<string[]>(Array(16).fill(''));
     const { inputRefs, handleInputChange, handleKeyPress, handleKeyDown, setInputMaxLength, isMaxLengthModalOpen, setIsMaxLengthModalOpen, moveToNextPageWithFocus, moveToPreviousPageWithFocus, isFirstPageModalOpen, setIsFirstPageModalOpen, isLastPageModalOpen, setIsLastPageModalOpen } = useTextMaxLength(16, setContent);
     const { moveToNextPage, moveToPreviousPage, isMaxPageModalOpen, setIsMaxPageModalOpen } = useMoveToPage();
@@ -87,6 +90,34 @@ export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
         setContent(newContent);
         localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(newContent));
     };
+    
+    const handleSubmit = async () => {
+        const contents: any = {
+            fontFamily: "noto sanse",
+        };
+    
+        for (let page = 1; page <= 5; page++) {
+            contents[`page${page}`] = {};
+            for (let line = 1; line <= 16; line++) {
+                const contentIndex = (page - 1) * 16 + (line - 1);
+                contents[`page${page}`][`line${line}`] = content[contentIndex] || ""; // 데이터가 없을 경우 빈 문자열
+            }
+        }
+    
+        const letterData = {
+            padId,
+            contents 
+        };
+    
+        try {
+            await postLetterContent(letterData);
+            alert('데이터가 성공적으로 저장되었습니다.');
+        } catch (error) {
+            console.error('데이터 저장 중 오류가 발생했습니다.', error);
+            alert('데이터 저장 중 오류가 발생했습니다.');
+        }
+    };
+    
 
     return (
         <>
@@ -172,6 +203,7 @@ export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
                         </S.FlexWrapper>
                     </S.ButtonWrapper>
                 </S.Header>
+                <S.ImgWrapper>
                 <S.BlankArea />
                 <S.TextAreaWrapper>
                     {Array.from({ length: 16 }).map((_, index) => (
@@ -183,16 +215,17 @@ export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
                                 if (index === 0) inputRef.current = el; 
                             }}
                             style={{ 
-                                fontSize: fontSize === 'large' ? '20px' : fontSize === 'medium' ? '17px' : '12px',
+                                fontSize: fontSize === 'large' ? '26px' : fontSize === 'medium' ? '23px' : '20px',
                                 ...getTextStyle()
                             }}
                             value={content[index]}
                             onChange={handleInputChangeWrapper(index)}
                             onKeyPress={handleKeyPress(index)}
                             onKeyDown={handleKeyDown(index)}
-                        />  
-                    ))}
+                            />  
+                        ))}
                 </S.TextAreaWrapper>
+                </S.ImgWrapper>
                 <S.StyledModal
                     isOpen={isModalOpen}
                     onRequestClose={() => setIsModalOpen(false)}
@@ -264,11 +297,13 @@ export default function BoardWriteUI({ pageNum }: BoardWriteUIProps) {
                 <S.BottomWrapper>
                     <S.Button 
                         id='save'
+                        onClick={handleSubmit}
                     >
                         임시저장
                     </S.Button>
                     <S.Button 
                         id='summit'
+                        onClick={handleSubmit}
                     >
                         작성완료
                     </S.Button>

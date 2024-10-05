@@ -11,7 +11,7 @@ export default function BoardWrite({ pageNum }: BoardWriteProps) {
 
     return (
         <>
-            <BoardWriteUI pageNum={pageNum || queryPageNum} />
+            <BoardWriteUI pageNum={pageNum || queryPageNum} padId=''/>
         </>
     );
 }

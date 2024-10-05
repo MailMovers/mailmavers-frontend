@@ -5,15 +5,9 @@ import Modal from 'react-modal';
 
 export const Container = styled.div`
     width: 900px;
-    margin : 0 auto;
+    margin: 0 auto;
     height: 1100px;
     padding: 0px;
-    background-image: url('/images/letter/letter.png');
-    background-size: cover;
-    background-position: center;
-  object-fit: cover;
-  object-position: center;
-
 
 `
 
@@ -21,7 +15,8 @@ export const TextAreaWrapper = styled.div`
     margin : 0 auto;
     width: 700px;
     height: 800px;
-
+    padding-top: 0px;
+    margin-top: 50px;
 
 `
 
@@ -29,34 +24,41 @@ export const Content = styled.input`
     width: 700px;
     height: 50px;
     margin : 0 auto;
-    padding-left: 5px;
+    padding-left: 10px;
     font-size: 17px; 
     outline: none;
     border: none;
-    border-bottom: 1px solid black; 
+
     vertical-align: bottom; 
     line-height: 60px; 
     z-index: 0;
-    background: transparent;
+    background: transparent;  
 
 
 `
 
 export const BlankArea = styled.div`
-        height: 150px;
-        width: 100%;
+   width: 100%;
+   height: 100px;
 `
 
 
 export const ContainerWrapper = styled.div`
   width: 900px;
-  height: 1300px;
+  height: 1270px;
   margin: 0 auto;
-  background-color: skyblue;
-    z-index: 1;
-
-
 `;
+
+export const ImgWrapper = styled.div`
+    background-color: skyblue;
+    background-image: url('/images/letter/letterPc.png');
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+    object-position: center;
+    height: 1100px;
+
+`
 
 export const Header = styled.div`
   display: flex;
@@ -64,8 +66,6 @@ export const Header = styled.div`
   border: 1px solid #ddd;
   flex-direction: column;
   background-color: white;
-
-
 `;
 
 export const ColorPicker = styled.input`
@@ -284,6 +284,8 @@ export const FooterWrapper = styled.div`
   text-align: center;
   display: flex;
   align-items: center;
+  margin-top: 0px;
+  padding-top: 0px;
   
 `
 
