@@ -1,6 +1,6 @@
 import { useMoveToPage } from "@/hooks/useMoveToPage";
-import * as S from "../notice/notice.styles"
-import { notices } from "../review-notice/notice/notice.container"
+import * as S from "./notice.styles"
+import { notices } from "./notice.mocks";
 
 export default function NoticeListUI () {
     const { onClickMoveToPage } = useMoveToPage();
@@ -28,7 +28,7 @@ export default function NoticeListUI () {
                         notice={notice.option}
                         onClick={onClickMoveToPage(`/notice/${notice.id}`)}
                         className="notice-item">
-                            <span className="option">{notice.option === 'important' ? '[공지]' : '[일반]' }</span>
+                            <span className="option">{notice.option === 'important' ? '[필수 공지]' : '[일반]' }</span>
                             <span className="title">{notice.title}</span>
                             <span className="date">{notice.date}</span>
                     </S.NoticeItem>
