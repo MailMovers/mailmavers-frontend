@@ -15,7 +15,7 @@ type Tprops = {
 const InquirePopup = ({ close, callback }: Tprops) => {
   const [modal, contextHolder] = Modal.useModal();
 
-  const [info, setInfo] = useState<TCs>({ title: '', category: '', content: '' });
+  const [info, setInfo] = useState<TCs>({ title: '', content: '' });
 
   const handleInput = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setInfo({ ...info, [e.target.id]: e.target.value });
@@ -49,13 +49,13 @@ const InquirePopup = ({ close, callback }: Tprops) => {
       return;
     }
 
-    if (!info.category) {
-      modal.warning({
-        title: '',
-        content: '카테고리를 입력해주세요',
-      })
-      return;
-    }
+    // if (!info.category) {
+    //   modal.warning({
+    //     title: '',
+    //     content: '카테고리를 입력해주세요',
+    //   })
+    //   return;
+    // }
 
     if (!info.content) {
       modal.warning({
@@ -81,7 +81,7 @@ const InquirePopup = ({ close, callback }: Tprops) => {
         </Tiltle>
         <Category>
           <span>분류 :</span>
-          <input id='category' placeholder='카테고리를 입력해 주세요. ex) 배송관련' value={info.category} onChange={handleInput}  />
+          <input id='category' placeholder='카테고리를 입력해 주세요. ex) 배송관련' value='기타 문의' onChange={handleInput}  />
         </Category>
         <Message>
           <span>내용 :</span>

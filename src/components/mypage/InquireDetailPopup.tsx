@@ -13,7 +13,7 @@ type Tprops = {
 };
 const InquireDetailPopup = ({ csInfo, close }: Tprops) => {
   const { data } = useSWR<TCsInfoDetail>(
-    () => (!!csInfo ? '/cs/detail' : null),
+    () => (!!csInfo ? `/mypage/cs-inquiries/${csInfo.id}` : null),
     () => getCsDetail(csInfo.id),
     {
       revalidateOnFocus: false,
@@ -21,6 +21,7 @@ const InquireDetailPopup = ({ csInfo, close }: Tprops) => {
       revalidateOnMount: true,
     }
   );
+  console.log(data)
 
   return (
     <Wrap>
@@ -34,7 +35,7 @@ const InquireDetailPopup = ({ csInfo, close }: Tprops) => {
         </Tiltle>
         <Category>
           <span>분류 :</span>
-          <input id='category' value={data?.category || '배송 관련'} disabled />
+          <input id='category' value='기타 문의' disabled />
         </Category>
         <Message>
           <span>내용 :</span>

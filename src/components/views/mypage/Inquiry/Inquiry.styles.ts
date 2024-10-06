@@ -238,13 +238,13 @@ display: flex;
   }
 `
           
-export const CsStatus = styled.div<{status: string}>`
+export const CsStatus = styled.div<{status: boolean}>`
   width: 70px;
   height: 24px;
-  border: 2px solid ${({status}) => status === '답변 완료' ? 'var(--primary, #4a743c)' : 'orange'};
+  border: 2px solid ${({status}) => status === true ? 'var(--primary, #4a743c)' : 'orange'};
   border-radius: 10px;
-  background: ${({status}) => status === '답변 완료' ? 'white' : 'white'};
-  color: ${({status}) => status === '답변 완료' ? 'var(--primary, #4a743c)' : 'orange'};
+  background: ${({status}) => status === true ? 'white' : 'white'};
+  color: ${({status}) => status === true ? 'var(--primary, #4a743c)' : 'orange'};
   text-align: center;
   font-size: 12px;
   font-weight: 600;

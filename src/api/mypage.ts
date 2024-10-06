@@ -117,29 +117,22 @@ export const postCs = async (
   url: string,
   param: { arg: TCs }
 ): Promise<TResMsg> => {
-  const params = { content: param.arg.content,category:param.arg.category, title: param.arg.title };
-  const res: AxiosResponse<TResMsg> = await instance.post('/mypage/cs-inquires', params);
+  const params = { content: param.arg.content, title: param.arg.title };
+  const res: AxiosResponse<TResMsg> = await instance.post('/mypage/cs-inquiries', params);
   return res.data;
 };
 
 
-export type TCsListResult = {
-  csList: TCsInfo[];
-};
+export type TCsListResult = TCsInfo[];
+
 interface TResultCsInfoList {
   message: string;
   data: TCsListResult;
 }
 
-export const getCsList = async (page: string, limit: number): Promise<TCsListResult> => {
-  const res: AxiosResponse<TResultCsInfoList> = await instance.get(`/mypage/cs-inquiries/`, {
-    params: {
-      page,
-      limit,
-    }
-  });
-
-  return res.data.data;
+export const getCsList = async (): Promise<TCsListResult> => {
+  const res: AxiosResponse<TCsInfo[]> = await instance.get(`/mypage/cs-inquiries/`);
+  return res.data;
 };
 
 interface TResultCsDetail {
@@ -148,12 +141,11 @@ interface TResultCsDetail {
 }
 
 export const getCsDetail = async (id: number): Promise<TCsInfoDetail> => {
-  const res: AxiosResponse<TResultCsDetail> = await instance.get(
-    `/cs/detail?customerServiceId=${id}`
+  const res: AxiosResponse<TCsInfoDetail> = await instance.get(
+    `/mypage/cs-inquiries/${id}`
   );
 
-
-  return res.data.data;
+  return res.data;
 };
 
 interface TResultMyReivewList {

@@ -7,11 +7,9 @@ import InquireDetailPopup from '@/components/mypage/InquireDetailPopup';
 import InquirePopup from '@/components/mypage/InquirePopup';
 import { IInquiryProps } from './Inquiry.types';
 import { TCsInfo } from '@/type/mypage';
-import { useState } from 'react';
-import { exampleInfo } from './Inquirt.mock';
+import { useEffect, useState } from 'react';
 
 export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
-  const [mockData] = useState(exampleInfo);
     return (
         <S.Wrap>
           <S.Header>
@@ -29,26 +27,26 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
                 </S.TitleWrap>
 
                 <S.CardContainer>
-                  {mockData ?
-                    mockData.map((csInfo: TCsInfo) =>(
+                  {props.data ?
+                    props.data.map((csInfo: TCsInfo) =>(
                         <S.CardWrap
                           key={csInfo.id}
                           onClick={() => props.setSelectCs(csInfo)}
                         >
                           <S.CsDataContainer className='status'>
-                          <S.CsStatus status={csInfo.status}>
-                            {csInfo.status}
+                          <S.CsStatus status={csInfo.hasAnswer}>
+                            {csInfo.hasAnswer ? '답변 완료' : '미답변'}
                           </S.CsStatus>
                           </S.CsDataContainer>
                           <S.CsDataContainer className='category'>
-                          <S.CsCategory>{csInfo.category}</S.CsCategory>
+                          <S.CsCategory>기타 문의</S.CsCategory>
                           </S.CsDataContainer>
                           <S.CsDataContainer className='title'>
                           <S.CsTitle> {csInfo.title} </S.CsTitle>                      
                           </S.CsDataContainer>
                           <S.CsDataContainer className='date'>
                           <S.CsDate>
-                              {csInfo.createdAt}
+                          {new Date(csInfo.createdAt).toLocaleDateString()}
                           </S.CsDate>
                           </S.CsDataContainer>
                         </S.CardWrap>
@@ -60,12 +58,12 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
               </S.InfoWrap>
             </S.InfoContaier>
 
-            <Pagination
+            {/* <Pagination
               total={props.data ? Number(props.data || 0) : 0}
               current={Number(props.page)}
               pageSize={10}
               onChange={(value) => props.setPage(String(value))}
-            />
+            /> */}
           </S.Body>
 
           {!props.openInquire && !props.selectCs && (
