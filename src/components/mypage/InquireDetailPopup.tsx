@@ -29,27 +29,32 @@ const InquireDetailPopup = ({ csInfo, close }: Tprops) => {
         <span>문의내용</span>
       </Header>
       <Body>
-        <Tiltle>
+        <Title>
           <span>제목 :</span>
           <input id='title' value={data?.title || '배송이 언제 완료되나요?'} disabled />
-        </Tiltle>
-        <Category>
+        </Title>
+        <Title>
           <span>분류 :</span>
           <input id='category' value='기타 문의' disabled />
-        </Category>
+        </Title>
         <Message>
           <span>내용 :</span>
           <textarea
-            id='content'
-            value={
-              data?.content ||
-              '저장된 데이터가 없습니다.'
-            }
+            className='content'
+            value={data?.content || '데이터를 불러오는 중 입니다. 잠시만 기다려주세요.'}
             disabled
           />
         </Message>
-      </Body>
+        <Message>
+          <span>답변 :</span>
+          <textarea
+          className='answer'
+          value={data?.csa_content || '아직 답변이 등록되지 않았습니다.'}
 
+          disabled
+        />
+        </Message>
+      </Body>
       <Bottom>
         <ButtonContainer>
           <button className='submit' onClick={close}>
@@ -74,6 +79,9 @@ const Wrap = styled.div`
   border: 1px solid #ccc;
   border-radius: 10px;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -123,7 +131,7 @@ const Body = styled.div`
   }
 `;
 
-const Tiltle = styled.div<{ isArea?: boolean }>`
+const Title = styled.div<{ isArea?: boolean }>`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 5fr;
@@ -159,48 +167,11 @@ const Tiltle = styled.div<{ isArea?: boolean }>`
   }
 `;
 
-const Category = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  align-items: center;
-
-  @media all and (max-width: 768px) {
-    grid-template-columns: none;
-  }
-
-  span {
-    color: var(--default, #333);
-
-    font-size: 18px;
-    font-weight: 400;
-
-    @media all and (max-width: 768px) {
-      display: none;
-    }
-  }
-
-  input {
-    padding: 13px 0 13px 10px;
-    height: 50px;
-    border-radius: 5px;
-    border: 1px solid var(--greyD9, #d9d9d9);
-
-    outline: none;
-
-    @media all and (max-width: 768px) {
-      width: 100%;
-    }
-  }
-`
-
 const Message = styled.div<{ isArea?: boolean }>`
   width: 100%;
-  height: 400px;
+  height: 200px;
   display: grid;
   grid-template-columns: 1fr 5fr;
-
-  height: ${({ isArea }) => isArea && '400px'};
 
   @media all and (max-width: 768px) {
     grid-template-columns: none;
@@ -219,16 +190,14 @@ const Message = styled.div<{ isArea?: boolean }>`
   }
 
   textarea {
-    height: 100px;
-
+    height: 100%;
+    overflow-y: auto;
     padding: 13px 0 13px 10px;
-    height: 50px;
     border-radius: 5px;
 
     outline: none;
 
     width: 100%;
-    height: 300px;
 
     font-size: 16px;
     resize: none;
