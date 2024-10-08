@@ -3,20 +3,32 @@ import useTextMaxLength from '../../../../hooks/mail/useTextMaxLength';
 import { useEffect, useState, useRef, CSSProperties } from 'react';
 import { AlignLeftOutlined, AlignCenterOutlined, AlignRightOutlined } from '@ant-design/icons';
 import useMoveToPage from '../../../../hooks/mail/useMoveToPage';
-import {postLetterContent} from './axios'
-
-
+import { postLetterContent } from './axios';
+import { useRouter } from 'next/router';
 
 interface BoardWriteUIProps {
-    pageNum: string | string[] | undefined
+    pageNum: string | string[] | undefined;
     padId: string;
 }
 
-export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
+export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
+    const router = useRouter();
+    const [pageNum, setPageNum] = useState<number>(1);
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const [content, setContent] = useState<string[]>(Array(16).fill(''));
+    const [contents, setContents] = useState<{ [key: number]: string[] }>(() => {
+        const initialContents: { [key: number]: string[] } = {};
+        for (let i = 1; i <= 5; i++) {
+            initialContents[i] = Array(16).fill('');
+        }
+        return initialContents;
+    });
     const focusAreaRefs = useRef(Array(16).fill(null)); // 16개의 포커스 영역 관리할 Ref
-    const { inputRefs, handleInputChange, handleKeyPress, handleKeyDown, setInputMaxLength, isMaxLengthModalOpen, setIsMaxLengthModalOpen, moveToNextPageWithFocus, moveToPreviousPageWithFocus, isFirstPageModalOpen, setIsFirstPageModalOpen, isLastPageModalOpen, setIsLastPageModalOpen } = useTextMaxLength(16, setContent);
+    const { inputRefs, handleInputChange, handleKeyPress, handleKeyDown, setInputMaxLength, isMaxLengthModalOpen, setIsMaxLengthModalOpen, moveToNextPageWithFocus, moveToPreviousPageWithFocus, isFirstPageModalOpen, setIsFirstPageModalOpen, isLastPageModalOpen, setIsLastPageModalOpen } = useTextMaxLength(16, (newContent) => {
+        setContents((prevContents) => ({
+            ...prevContents,
+            [pageNum]: newContent,
+        }));
+    });
     const { moveToNextPage, moveToPreviousPage, isMaxPageModalOpen, setIsMaxPageModalOpen } = useMoveToPage();
     const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large'>('medium');
     const [activeButton, setActiveButton] = useState<string | null>(null);
@@ -29,6 +41,26 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
     useEffect(() => {
         setInputMaxLength(fontSize);
     }, [fontSize, setInputMaxLength]);
+
+    useEffect(() => {
+        if (router.isReady) {
+            const queryPageNum = router.query.pageNum;
+            if (queryPageNum && typeof queryPageNum === 'string') {
+                const newPageNum = parseInt(queryPageNum, 10);
+                setPageNum(newPageNum);
+            }
+        }
+    }, [router.isReady, router.query.pageNum]);
+
+    useEffect(() => {
+        const savedContent = localStorage.getItem(`pageContent-${pageNum}`);
+        if (savedContent) {
+            setContents((prevContents) => ({
+                ...prevContents,
+                [pageNum]: JSON.parse(savedContent),
+            }));
+        }
+    }, [pageNum]);
 
     useEffect(() => {
         const observers = focusAreaRefs.current.map((focusAreaRef, index) => {
@@ -54,14 +86,13 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
                 });
             }, { threshold: 1.0 });
         });
-    
+
         focusAreaRefs.current.forEach((focusAreaRef, index) => {
             if (focusAreaRef) {
                 observers[index].observe(focusAreaRef);
             }
         });
-    
-        // Clean-up 함수 정의
+
         return () => {
             focusAreaRefs.current.forEach((focusAreaRef, index) => {
                 if (focusAreaRef) {
@@ -71,18 +102,6 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
             });
         };
     }, [currentInputIndex]);
-    
-    
-
-
-    useEffect(() => {
-        const savedContent = localStorage.getItem(`pageContent-${pageNum}`);
-        if (savedContent) {
-            setContent(JSON.parse(savedContent));
-        }
-    }, [pageNum]);
-
-    
 
     const handleFontSizeChange = (size: 'small' | 'medium' | 'large') => {
         const hasContent = inputRefs.current.some(input => input && input.value.trim() !== '');
@@ -92,6 +111,18 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
         }
         setFontSize(size);
         setActiveButton(size);
+    };
+
+    const handleInputChangeWrapper = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        handleInputChange(fontSize)(index)(event);
+
+        const newContent = [...contents[pageNum]];
+        newContent[index] = event.target.value;
+        setContents((prevContents) => ({
+            ...prevContents,
+            [pageNum]: newContent,
+        }));
+        localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(newContent));
     };
 
     const handleButtonClick2 = (buttonType: string) => {
@@ -107,6 +138,56 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
         if (inputRef.current) {
             inputRef.current.focus();
             inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
+        }
+    };
+
+    const handlePageChange = (newPageNum: number) => {
+        // 현재 페이지 내용을 로컬스토리지에 저장하고 페이지를 이동
+        localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(contents[pageNum]));
+        setPageNum(newPageNum);
+        router.push(`/mail/${padId}/${newPageNum}`); // URL에 페이지 번호를 반영하여 이동
+    };
+
+    const handleSubmit = async () => {
+        const finalContents: any = {
+            fontFamily: "noto sanse",
+            padId: padId,
+            fontSize: fontSize,
+            strong: activeButtons.includes('bold'),
+            italic: activeButtons.includes('italic'),
+            underline: activeButtons.includes('underline'),
+            flex: flexButtons === 'left' ? 'start' : flexButtons === 'center' ? 'center' : flexButtons === 'right' ? 'end' : 'start',
+            hexCode: fontColor,
+        };
+
+        let totalContentCount = 0;
+        for (let page = 1; page <= 5; page++) {
+            const pageContent = contents[page];
+            const contentCount = pageContent?.filter((line) => line.trim() !== '').length || 0;
+            totalContentCount += contentCount;
+
+            finalContents[`page${page}`] = {
+                contentCount: contentCount,
+            };
+            for (let line = 1; line <= 16; line++) {
+                finalContents[`page${page}`][`line${line}`] = pageContent?.[line - 1] || "";
+            }
+        }
+
+        const letterData = {
+            padId,
+            contents: finalContents,
+            contentCount: totalContentCount,
+        };
+
+        console.log('전송할 데이터:', letterData);
+
+        try {
+            await postLetterContent(letterData);
+            alert('데이터가 성공적으로 저장되었습니다.');
+        } catch (error) {
+            console.error('데이터 저장 중 오류가 발생했습니다.', error);
+            alert('데이터 저장 중 오류가 발생했습니다.');
         }
     };
 
@@ -132,75 +213,6 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
         }
         return style;
     };
-
-    const handleInputChangeWrapper = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("Input index:", index);
-        console.log("Current input value:", event.target.value);
-
-        handleInputChange(fontSize)(index)(event);
-
-        const newContent = [...content];
-        newContent[index] = event.target.value;
-        setContent(newContent);
-        localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(newContent));
-
-        // 다음 인풋으로 자동 이동 처리 (최대 너비 기준)
-        const inputElement = inputRefs.current[index];
-        if (inputElement && inputElement.scrollWidth > inputElement.clientWidth && index < inputRefs.current.length - 1) {
-            const nextInput = inputRefs.current[index + 1];
-            if (nextInput) {
-                nextInput.focus();
-            }
-        }
-        localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(newContent));
-
-        if (index === 15) {
-            const inputElement = inputRefs.current[index];
-            if (inputElement && inputElement.scrollWidth > inputElement.clientWidth) {
-                setIsMaxLengthModalOpen(true);
-                return;
-            }
-        }
-    }
-
-
-    
- 
-    const handleSubmit = async () => {
-        const contents: any = {
-            contentCount: content.filter((line) => line.trim() !== '').length,
-            fontFamily: "noto sanse",
-            padId: padId,
-            fontSize: fontSize,
-            strong: activeButtons.includes('bold') ? true : false,
-            italic: activeButtons.includes('italic') ? true : false,
-            underline: activeButtons.includes('underline') ? true : false,
-            flex: flexButtons === 'left' ? 'start' : flexButtons === 'center' ? 'center' : flexButtons === 'right' ? 'end' : 'start',
-            hexCode: fontColor,
-        };
-
-        for (let page = 1; page <= 5; page++) {
-            contents[`page${page}`] = {};
-            for (let line = 1; line <= 16; line++) {
-                const contentIndex = (page - 1) * 16 + (line - 1);
-                contents[`page${page}`][`line${line}`] = content[contentIndex] || "";
-            }
-        }
-
-        const letterData = {
-            padId,
-            contents
-        };
-
-        try {
-            await postLetterContent(letterData);
-            alert('데이터가 성공적으로 저장되었습니다.');
-        } catch (error) {
-            console.error('데이터 저장 중 오류가 발생했습니다.', error);
-            alert('데이터 저장 중 오류가 발생했습니다.');
-        }
-    };
-    
 
     return (
         <>
@@ -301,7 +313,7 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
                                         fontSize: fontSize === 'large' ? '26px' : fontSize === 'medium' ? '23px' : '20px',
                                         ...getTextStyle()
                                     }}
-                                    value={content[index]}
+                                    value={contents[pageNum]?.[index] || ''}
                                     onChange={handleInputChangeWrapper(index)}
                                     onKeyPress={handleKeyPress(index)}
                                     onKeyDown={handleKeyDown(index)}
@@ -332,7 +344,7 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
                     isOpen={isMaxLengthModalOpen}
                     onRequestClose={() => {
                         setIsMaxLengthModalOpen(false);
-                        moveToNextPageWithFocus(pageNum);
+                        moveToNextPageWithFocus(pageNum.toString());
                     }}
                     contentLabel="Max Length Modal"
                 >
@@ -340,7 +352,7 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
                     <p>16줄을 초과하였습니다. 다음 페이지로 이동합니다.</p>
                     <button onClick={() => {
                         setIsMaxLengthModalOpen(false);
-                        moveToNextPageWithFocus(pageNum);
+                        moveToNextPageWithFocus(pageNum.toString());
                     }}>확인</button>
                 </S.StyledModal>
                 <S.StyledModal
@@ -366,14 +378,16 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
                 <S.BottomWrapper>
                     <S.Button 
                         id='MoveBackPage'
-                        onClick={() => moveToPreviousPageWithFocus(pageNum)}
+                        onClick={() => handlePageChange(pageNum - 1)}
+                        disabled={pageNum === 1}
                     >
                         이전
                     </S.Button>
                     <S.Button 
                         id='MoveNextPage'
-                        onClick={() => moveToNextPageWithFocus(pageNum)}
-                    >
+                        onClick={() => handlePageChange(pageNum + 1)}
+                        disabled={pageNum === 5}
+                                    >
                         다음
                     </S.Button>
                 </S.BottomWrapper>
@@ -396,4 +410,3 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
         </>
     );
 }
-
