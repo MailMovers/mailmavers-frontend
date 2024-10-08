@@ -2,14 +2,11 @@ import { css } from '@emotion/react';
 import { memo, useEffect, useMemo, useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import Toolbar from './EditorToolBar';
-
-import { Common } from 'styles/common';
 import { PadData } from '@/type/letterData';
 import useSWR from 'swr';
 import { getPadData } from '@/api/letter';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
-import { letterWritingPadIdState } from '@/recoil/letter/atom';
+
 
 type QuillEditorProps = {
   quillRef: React.MutableRefObject<ReactQuill | null>;
