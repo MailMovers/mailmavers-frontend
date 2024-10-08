@@ -145,7 +145,7 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
         // 현재 페이지 내용을 로컬스토리지에 저장하고 페이지를 이동
         localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(contents[pageNum]));
         setPageNum(newPageNum);
-        router.push(`/mail/${padId}/${newPageNum}`); // URL에 페이지 번호를 반영하여 이동
+        router.push(`/mail/1/${newPageNum}`); // URL에 페이지 번호를 반영하여 이동
     };
 
     const handleSubmit = async () => {
@@ -160,15 +160,14 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
             hexCode: fontColor,
         };
 
-        let totalContentCount = 0;
+        let pageCount = 0;
         for (let page = 1; page <= 5; page++) {
             const pageContent = contents[page];
-            const contentCount = pageContent?.filter((line) => line.trim() !== '').length || 0;
-            totalContentCount += contentCount;
+            if (pageContent?.some((line) => line.trim() !== '')) {
+                pageCount++;
+            }
 
-            finalContents[`page${page}`] = {
-                contentCount: contentCount,
-            };
+            finalContents[`page${page}`] = {};
             for (let line = 1; line <= 16; line++) {
                 finalContents[`page${page}`][`line${line}`] = pageContent?.[line - 1] || "";
             }
@@ -177,7 +176,7 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
         const letterData = {
             padId,
             contents: finalContents,
-            contentCount: totalContentCount,
+            pageCount,
         };
 
         console.log('전송할 데이터:', letterData);
