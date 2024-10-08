@@ -1,8 +1,16 @@
 import { productData } from './mock';
 import * as S from './detail-styles/product-detail.styles'
+import {useMoveToPage} from '../../../hooks/useMoveToPage'
+
+
+
 
 const ProductDetail = () => {
+
+  
+  const { onClickMoveToPage } = useMoveToPage();
   const {
+    id,
     mainImage,
     title,
     badge,
@@ -36,7 +44,7 @@ const ProductDetail = () => {
             ))}
           </S.ProductDetails>
           <S.ButtonSection>
-            <S.Button>편지작성</S.Button>
+            <S.Button onClick={onClickMoveToPage(`/mail/${id}/1`)}>편지작성</S.Button>
           </S.ButtonSection>
         </S.InfoSection>
       </S.DetailWrapper>

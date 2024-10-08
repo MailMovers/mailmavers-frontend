@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
-import BoardWrite from '../../../../components/mail/board/write/boardWrite.container';
 import MobileBoardEditor from '../../../../components/mail/board/mobile-board/editor';
+import BoardWrite from '../../../../components/mail/board/write/boardWrite.container';
 
 interface MailPageProps {
-    pageNum: string; // pageNum의 타입을 명시
+    pageNum: string;
+    padId: string;
 }
 
-interface MailPageProps {
-    pageNum: string; // pageNum의 타입을 명시
-}
-
-const MailPage: React.FC<MailPageProps> = ({ pageNum }) => {
+const Mail: React.FC<MailPageProps> = ({ pageNum, padId }) => {
     const [isMobile, setIsMobile] = useState(false);
 
     const handleResize = () => {
@@ -19,7 +16,7 @@ const MailPage: React.FC<MailPageProps> = ({ pageNum }) => {
 
     useEffect(() => {
         handleResize(); // 초기 사이즈 체크
-        window.addEventListener('resize', handleResize); // 리사이즈 이벤트 리스너 추가
+        window.addEventListener('resize', handleResize);
 
         return () => {
             window.removeEventListener('resize', handleResize); // 클린업
@@ -28,9 +25,13 @@ const MailPage: React.FC<MailPageProps> = ({ pageNum }) => {
 
     return (
         <>
-            {isMobile ? <MobileBoardEditor pageNum={pageNum} /> : <BoardWrite pageNum={pageNum} />}
+            {isMobile ? (
+                <MobileBoardEditor pageNum={pageNum} padId={padId} />
+            ) : (
+                <BoardWrite pageNum={pageNum} padId={padId} />
+            )}
         </>
     );
 };
 
-export default MailPage;
+export default Mail;

@@ -3,8 +3,9 @@ import useTextMaxLength from '../../../../hooks/mail/useTextMaxLength';
 import { useEffect, useState, useRef, CSSProperties } from 'react';
 import { AlignLeftOutlined, AlignCenterOutlined, AlignRightOutlined } from '@ant-design/icons';
 import useMoveToPage from '../../../../hooks/mail/useMoveToPage';
-
 import {postLetterContent} from './axios'
+
+
 
 interface BoardWriteUIProps {
     pageNum: string | string[] | undefined
@@ -12,20 +13,67 @@ interface BoardWriteUIProps {
 }
 
 export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
+    const inputRef = useRef<HTMLInputElement | null>(null);
     const [content, setContent] = useState<string[]>(Array(16).fill(''));
+    const focusAreaRefs = useRef(Array(16).fill(null)); // 16개의 포커스 영역 관리할 Ref
     const { inputRefs, handleInputChange, handleKeyPress, handleKeyDown, setInputMaxLength, isMaxLengthModalOpen, setIsMaxLengthModalOpen, moveToNextPageWithFocus, moveToPreviousPageWithFocus, isFirstPageModalOpen, setIsFirstPageModalOpen, isLastPageModalOpen, setIsLastPageModalOpen } = useTextMaxLength(16, setContent);
     const { moveToNextPage, moveToPreviousPage, isMaxPageModalOpen, setIsMaxPageModalOpen } = useMoveToPage();
-    const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large'>('small');
+    const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large'>('medium');
     const [activeButton, setActiveButton] = useState<string | null>(null);
     const [activeButtons, setActiveButtons] = useState<string[]>([]);
     const [flexButtons, setFlexButtons] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const inputRef = useRef<HTMLInputElement | null>(null);
     const [fontColor, setFontColor] = useState<string>('#000000');
+    const [currentInputIndex, setCurrentInputIndex] = useState(0);
 
     useEffect(() => {
         setInputMaxLength(fontSize);
     }, [fontSize, setInputMaxLength]);
+
+    useEffect(() => {
+        const observers = focusAreaRefs.current.map((focusAreaRef, index) => {
+            return new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && currentInputIndex === index) {
+                        // 포커스가 특정 영역에 닿으면 다음 인풋으로 이동
+                        if (currentInputIndex < inputRefs.current.length - 1) {
+                            setCurrentInputIndex((prevIndex) => prevIndex + 1);
+                            const nextInput = inputRefs.current[currentInputIndex + 1];
+                            if (nextInput) {
+                                nextInput.focus();
+                            }
+                        } else {
+                            // 마지막 인풋에 도달하면 자동 줄바꿈 처리
+                            setCurrentInputIndex(0);
+                            const nextInput = inputRefs.current[0];
+                            if (nextInput) {
+                                nextInput.focus();
+                            }
+                        }
+                    }
+                });
+            }, { threshold: 1.0 });
+        });
+    
+        focusAreaRefs.current.forEach((focusAreaRef, index) => {
+            if (focusAreaRef) {
+                observers[index].observe(focusAreaRef);
+            }
+        });
+    
+        // Clean-up 함수 정의
+        return () => {
+            focusAreaRefs.current.forEach((focusAreaRef, index) => {
+                if (focusAreaRef) {
+                    observers[index].unobserve(focusAreaRef);
+                    observers[index].disconnect();  // 관찰자 인스턴스를 정리하여 메모리 누수 방지
+                }
+            });
+        };
+    }, [currentInputIndex]);
+    
+    
+
 
     useEffect(() => {
         const savedContent = localStorage.getItem(`pageContent-${pageNum}`);
@@ -33,6 +81,8 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
             setContent(JSON.parse(savedContent));
         }
     }, [pageNum]);
+
+    
 
     const handleFontSizeChange = (size: 'small' | 'medium' | 'large') => {
         const hasContent = inputRefs.current.some(input => input && input.value.trim() !== '');
@@ -84,31 +134,64 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
     };
 
     const handleInputChangeWrapper = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("Input index:", index);
+        console.log("Current input value:", event.target.value);
+
         handleInputChange(fontSize)(index)(event);
+
         const newContent = [...content];
         newContent[index] = event.target.value;
         setContent(newContent);
         localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(newContent));
-    };
+
+        // 다음 인풋으로 자동 이동 처리 (최대 너비 기준)
+        const inputElement = inputRefs.current[index];
+        if (inputElement && inputElement.scrollWidth > inputElement.clientWidth && index < inputRefs.current.length - 1) {
+            const nextInput = inputRefs.current[index + 1];
+            if (nextInput) {
+                nextInput.focus();
+            }
+        }
+        localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(newContent));
+
+        if (index === 15) {
+            const inputElement = inputRefs.current[index];
+            if (inputElement && inputElement.scrollWidth > inputElement.clientWidth) {
+                setIsMaxLengthModalOpen(true);
+                return;
+            }
+        }
+    }
+
+
     
+ 
     const handleSubmit = async () => {
         const contents: any = {
+            contentCount: content.filter((line) => line.trim() !== '').length,
             fontFamily: "noto sanse",
+            padId: padId,
+            fontSize: fontSize,
+            strong: activeButtons.includes('bold') ? true : false,
+            italic: activeButtons.includes('italic') ? true : false,
+            underline: activeButtons.includes('underline') ? true : false,
+            flex: flexButtons === 'left' ? 'start' : flexButtons === 'center' ? 'center' : flexButtons === 'right' ? 'end' : 'start',
+            hexCode: fontColor,
         };
-    
+
         for (let page = 1; page <= 5; page++) {
             contents[`page${page}`] = {};
             for (let line = 1; line <= 16; line++) {
                 const contentIndex = (page - 1) * 16 + (line - 1);
-                contents[`page${page}`][`line${line}`] = content[contentIndex] || ""; // 데이터가 없을 경우 빈 문자열
+                contents[`page${page}`][`line${line}`] = content[contentIndex] || "";
             }
         }
-    
+
         const letterData = {
             padId,
-            contents 
+            contents
         };
-    
+
         try {
             await postLetterContent(letterData);
             alert('데이터가 성공적으로 저장되었습니다.');
@@ -205,27 +288,28 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
                 </S.Header>
                 <S.ImgWrapper>
                 <S.BlankArea />
-                <S.TextAreaWrapper>
-                    {Array.from({ length: 16 }).map((_, index) => (
-                        <S.Content
-                            key={index}
-                            id={`${index + 1}line`}
-                            ref={(el) => {
-                                inputRefs.current[index] = el;
-                                if (index === 0) inputRef.current = el; 
-                            }}
-                            style={{ 
-                                fontSize: fontSize === 'large' ? '26px' : fontSize === 'medium' ? '23px' : '20px',
-                                ...getTextStyle()
-                            }}
-                            value={content[index]}
-                            onChange={handleInputChangeWrapper(index)}
-                            onKeyPress={handleKeyPress(index)}
-                            onKeyDown={handleKeyDown(index)}
-                            />  
-                        ))}
-                </S.TextAreaWrapper>
-                </S.ImgWrapper>
+                <S.TextAreaWrapper>                        
+                            {Array.from({ length: 16 }).map((_, index) => (
+                                <S.Content
+                                    key={index}
+                                    id={`${index + 1}line`}
+                                    ref={(el) => {
+                                        inputRefs.current[index] = el;
+                                        if (index === 0) inputRef.current = el; 
+                                    }}
+                                    style={{ 
+                                        fontSize: fontSize === 'large' ? '26px' : fontSize === 'medium' ? '23px' : '20px',
+                                        ...getTextStyle()
+                                    }}
+                                    value={content[index]}
+                                    onChange={handleInputChangeWrapper(index)}
+                                    onKeyPress={handleKeyPress(index)}
+                                    onKeyDown={handleKeyDown(index)}
+                                />
+                            ))}
+
+                        </S.TextAreaWrapper>
+                        </S.ImgWrapper>
                 <S.StyledModal
                     isOpen={isModalOpen}
                     onRequestClose={() => setIsModalOpen(false)}
@@ -312,3 +396,4 @@ export default function BoardWriteUI({ pageNum, padId }: BoardWriteUIProps) {
         </>
     );
 }
+

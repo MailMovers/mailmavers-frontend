@@ -13,8 +13,8 @@ const useTextMaxLength = (inputCount: number, setContent: (content: string[]) =>
     };
 
     const getMaxLength = (fontSize: 'large' | 'medium' | 'small', value: string) => {
-        const koreanMaxLengths = { large: 28, medium: 32, small: 36 };
-        const englishMaxLengths = { large: 47, medium: 54, small: 62 };
+        const koreanMaxLengths = { large: 100, medium: 100, small: 100 };
+        const englishMaxLengths = { large: 100, medium: 100, small: 100 };
         return isKorean(value) ? koreanMaxLengths[fontSize] : englishMaxLengths[fontSize];
     };
 
@@ -96,20 +96,20 @@ const useTextMaxLength = (inputCount: number, setContent: (content: string[]) =>
 
     return {
         inputRefs,
+        isMaxLengthModalOpen,
+        isFirstPageModalOpen,
+        isLastPageModalOpen,
         handleKeyPress,
         handleKeyDown,
         handleInputChange,
         handleInputLargeFontChange: handleInputChange('large'),
         handleInputMediumFontChange: handleInputChange('medium'),
         handleInputSmallFontChange: handleInputChange('small'),
-        setInputMaxLength,
-        isMaxLengthModalOpen,
-        setIsMaxLengthModalOpen,
-        moveToNextPageWithFocus,
         moveToPreviousPageWithFocus,
-        isFirstPageModalOpen,
+        moveToNextPageWithFocus,
+        setInputMaxLength,
+        setIsMaxLengthModalOpen,
         setIsFirstPageModalOpen,
-        isLastPageModalOpen,
         setIsLastPageModalOpen,
     };
 };

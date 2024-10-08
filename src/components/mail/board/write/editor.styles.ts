@@ -9,6 +9,11 @@ export const Container = styled.div`
     height: 1100px;
     padding: 0px;
 
+    input {
+        margin-bottom: 5px;
+        width: 100%;
+    }
+
 `
 
 export const TextAreaWrapper = styled.div`
@@ -25,15 +30,16 @@ export const Content = styled.input`
     height: 50px;
     margin : 0 auto;
     padding-left: 10px;
-    font-size: 17px; 
+    font-size: 23px; 
     outline: none;
     border: none;
+    padding-right: 13px;
+
 
     vertical-align: bottom; 
     line-height: 60px; 
     z-index: 0;
     background: transparent;  
-
 
 `
 
@@ -95,8 +101,6 @@ export const FontSizeButton = styled.button<{ isActive: boolean }>`
   &#small {
     font-size: 13px;
   }
-
-
 `;
 
 export const FormatButton = styled.button<{ isActive: boolean }>`
@@ -108,13 +112,6 @@ export const FormatButton = styled.button<{ isActive: boolean }>`
 
 `;
 
-export const EmojiButton = styled.button`
-  margin-left: auto;
-  background-color: white;
-  border: 1px solid #ddd;
-  width: 50px;
-  font-size: 18px;
-`;
 
 export const FontStyleInput = styled.input`
   width: 71.6%;
@@ -127,12 +124,10 @@ export const ButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin: 10px;
-
 `;
 
 export const FormatButtonWrapper = styled.div`
   display: flex;
-
 `;
 
 export const FontSizeButtonWrapper = styled.div`
@@ -159,17 +154,12 @@ export const PickerWrapper = styled.div`
     color: red;
     font-weight: 500;
   }
+
 `;
 
 
 export const FlexWrapper = styled.div`
     margin-left: 105px;
-
-    @media(max-width: 768px) {
-    display: flex;
-    margin: 0px;
-
-  }
 
 `
 
@@ -287,6 +277,7 @@ export const FooterWrapper = styled.div`
   margin-top: 0px;
   padding-top: 0px;
   
+  
 `
 
 export const PageInfo = styled.div`
@@ -302,4 +293,7 @@ export const PageInfo = styled.div`
   margin: auto;
   font-size: 16px;
   border-radius: 50%;
+
+
+
   `
