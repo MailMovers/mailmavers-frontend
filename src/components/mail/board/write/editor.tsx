@@ -151,7 +151,7 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
     const handleSubmit = async () => {
         const finalContents: any = {
             fontFamily: "noto sanse",
-            padId ,
+            padId: padId,
             fontSize: fontSize,
             strong: activeButtons.includes('bold'),
             italic: activeButtons.includes('italic'),
@@ -160,18 +160,24 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
             hexCode: fontColor,
         };
 
+        let totalContentCount = 0;
         for (let page = 1; page <= 5; page++) {
+            const pageContent = contents[page];
+            const contentCount = pageContent?.filter((line) => line.trim() !== '').length || 0;
+            totalContentCount += contentCount;
+
             finalContents[`page${page}`] = {
-                contentCount: contents[page]?.filter((line) => line.trim() !== '').length || 0,
+                contentCount: contentCount,
             };
             for (let line = 1; line <= 16; line++) {
-                finalContents[`page${page}`][`line${line}`] = contents[page]?.[line - 1] || "";
+                finalContents[`page${page}`][`line${line}`] = pageContent?.[line - 1] || "";
             }
         }
 
         const letterData = {
             padId,
             contents: finalContents,
+            contentCount: totalContentCount,
         };
 
         console.log('전송할 데이터:', letterData);
