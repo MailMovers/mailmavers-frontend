@@ -7,11 +7,11 @@ import type { AxiosError } from 'axios';
 import { ChangeEvent, useState } from 'react';
 import useSWR from 'swr';
 
-type Tprops = {
+type TProps = {
   csInfo: TCsInfo;
   close: () => void;
 };
-const InquireDetailPopup = ({ csInfo, close }: Tprops) => {
+const InquireDetailPopup = ({ csInfo, close }: TProps) => {
   const { data } = useSWR<TCsInfoDetail>(
     () => (!!csInfo ? `/mypage/cs-inquiries/${csInfo.id}` : null),
     () => getCsDetail(csInfo.id),

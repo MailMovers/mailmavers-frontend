@@ -5,9 +5,9 @@ import { Modal } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { tokenAtom } from '@/recoil/auth/atom';
 import {
-  delReceiveAddr,
-  delSendAddr,
-  getAddrList,
+  deleteReceiveAddress,
+  deleteSendAddress,
+  getAddressList,
 } from '@/api/mypage';
 import type { AxiosError } from 'axios';
 import type { TSendInfo, TReceiveInfo } from '@/type/address';
@@ -23,11 +23,11 @@ export default function Address(props: any): JSX.Element {
   const userInfo = useRecoilValue(userInfoAtom);
 
   const [isShowSend, setIsShowSend] = useState<boolean>(false);
-  const [isShowRecive, setIsShowRecive] = useState<boolean>(false);
+  const [isShowReceive, setIsShowReceive] = useState<boolean>(false);
 
   const { data: addrList, mutate: refetchAddrList } = useSWR<{ sendAddresses: TSendInfo[], deliveryAddresses: TReceiveInfo[] }>(
     () => (!!token ? 'address/list' : null),
-    getAddrList,
+    getAddressList,
     {
       fallbackData: { sendAddresses: [], deliveryAddresses: [] },
       revalidateOnFocus: false,
@@ -46,8 +46,8 @@ export default function Address(props: any): JSX.Element {
       okText: '삭제',
       cancelText: '취소',
       async onOk() {
-        try {
-          await delSendAddr({ sendAddressId });
+          try {
+            await deleteSendAddress({ sendAddressId });
           modal.success({
             title: '삭제 완료',
             content: '보내는 사람 주소를 삭제하였습니다.',
@@ -74,7 +74,7 @@ export default function Address(props: any): JSX.Element {
       cancelText: '취소',
       async onOk() {
         try {
-          await delReceiveAddr({ deliveryAddressId });
+          await deleteReceiveAddress({ deliveryAddressId });
           modal.success({
             title: '삭제 완료',
             content: '받는 사람의 주소를 삭제하였습니다.',
@@ -106,12 +106,12 @@ export default function Address(props: any): JSX.Element {
   const viewReceiveList = useMemo(() => {
     if (!receiveList) return [];
 
-    if (receiveList.length > 3 && !isShowRecive) {
+    if (receiveList.length > 3 && !isShowReceive) {
       return receiveList.filter((_, idx) => idx < 3);
     }
 
     return receiveList;
-  }, [receiveList, isShowRecive]);
+  }, [receiveList, isShowReceive]);
 
   const isMaxSendList = sendList && sendList.length > 3;
   const isMaxReceiveList = receiveList && receiveList.length > 3;
@@ -164,10 +164,10 @@ export default function Address(props: any): JSX.Element {
               <S.InfoWrap>
                 <S.TitleWrap>
                   <span>받는 사람 (총 {receiveList?.length || 0}개)</span>
-                  {isMaxReceiveList && isShowRecive ? (
-                    <DownOutlined onClick={() => setIsShowRecive(false)} />
+                  {isMaxReceiveList && isShowReceive ? (
+                    <DownOutlined onClick={() => setIsShowReceive(false)} />
                   ) : (
-                    <UpOutlined onClick={() => setIsShowRecive(true)} />
+                    <UpOutlined onClick={() => setIsShowReceive(true)} />
                   )}
                 </S.TitleWrap>
                 <S.CardContainer>

@@ -24,7 +24,7 @@ export const Header = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid lightgrey;
   border-radius: 10px 10px 0 0;
   background-image: url('/images/bottom.SVG.png');
   background-size: cover;
@@ -44,7 +44,7 @@ export const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid lightgrey;
   border-radius: 10px 10px 0 0;
   background-image: url('/images/bottom.SVG.png');
   background-size: cover;
@@ -112,7 +112,7 @@ export const Body = styled.div`
   }
 `;
 
-export const InfoContaier = styled.div`
+export const InfoContainer = styled.div`
   width: 900px;
   display: flex;
   margin-bottom: 50px;
@@ -134,7 +134,7 @@ export const TitleWrap = styled.div`
   display: flex;
   align-items: center;
   border-radius: 5px;
-  background: var(--yellowgreen, #f8f7ea);
+  background: var(--yellowGreen, #f8f7ea);
 
   span {
     color: var(--primary, #4a743c);

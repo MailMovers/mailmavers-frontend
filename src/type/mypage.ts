@@ -34,7 +34,7 @@ export type TReview = {
   reviewDeletedAt: string | null;
 };
 
-export type TMyReiview = {
+export type TMyReview = {
   count: string;
   data: TReview[];
 };
@@ -95,7 +95,7 @@ export type TTransaction = {
 export type TTotalPoint = {
   point: number;
 };
-export type TMypagePayment = {
+export type TMyPagePayment = {
   totalPoint: TTotalPoint[];
   transactions: TTransaction[];
 };

@@ -1,6 +1,6 @@
 import { TUserInfo } from '@/type/auth';
 import type { AxiosResponse } from 'axios';
-import instance from '@/common/axio-interceptor';
+import instance from '@/common/axios-interceptor';
 export function kakaoSocailLogin() {
   window.location.href = `${process.env.NEXT_PUBLIC_API_HOST}user/kakao`;
 }

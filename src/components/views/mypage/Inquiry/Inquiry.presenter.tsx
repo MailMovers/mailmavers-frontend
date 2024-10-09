@@ -17,7 +17,7 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
           <S.SubTitle>이곳은 <S.TitleContent>내 1:1문의</S.TitleContent> 입니다.</S.SubTitle>
           </S.Header>
           <S.Body>
-            <S.InfoContaier>
+            <S.InfoContainer>
               <S.InfoWrap>
                 <S.TitleWrap>
                   <span className='status-span'>상태</span>
@@ -56,7 +56,7 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
                     )}
                 </S.CardContainer>
               </S.InfoWrap>
-            </S.InfoContaier>
+            </S.InfoContainer>
 
             {/* <Pagination
               total={props.data ? Number(props.data || 0) : 0}

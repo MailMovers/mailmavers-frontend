@@ -5,8 +5,8 @@ import useSWR from 'swr';
 import moment from 'moment';
 import { CloseOutlined } from '@ant-design/icons';
 import { tokenAtom } from '@/recoil/auth/atom';
-import { delMyReview, getMyReivewList } from '@/api/mypage';
-import type { TMyReiview, TReview } from '@/type/mypage';
+import { deleteMyReview, getMyReviewList } from '@/api/mypage';
+import type { TMyReview, TReview } from '@/type/mypage';
 
 import * as S from './Review.styles';
 import { userInfoAtom } from '@/recoil/mypage/atom';
@@ -19,9 +19,9 @@ export default function ReviewPage(): JSX.Element {
 
   // const [mockReviews, setMockReviews] = useState<TReview[]>(exampleReviews);
 
-  const { data, mutate: refetch } = useSWR<TMyReiview>(
+  const { data, mutate: refetch } = useSWR<TMyReview>(
     () => (!!token ? `/mypage/reviews` : null),
-    () => getMyReivewList(),
+    () => getMyReviewList(),
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
@@ -31,7 +31,7 @@ export default function ReviewPage(): JSX.Element {
 
   const handleDelete = async (reviewId: number) => {
     try {
-      await delMyReview(reviewId);
+      await deleteMyReview(reviewId);
       refetch();
     } catch (error) {
       console.error('리뷰 삭제 실패:', error);
@@ -60,7 +60,7 @@ export default function ReviewPage(): JSX.Element {
             <S.CardWrap key={`${review.reviewId}`}>
               <S.ImgScoreWrap>
                 <S.MobileImgDeleteBtnWrapper>
-                  <S.ReviceImage
+                  <S.ReviewImage
                     src={review.imgUrl1}
                     alt='리뷰이미지'
                     width={0}

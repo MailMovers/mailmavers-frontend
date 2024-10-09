@@ -145,7 +145,7 @@ export const ImgScoreWrap = styled.div`
   }
 `;
 
-export const ReviceImage = styled(Image)`
+export const ReviewImage = styled(Image)`
   height: 70px;
   width: 140px;
 `;

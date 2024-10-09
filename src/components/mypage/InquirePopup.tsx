@@ -7,12 +7,12 @@ import type { AxiosError } from 'axios';
 import { ChangeEvent, useEffect, useState } from 'react';
 import useSWRMutation from 'swr/mutation';
 
-type Tprops = {
+type TProps = {
   close: () => void;
   callback: () => void;
 };
 
-const InquirePopup = ({ close, callback }: Tprops) => {
+const InquirePopup = ({ close, callback }: TProps) => {
   const [modal, contextHolder] = Modal.useModal();
 
   const [info, setInfo] = useState<TCs>({ title: '', content: '' });
@@ -75,10 +75,10 @@ const InquirePopup = ({ close, callback }: Tprops) => {
         <span>문의하기</span>
       </Header>
       <Body>
-        <Tiltle>
+        <Title>
           <span>제목 :</span>
           <input id="title" placeholder="제목을 입력해 주세요." value={info.title} onChange={handleInput} />
-        </Tiltle>
+        </Title>
         <Category>
           <span>분류 :</span>
           <input id='category' placeholder='카테고리를 입력해 주세요. ex) 배송관련' value='기타 문의' onChange={handleInput}  />
@@ -166,7 +166,7 @@ const Body = styled.div`
   }
 `;
 
-const Tiltle = styled.div<{ isArea?: boolean }>`
+const Title = styled.div<{ isArea?: boolean }>`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 5fr;
