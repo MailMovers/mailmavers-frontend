@@ -29,19 +29,19 @@ const AddressList = (props: { clickModal: any; subTitle: string }) => {
   const handleSelect = (list: Address) => {
     if (receiver) {
       setSelectedReceiverData({
-        receiverZonecode: list.post_code || '',
-        receiverAddress: list.delivery_address || '',
-        receiverAddressDetail: list.delivery_address_detail || '',
-        receiverName: list.delivery_name || '',
-        receiverPhone: list.delivery_phone || '',
+        receiverZonecode: list.deliveryPostCode || '',
+        receiverAddress: list.deliveryAddress || '',
+        receiverAddressDetail: list.deliveryAddressDetail || '',
+        receiverName: list.deliveryName || '',
+        receiverPhone: list.deliveryPhone || '',
       });
     } else {
       setSelectedSenderData({
-        senderZonecode: list.post_code || '',
-        senderAddress: list.send_address || '',
-        senderAddressDetail: list.send_address_detail || '',
-        senderName: list.send_name || '',
-        senderPhone: list.send_phone || '',
+        senderZonecode: list.sendPostCode || '',
+        senderAddress: list.sendAddress || '',
+        senderAddressDetail: list.sendAddressDetail || '',
+        senderName: list.sendName || '',
+        senderPhone: list.sendPhone || '',
       });
     }
   };
@@ -55,14 +55,14 @@ const AddressList = (props: { clickModal: any; subTitle: string }) => {
             {data?.map((list: Address, key: any) => (
               <div key={key} css={AddressListStyle} onClick={() => handleSelect(list)}>
                 <p css={AddressArea}>
-                  {list.post_code}
+                  {list.deliveryPostCode}
                   <br />
-                  {receiver ? list.delivery_address : list.send_address}{' '}
-                  {receiver ? list.delivery_address_detail : list.send_address_detail}
+                  {receiver ? list.deliveryAddress : list.sendAddress}{' '}
+                  {receiver ? list.deliveryAddressDetail : list.sendAddressDetail}
                 </p>
                 <p>
-                  {receiver ? list.delivery_name : list.send_name}{' '}
-                  <span css={Phone}>{receiver ? list.delivery_phone : list.send_phone}</span>
+                  {receiver ? list.deliveryName : list.sendName}{' '}
+                  <span css={Phone}>{receiver ? list.deliveryPhone : list.sendPhone}</span>
                 </p>
               </div>
             ))}
