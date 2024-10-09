@@ -7,7 +7,7 @@ import { getUserInfo } from '@/api/auth';
 import { tokenAtom } from '@/recoil/auth/atom';
 import { userInfoAtom } from '@/recoil/mypage/atom';
 import LocalStorage from '@/common/LocalStorage';
-import { initAxios } from '@/common/axio-interceptor';
+import { initAxios } from '@/common/axios-interceptor';
 import HeaderPresenter from './header.presenter';
 import type { TUserInfo } from '@/type/auth';
 
