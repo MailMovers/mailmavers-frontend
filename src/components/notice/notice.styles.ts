@@ -49,18 +49,25 @@ export const Selector = styled.div`
     gap: 40px;
     cursor: pointer;
     
-    P {
+    button {
         width: 100%;
         height: 50px;
         border: 3px solid transparent;
         border-radius: 10px;
-        padding-top: 13px;
         box-shadow: 0 0px 2px 2px #ddd; /* 내부 그림자 추가 */
+        transition: all 0.3s ease;
 
         &:hover {
-            border-color: #ccc;
+            border-color: #A3C586;
         }
 
+        &.active {
+            border-color: ${Common.colors.theme}; /* 원하는 활성화 시 테두리 색상 */
+            background-color: #E6F5E0; /* 원하는 활성화 시 배경 색상 */
+            color: #4A743C; /* 원하는 활성화 시 텍스트 색상 */
+            font-weight: 600;
+        }
+        
         @media(max-width: 768px) {
             font-size: 12px;
             height: 40px;
@@ -158,7 +165,20 @@ export const NoticeItem = styled.li<{notice: string}>`
 
   @media (max-width: 768px) {
     // text-align: start;
-    font-size: 12px;
+    font-size: 10px;
     padding: auto 10px;
   }
+`;
+
+export const NoNoticesMessage = styled.div`
+    padding: 20px;
+    text-align: center;
+    color: #888;
+    font-size: 16px;
+    font-weight: 500;
+
+    @media(max-width: 768px) {
+        font-size: 12px;
+    }
+
 `;
