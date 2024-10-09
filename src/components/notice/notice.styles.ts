@@ -44,7 +44,6 @@ export const Selector = styled.div`
     display: flex;
     align-items: center;
     text-align: center;
-    padding: 10px;
     font-weight: 500;
     gap: 40px;
     cursor: pointer;
@@ -71,7 +70,6 @@ export const Selector = styled.div`
         @media(max-width: 768px) {
             font-size: 12px;
             height: 40px;
-            padding-top: 10px;
             font-weight: 600;
         }
     }

@@ -67,9 +67,9 @@ export const Title = styled.div<{notice: string | undefined}>`
     
 
     p, span {
-        padding: 20px;
+        padding: 10px;
         @media (max-width: 768px) {
-            font-size: 18px;
+            font-size: 16px;
             height: 30px;
         }
     }
@@ -77,6 +77,9 @@ export const Title = styled.div<{notice: string | undefined}>`
     .option {
         font-size: 20px;
         color: ${({ notice }) => (notice === 'important' ? 'red' : 'black')};
+        @media (max-width: 768px) {
+            font-size: 16px;
+        }
     }
 
     .date {
@@ -148,7 +151,7 @@ export const NoticeHeader = styled.div`
     }
 
     @media (max-width: 768px) {
-        font-size: 16px;
+        font-size: 14px;
     }
 `
 
