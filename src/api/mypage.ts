@@ -158,7 +158,6 @@ export const getMyReivewList = async (): Promise<TMyReiview> => {
     `/mypage/reviews`
   );
 
-
   return res.data.data || [];
 };
 
@@ -167,14 +166,9 @@ export type TParamDelRv = {
   reviewId: number;
 };
 
-export const delMyReview = async (
-  url: string,
-  params: { arg: TParamDelRv }
-): Promise<string> => {
-  const res: AxiosResponse<TResonse> = await instance.post(
-    `product/deleteReview`,
-    params.arg
-
+export const delMyReview = async (reviewId: number): Promise<string> => {
+  const res: AxiosResponse<TResonse> = await instance.delete(
+    `mypage/reviews/${reviewId}`,
   );
   return res.data.message;
 };
