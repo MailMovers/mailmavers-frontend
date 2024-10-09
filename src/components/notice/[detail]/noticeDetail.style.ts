@@ -69,7 +69,7 @@ export const Title = styled.div<{notice: string | undefined}>`
     p, span {
         padding: 20px;
         @media (max-width: 768px) {
-            font-size: 20px;
+            font-size: 18px;
             height: 30px;
         }
     }
@@ -83,12 +83,12 @@ export const Title = styled.div<{notice: string | undefined}>`
         display: flex;
         
         p, span {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 500;
             color: #aaa;
             
             @media (max-width: 768px) {
-                font-size: 14px;
+                font-size: 12px;
             }
         }
             
@@ -118,7 +118,7 @@ export const content = styled.div`
         font-size: 18px;
 
         @media (max-width: 768px) {
-            font-size: 14px;
+            font-size: 12px;
         }
     }
 `
@@ -158,7 +158,7 @@ export const NoticeList = styled.ul`
   margin: 0;
     
     @media(max-width: 768px) {
-        padding: 5px;
+        // padding: 5px;
     }
 `;
 
@@ -175,12 +175,11 @@ export const NoticeItem = styled.li<{notice: string}>`
   &:last-child {
     border-bottom: none;
   }
-
+  
   .option {
     flex: 1;
     font-weight: 500;
     color: ${({ notice }) => (notice === 'important' ? 'red' : 'black')};
-
   }
 
   .title {
@@ -209,7 +208,6 @@ export const NoticeItem = styled.li<{notice: string}>`
 
   @media (max-width: 768px) {
     // text-align: start;
-    font-size: 12px;
-    padding: auto 10px;
+    font-size: 10px;
   }
 `;
