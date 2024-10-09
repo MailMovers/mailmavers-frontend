@@ -81,7 +81,7 @@ export const Selector = styled.div`
 
 export const Body = styled.div`
     width: 100%;
-    height: 100%;
+    min-height: 400px;
 `
 export const NoticeHeader = styled.div`
     display: flex;
@@ -174,6 +174,7 @@ export const NoNoticesMessage = styled.div`
     color: #888;
     font-size: 16px;
     font-weight: 500;
+    margin-top: 100px;
 
     @media(max-width: 768px) {
         font-size: 12px;
