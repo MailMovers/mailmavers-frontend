@@ -5,7 +5,7 @@ export const exampleReviews = [
         reviewId: 1,
         content: '내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다',
         userId: 1,
-        score: 5,
+        score: 4,
         reviewCreatedAt: '2023-12-11T11:24:00.000Z',
         reviewDeletedAt: null
     },

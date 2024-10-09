@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Pagination } from 'antd';
+import { Pagination, Rate } from 'antd';
 import useSWR from 'swr';
 import moment from 'moment';
 import { CloseOutlined } from '@ant-design/icons';
@@ -62,18 +62,7 @@ export default function ReviewPage(): JSX.Element {
                       삭제
                     </S.MobileDeleteBtn>
                   </S.MobileImgDeleteBtnWrapper>
-                  <S.ScoreWrap>
-                    {[...Array(review.score)].map((_, index) => (
-                          <span className='icon' key={index}>
-                            <S.ScoreImage
-                              src={'/icon/star_filled.svg'}
-                              alt={`별점 ${index + 1}`}
-                              width={10}
-                              height={10}
-                            />
-                          </span>
-                    ))}
-                  </S.ScoreWrap>
+                    <S.Score disabled defaultValue={review.score}/>
                   </S.ImgScoreWrap>
                   <S.ReviewContentWrap>
                   <S.ReviewDate>
@@ -86,13 +75,13 @@ export default function ReviewPage(): JSX.Element {
                 </S.CardWrap>
               )) : <S.EmptyMessage>작성하신 리뷰가 없습니다.</S.EmptyMessage>}
           </S.CardContainer>
-          <S.PaginationContainer>
+          {/* <S.PaginationContainer>
           <Pagination
             total={data ? Number(data?.count || 0) * 2 : 0}
             current={page}
             onChange={(value) => handlePage(value)}
           />
-          </S.PaginationContainer>
+          </S.PaginationContainer> */}
         </S.Content>
     </S.Wrap>
   );

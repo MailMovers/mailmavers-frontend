@@ -102,12 +102,14 @@ export const CardContainer = styled.div`
 
 export const CardWrap = styled.div<{ isLast?: boolean }>`
   padding: 20px;
-
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #d9d9d9;
+  
+  &:last-child {
+    border-bottom: none;
+  }
 
-  border-radius: 5px;
-  border-top: 1px solid #d9d9d9;
 `;
 
 export const StatusContainer = styled.div`
@@ -148,7 +150,7 @@ export const StatusWrap = styled.div<{ status: string }>`
         `;
       case '배송 중':
         return `
-          background-color: #dc3545;
+          background-color: #8CA252;
         `;
       default:
         return `
@@ -156,6 +158,11 @@ export const StatusWrap = styled.div<{ status: string }>`
         `;
     }
   }}
+
+  @media(max-width:768px) {
+    width: 70px;
+    height:25px;
+  }
 `;
 
 export const StatusReviewWrap = styled.div<{ isDone: boolean }>`
@@ -177,6 +184,11 @@ export const StatusReviewWrap = styled.div<{ isDone: boolean }>`
 
   background-color: ${({ isDone }) => (isDone ? '#999' : '#FFB930')};
   cursor: ${({ isDone }) => !isDone && 'pointer'};
+
+  @media(max-width:768px) {
+    width: 70px;
+    height:25px;
+  }
 `;
 
 export const CardInfoWrap = styled.div`

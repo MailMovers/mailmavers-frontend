@@ -36,18 +36,25 @@ export const putPassword = async (
 };
 
 export type TPhone = {
-  newPhone: string;
+    phone: string;
 };
-export const putPhone = async (
-  url: string,
-  params: { arg: TPhone }
-): Promise<TResMsg> => {
-  const res: AxiosResponse<TResMsg> = await instance.post(
-    `/mypage`,
-    params.arg
 
+export const putPhone = async (phone: TPhone): Promise<TResMsg> => {
+  const response: AxiosResponse<TResMsg> = await instance.post(`mypage/change-phone`,
+    phone
+  )
+  return response.data;
+}
+
+interface TResultAddrList {
+  sendAddresses: TSendInfo[];
+  deliveryAddresses: TReceiveInfo[];
+}
+
+export const getAddrList = async (): Promise<TResultAddrList> => {
+  const res: AxiosResponse<TResultAddrList> = await instance.get(
+    `mypage/address`
   );
-
   return res.data;
 };
 
@@ -56,10 +63,9 @@ export const getSendAddrList = async (): Promise<TSendInfo[]> => {
     `mypage/address`
   );
 
-
-
-  return res.data.data || [];
+  return res.data.data;
 };
+
 
 interface TResultReceiveAddress {
   message: string;
@@ -80,48 +86,39 @@ type TResonse = {
 };
 
 type TParamRec = {
-  deliveryAddressId: string;
+  deliveryAddressId: number;
 };
-export const delReceiveAddr = async (
-  url: string,
-  param: { arg: TParamRec }
-): Promise<string> => {
-  const params = { deliveryAddressId: param.arg.deliveryAddressId };
-  const res: AxiosResponse<TResonse> = await instance.post(
-    `address/delete`,
-    params
 
+
+export const delReceiveAddr = async (
+  param: TParamRec
+): Promise<string> => {
+  const res: AxiosResponse<TResonse> = await instance.delete(
+    `mypage/delivery-address/${param.deliveryAddressId}`
   );
 
   return res.data.message;
 };
 
 type TParamSend = {
-  sendAddressId: string;
+  sendAddressId: number;
 };
 
 export const delSendAddr = async (
-  url: string,
-  param: { arg: TParamSend }
+  param: TParamSend
 ): Promise<string> => {
-  const params = { sendAddressId: param.arg.sendAddressId };
-
-  const res: AxiosResponse<TResonse> = await instance.post(
-    `address/delete/send`,
-    params
-
+  const res: AxiosResponse<TResonse> = await instance.delete(
+    `mypage/send-address/${param.sendAddressId}`
   );
   return res.data.message;
-};
-
-// export const post
+};  
 
 export const postCs = async (
   url: string,
   param: { arg: TCs }
 ): Promise<TResMsg> => {
-  const params = { content: param.arg.content, title: param.arg.title };
-  const res: AxiosResponse<TResMsg> = await instance.post('/cs/', params);
+  const params = { content: param.arg.content,category:param.arg.category, title: param.arg.title };
+  const res: AxiosResponse<TResMsg> = await instance.post('/mypage/cs-inquires', params);
   return res.data;
 };
 
@@ -134,11 +131,15 @@ interface TResultCsInfoList {
   data: TCsListResult;
 }
 
-export const getCsList = async (): Promise<TCsListResult> => {
-  const res: AxiosResponse<TResultCsInfoList> = await instance.get(`/mypage/cs-inquiries/`);
+export const getCsList = async (page: string, limit: number): Promise<TCsListResult> => {
+  const res: AxiosResponse<TResultCsInfoList> = await instance.get(`/mypage/cs-inquiries/`, {
+    params: {
+      page,
+      limit,
+    }
+  });
 
   return res.data.data;
-
 };
 
 interface TResultCsDetail {
@@ -217,7 +218,7 @@ export const getMyLetterHistoryDetail = async (
   letterId: string
 ): Promise<THistoryDetail> => {
   const res: AxiosResponse<TResultMyLetterHistoryDetail> = await instance.get(
-    `letter/history?letterId=${letterId}`
+    `mypage/history/${letterId}`
   );
 
   return res.data.data;

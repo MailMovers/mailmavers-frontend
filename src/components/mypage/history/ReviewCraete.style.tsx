@@ -7,7 +7,7 @@ export const Wrap = styled.div`
   bottom: 5%;
   width: 500px;
   height: 500px;
-
+  border-radius: 10px 10px 0 0;
   background-color: #ffff;
   border: 1px solid #ccc;
   z-index: 10;
@@ -28,7 +28,7 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   padding: 0 16px;
-
+  border-radius: 10px 10px 0 0;
   background: var(--yellow, #ffb930);
 
   span {
@@ -101,7 +101,7 @@ export const ButtonContainer = styled.div`
 
   padding: 0 16px;
 
-  .cancel {
+  .submit {
     width: 130px;
     height: 40px;
     border-radius: 5px;
@@ -112,7 +112,7 @@ export const ButtonContainer = styled.div`
     font-weight: 500;
   }
 
-  .submit {
+  .cancel {
     width: 130px;
     height: 40px;
     border-radius: 5px;

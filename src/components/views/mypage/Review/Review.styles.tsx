@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Rate } from 'antd';
 import Image from 'next/image';
 
 export const Wrap = styled.form`
@@ -105,14 +106,18 @@ export const CardContainer = styled.div`
 
 export const CardWrap = styled.div<{ isLast?: boolean }>`
   width: 1200px;
-  height: 150px;
+  height: 170px;
   padding: 20px 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
   border-radius: 5px;
-  border-bottom: 1px dashed #999;
+  border-bottom: 1px dashed lightgray;
   gap:30px;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   @media (max-width: 768px) {
     width: 100%;
@@ -142,7 +147,7 @@ export const ImgScoreWrap = styled.div`
 
 export const ReviceImage = styled(Image)`
   height: 70px;
-  width: 120px;
+  width: 140px;
 `;
 
 export const ReviewContentWrap = styled.div`
@@ -155,6 +160,7 @@ export const ReviewContentWrap = styled.div`
 
 export const ReviewContent = styled.div`
   width: 100%;
+  margin-top: 10px;
 
   @media (max-width: 768px) {
     font-size: 12px;
@@ -167,9 +173,13 @@ export const ReviewDate = styled.div`
   font-size: 12px;
 `;
 
-export const ScoreWrap = styled.div`
-  display: flex;
-  justify-content: start;
+export const Score = styled(Rate)`
+font-size: 18px;
+.ant-rate-star-full {
+    svg {
+      color: orange;
+    }
+  }
 `;
 
 export const ScoreImage = styled(Image)`
