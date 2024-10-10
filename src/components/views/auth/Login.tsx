@@ -9,7 +9,7 @@ import NaverLogin from '@/components/views/auth/NaverLogin';
 
 import useInput from '@/hooks/useInput';
 import { postUserLogin } from '@/api/auth';
-import { setToken } from '@/common/axios-interceptor';
+import { setToken } from '@/common/axio-interceptor';
 import { tokenAtom } from '@/recoil/auth/atom';
 
 import { ErrorMessage } from './SocialLogin.styles';

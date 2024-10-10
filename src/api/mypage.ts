@@ -1,4 +1,4 @@
-import instance from '@/common/axios-interceptor';
+import instance from '@/common/axio-interceptor';
 import type { TSendInfo, TReceiveInfo } from '@/type/address';
 import type { TResMsg } from '@/type/common';
 import type { AxiosResponse } from 'axios';

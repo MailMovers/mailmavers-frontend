@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Spin } from 'antd';
-import { removeToken } from '@/common/axios-interceptor';
+import { removeToken } from '@/common/axio-interceptor';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { tokenAtom } from '@/recoil/auth/atom';
 import { userInfoAtom } from '@/recoil/mypage/atom';
