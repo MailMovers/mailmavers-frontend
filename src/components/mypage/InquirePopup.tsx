@@ -107,8 +107,9 @@ export default InquirePopup;
 
 const Wrap = styled.div`
   position: fixed;
-  right: 5%;
-  bottom: 5%;
+  right: calc((100% - 1200px) / 2); // 1200px의 오른쪽에 정렬
+  top: 52.5%;
+  transform: translateY(-50%); // 수직 중앙 정렬
   width: 500px;
   height: 570px;
 
@@ -124,6 +125,7 @@ const Wrap = styled.div`
     right: 0%;
     bottom: 0%;
     top: 0;
+    transform: translateY(0%);
     border-radius: 0;
   }
 `;

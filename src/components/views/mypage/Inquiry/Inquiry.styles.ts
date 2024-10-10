@@ -296,8 +296,8 @@ export const CsDate = styled.div`
 
 export const InquireBtn = styled.div`
   position: fixed;
-  bottom: 5%;
-  left: 90%;
+  bottom: 10%;
+  right: 10%;
 
   width: 80px;
   height: 80px;
@@ -319,8 +319,8 @@ export const InquireBtn = styled.div`
   }
 
   @media all and (max-width: 480px) {
-    left: 75%;
-    bottom: 10%;
+    left: 80%;
+    bottom: 20%;
 
     width: 50px;
     height: 50px;
