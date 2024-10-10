@@ -1,10 +1,12 @@
 import * as S from './style';
 import { useState, useRef, useEffect, CSSProperties } from 'react';
-import useTextMaxLength  from '../../../../hooks/mail/useTextMaxLength';
+import useTextMaxLength from '../../../../hooks/mail/useTextMaxLength';
 import { AlignLeftOutlined, AlignCenterOutlined, AlignRightOutlined } from '@ant-design/icons';
 import useMoveToPage from '../../../../hooks/mail/useMoveToPage';
 import { postMobileLetterContent } from './axios';
 import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { tokenAtom } from '@/recoil/auth/atom';
 
 interface MobileBoardEditorProps {
     pageNum: string | string[] | undefined;
@@ -12,9 +14,10 @@ interface MobileBoardEditorProps {
 }
 
 export default function MobileBoardEditor({
-     padId
+    padId
 }: MobileBoardEditorProps) {
     const router = useRouter();
+    const token = useRecoilValue(tokenAtom);
     const [pageNum, setPageNum] = useState<number>(1);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [contents, setContents] = useState<{ [key: number]: string[] }>(() => {
@@ -152,6 +155,11 @@ export default function MobileBoardEditor({
     };
 
     const handleSubmit = async () => {
+        if (!token || !token.accessToken) {
+            alert('인증 토큰이 없습니다. 다시 로그인 해주세요.');
+            return;
+        }
+    
         const finalContents: any = {
             fontFamily: "noto sanse",
             padId: padId,
@@ -162,36 +170,37 @@ export default function MobileBoardEditor({
             flex: flexButtons === 'left' ? 'start' : flexButtons === 'center' ? 'center' : flexButtons === 'right' ? 'end' : 'start',
             hexCode: fontColor,
         };
-
+    
         let pageCount = 0;
         for (let page = 1; page <= 5; page++) {
             const pageContent = contents[page];
             if (pageContent?.some((line) => line.trim() !== '')) {
                 pageCount++;
             }
-
+    
             finalContents[`page${page}`] = {};
             for (let line = 1; line <= 16; line++) {
                 finalContents[`page${page}`][`line${line}`] = pageContent?.[line - 1] || "";
             }
         }
-
+    
         const letterData = {
             padId,
             contents: finalContents,
             pageCount,
         };
-
+    
         console.log('전송할 데이터:', letterData);
-
+    
         try {
-            await postMobileLetterContent(letterData);
+            await postMobileLetterContent(letterData, token.accessToken);
             alert('데이터가 성공적으로 저장되었습니다.');
         } catch (error) {
             console.error('데이터 저장 중 오류가 발생했습니다.', error);
             alert('데이터 저장 중 오류가 발생했습니다.');
         }
     };
+    
 
     const getTextStyle = (): CSSProperties => {
         let style: CSSProperties = { color: fontColor };
@@ -215,8 +224,6 @@ export default function MobileBoardEditor({
         }
         return style;
     };
-
-
 
     return (
         <S.Container>
