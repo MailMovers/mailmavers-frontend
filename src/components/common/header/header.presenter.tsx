@@ -4,7 +4,7 @@ import { CloseOutlined, MenuOutlined } from '@ant-design/icons';
 import * as S from './header.styles';
 import { MenuIcon } from './header.styles';
 import type { TUserInfo } from '@/type/auth';
-import { UserOutlined, MailOutlined, AlertOutlined } from '@ant-design/icons';
+import { UserOutlined, MailOutlined, AlertOutlined, GiftOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 
 interface HeaderPresenterProps {
@@ -56,18 +56,18 @@ export default function HeaderPresenter({ isOpenMenu, setIsOpenMenu, userInfo, m
           />
       </S.Frame>
 
+      {/* 모바일 버전 따로 만드려 했으나 그대로 사이드바로 이용하려 함 */}
       {isOpenMenu && (
         <S.MobileFrame>
-          <S.MobileTop>
-            <S.StyledImage src='/images/logo.png' alt='로고' />
-            <CloseOutlined onClick={() => setIsOpenMenu(false)} height={44} width={44} />
-          </S.MobileTop>
-          <S.MoblileBody>
+          <S.MobileBody>
             {userInfo ? (
               <>
                  <S.MobileWrapper>
                   <S.HeaderContainer>
-                    <S.HeaderTitle>{userInfo?.name}테스트 님 안녕하세요!</S.HeaderTitle>
+                    <S.HeaderTitle>{userInfo?.name}님 안녕하세요!</S.HeaderTitle>
+                    <S.MobileTop>
+                      <CloseOutlined onClick={() => setIsOpenMenu(false)} height={44} width={44} />
+                    </S.MobileTop>
                   </S.HeaderContainer>
                   <S.MenuWrapper>
                     <S.MenuContainer>
@@ -83,13 +83,17 @@ export default function HeaderPresenter({ isOpenMenu, setIsOpenMenu, userInfo, m
                       <S.MenuItem onClick={() => movePage('/mypage/review')}>내 후기</S.MenuItem>
                     </S.MenuContainer>
                     <S.MenuContainer>
+                      <S.MenuTitle><GiftOutlined /> 상품</S.MenuTitle>
+                      <S.MenuItem onClick={() => movePage('/product/list')}>상품 목록</S.MenuItem>
+                    </S.MenuContainer>
+                    <S.MenuContainer>
                       <S.MenuTitle><AlertOutlined /> 고객센터</S.MenuTitle>
                       <S.MenuItem>공지사항</S.MenuItem>
                       <S.MenuItem>자주 묻는 질문</S.MenuItem>
                       <S.MenuItem onClick={() => movePage('/mypage/inquiry')}>1:1 문의</S.MenuItem>
                     </S.MenuContainer>
                     <S.MenuContainer>
-                      <S.MenuItem onClick={() => movePage('/logout')}>로그아웃</S.MenuItem>
+                      <S.MenuItem className='logout' onClick={() => movePage('/logout')}>로그아웃</S.MenuItem>
                     </S.MenuContainer>
                   </S.MenuWrapper>
                 </S.MobileWrapper>
@@ -101,7 +105,7 @@ export default function HeaderPresenter({ isOpenMenu, setIsOpenMenu, userInfo, m
                 <S.Menu onClick={() => movePage('/product/list')}>상품</S.Menu>
               </>
             )}
-          </S.MoblileBody>
+          </S.MobileBody>
         </S.MobileFrame>
       )}
     </>

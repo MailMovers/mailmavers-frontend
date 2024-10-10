@@ -1,7 +1,16 @@
 import styled from '@emotion/styled';
 import { CloseOutlined, MenuOutlined } from '@ant-design/icons';
 import { Common } from '@/styles/common';
+import { keyframes } from '@emotion/react';
 
+const slideIn = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+`;
 
 export const Frame = styled.div`
   width: 1200px;
@@ -45,29 +54,31 @@ export const Wrap = styled.div`
 
 export const MobileFrame = styled.div`
   position: fixed;
-  inset: 0px;
+  width: 30%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  bottom: 0;
   font-size: 20px;
   font-weight: bold;
   color: white;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.85);
   z-index: 11;
+  animation: ${slideIn} 0.4s ease-in-out; // 애니메이션 적용
+
+  @media(max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const MobileTop = styled.div`
-  height: 85px;
-  width: 100%;
-  padding: 0 1.2em;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
-  border-bottom: 1px solid rgba(232, 232, 232, 1);
 `;
 
-export const MoblileBody = styled.div`
-  height: calc(100% - 85px);
+export const MobileBody = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 `;
 
 export const MyInfo = styled.div`
@@ -101,6 +112,7 @@ export const StyledImage = styled.img`
   height: 60px;
   cursor: pointer;
   padding-left:20px;
+  
 
   @media(max-width: 768px) {
     height: 36px;
@@ -179,38 +191,59 @@ export const MobileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-  gap: 20px;
+  gap: 10px;
 `;
 
 export const HeaderContainer = styled.div`
-  border-bottom: 1px solid black;
-  padding: 10px 0;
+  // padding: 10px 0;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #bbb;
 `
 
 export const MenuWrapper = styled.div`
-
 `
 
 export const MenuContainer = styled.div`
-  border-bottom: 1px dashed lightgray;
+  display: flex;
+  flex-direction: column;
   padding: 10px 0;
+  gap: 10px;
 `
 export const HeaderTitle = styled.h2`
 font-weight: 700;
-font-size: 20px;
-margin-bottom: 10px;
+font-size: 24px;
 color: ${Common.colors.theme};
 `
 
 export const MenuTitle = styled.p`
 font-weight: 700;
-font-size: 18px;
-margin-bottom: 8px;
-color: ${Common.colors.yellow};
+font-size: 20px;
+margin-bottom: 5px;
+color: ${Common.colors.theme};
 `
 
 export const MenuItem = styled.p`
   font-size: 16px;
   margin-bottom: 5px;
-`
+  cursor: pointer;
+  transition: color 0.3s ease;
 
+  &:hover {
+    color: ${Common.colors.yellow};
+    transform: translateX(5px);
+    transition: transform 0.3s ease;
+  }
+
+  &.logout {
+    margin: 20px 0;
+    
+    &:hover {
+      color: ${Common.colors.red};
+      transform: translateX(5px);
+      transition: transform,color 0.3s ease;
+    }
+  }
+`
