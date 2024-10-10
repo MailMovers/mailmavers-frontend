@@ -1,21 +1,27 @@
 export type TReceiveInfo = {
-  id: string;
-  delivery_address_detail: string;
-  delivery_address: string;
-  delivery_phone: string;
-  delivery_name: string;
-  deleted_at: null | string;
-  post_code?: string;
+  id: number;
+  userId: string;
+  deliveryAddress: string;
+  deliveryAddressDetail: string;
+  deliveryPhone: string;
+  deliveryName: string;
+  deliveryPostCode: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
 };
 
 export type TSendInfo = {
-  id: string;
-  send_address_detail: string; // '222-2';
-  send_address: string; //  '서울특별시 강남구 청담동';
-  send_phone: string; //  '010-0000-0000';
-  send_name: string; //  '김동언';
-  deleted_at: null | string;
-  post_code?: string;
+  id: number;
+  userId: string;
+  sendAddress: string;
+  sendAddressDetail: string;
+  sendPhone: string;
+  sendName: string;
+  sendPostCode: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
 };
 
 export type NurserySchools = {

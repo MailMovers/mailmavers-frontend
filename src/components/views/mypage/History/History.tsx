@@ -10,14 +10,19 @@ import { TMyLetter } from '@/type/mypage';
 import { getMyLetterHistory } from '@/api/mypage';
 
 import * as S from './History.styles';
+import { userInfoAtom } from '@/recoil/mypage/atom';
+import { exampleLetters } from './History.mock';
 
 export default function History() {
   const router = useRouter();
 
   const token = useRecoilValue(tokenAtom);
+  const userInfo = useRecoilValue(userInfoAtom);
+
+  const [mockLetters] = useState<TMyLetter[]>(exampleLetters);
 
   const { data: letters, mutate: refetch } = useSWR<TMyLetter[]>(
-    () => (!!token ? '/history' : null),
+    () => (!!token ? '/mypage/letters' : null),
     getMyLetterHistory,
     {
       fallbackData: [],
@@ -47,14 +52,14 @@ export default function History() {
     <>
       <S.Wrap>
       <S.TitleContainer>
-            <S.Title>안녕하세요!  테스트 님,</S.Title>
+            <S.Title>안녕하세요! {userInfo?.name} 님,</S.Title>
             <S.SubTitle>이곳은 <S.TitleContent>보낸 편지 내역</S.TitleContent> 입니다.</S.SubTitle>
           </S.TitleContainer>
 
         <S.Content>
           <S.CardContainer>
-            {letters &&
-              letters.map((letter, idx) => (
+            {mockLetters.length > 0 ? (
+              mockLetters.map((letter, idx) => (
                 <S.CardWrap key={`${letter.letterId}_${idx}`}>
                   <S.CardInfoWrap>
                     <span className='date_text'>
@@ -68,16 +73,18 @@ export default function History() {
                         <div className='user_info'>
                           <span>{letter.name}</span>
                           <span>
-                            {letter.delivery_phone.replace(
+                            {letter.deliveryPhone.replace(
                               /(\d{3})(\d{4})(\d{4})/,
                               '$1-$2-$3'
+
                             )}
                           </span>
                         </div>
                         <span>
-                          {letter.delivery_address}
-                          {letter.delivery_address_detail}
+                          {letter.deliveryAddress}
+                          {letter.deliveryAddress_detail}
                         </span>
+
                       </div>
                     </S.CardInfoContent>
                   </S.CardInfoWrap>
@@ -94,8 +101,10 @@ export default function History() {
                     </S.StatusReviewWrap>
                   </S.StatusContainer>
                 </S.CardWrap>
-              ))}
-              {letters && letters.length === 0 && <S.EmptyMessage>작성하신 편지가 없습니다.</S.EmptyMessage>}
+              ))
+            ) : (
+              <S.EmptyMessage>작성하신 편지가 없습니다.</S.EmptyMessage>
+            )}
           </S.CardContainer>
         </S.Content>
       </S.Wrap>

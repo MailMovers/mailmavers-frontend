@@ -2,7 +2,7 @@ import { RecoilState } from 'recoil';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { getUserInfo } from '@/api/auth';
 import { tokenAtom } from '@/recoil/auth/atom';
 import { userInfoAtom } from '@/recoil/mypage/atom';
@@ -33,9 +33,18 @@ export default function HeaderContainer() {
     }
   );
 
+  const updateUserInfo = async () => {
+    const data = await getUserInfo();
+    if (data) {
+      setUserInfo(data);
+      mutate('getUserInfo', data, false);
+    }
+  };
+
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      if (!token) {
+      if (!token?.accessToken && !token?.refreshToken) {
         const accessToken = LocalStorage.getItem('accessToken');
         const refreshToken = LocalStorage.getItem('refreshToken');
 
@@ -43,11 +52,11 @@ export default function HeaderContainer() {
           setToken({ accessToken, refreshToken });
           initAxios({ accessToken, refreshToken });
         }
-        return;
+      } else {
+        updateUserInfo();
       }
-      initAxios();
     }
-  }, [token, setToken, initAxios]);
+  }, [token, setToken]);
 
   const movePage = (path: string) => {
     setIsOpenMenu(false);
