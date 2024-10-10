@@ -5,6 +5,8 @@ import { AlignLeftOutlined, AlignCenterOutlined, AlignRightOutlined } from '@ant
 import useMoveToPage from '../../../../hooks/mail/useMoveToPage';
 import { postLetterContent } from './axios';
 import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { tokenAtom } from '@/recoil/auth/atom';
 
 interface BoardWriteUIProps {
     pageNum: string | string[] | undefined;
@@ -14,6 +16,7 @@ interface BoardWriteUIProps {
 export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
     const router = useRouter();
     const [pageNum, setPageNum] = useState<number>(1);
+    const token = useRecoilValue(tokenAtom);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [contents, setContents] = useState<{ [key: number]: string[] }>(() => {
         const initialContents: { [key: number]: string[] } = {};
@@ -149,6 +152,10 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
     };
 
     const handleSubmit = async () => {
+        if (!token || !token.accessToken) {
+            alert('인증 토큰이 없습니다. 다시 로그인 해주세요.');
+            return;
+        }
         const finalContents: any = {
             fontFamily: "noto sanse",
             padId: padId,
@@ -182,7 +189,7 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
         console.log('전송할 데이터:', letterData);
 
         try {
-            await postLetterContent(letterData);
+            await postLetterContent(letterData, token.accessToken);
             alert('데이터가 성공적으로 저장되었습니다.');
         } catch (error) {
             console.error('데이터 저장 중 오류가 발생했습니다.', error);
