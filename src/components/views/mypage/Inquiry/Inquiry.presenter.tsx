@@ -39,14 +39,14 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
                           </S.CsStatus>
                           </S.CsDataContainer>
                           <S.CsDataContainer className='category'>
-                          <S.CsCategory>기타 문의</S.CsCategory>
+                            <S.CsCategory>기타 문의</S.CsCategory>
                           </S.CsDataContainer>
                           <S.CsDataContainer className='title'>
-                          <S.CsTitle> {csInfo.title} </S.CsTitle>                      
+                            <S.CsTitle> {csInfo.title} </S.CsTitle>                      
                           </S.CsDataContainer>
                           <S.CsDataContainer className='date'>
-                          <S.CsDate>
-                          {new Date(csInfo.createdAt).toLocaleDateString()}
+                            <S.CsDate>
+                            {new Date(csInfo.createdAt).toLocaleDateString()}
                           </S.CsDate>
                           </S.CsDataContainer>
                         </S.CardWrap>

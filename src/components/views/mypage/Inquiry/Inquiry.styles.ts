@@ -142,39 +142,43 @@ export const TitleWrap = styled.div`
     font-weight: 600;
 
     @media (max-width: 768px) {
-    display: flex;
-    justify-content: space-between;
+      display: flex;
+      justify-content: space-between;
       font-size: 14px;
       font-weight: 500;
     }
   }
   .status-span {
-  flex:1;
-  padding-left: 30px;
-  @media (max-width: 768px) {
-    padding: 20px;
-  }
+    flex:1;
+    padding-left: 30px;
+    
+    @media (max-width: 768px) {
+      padding: 20px;
+    }
   }
 
   .category-span {
-  flex: 1;
-  @media (max-width:768px) {
-    display: none;
-  }
+    flex: 1;
+    
+    @media (max-width:768px) {
+      display: none;
+    }
   }
 
   .title-span {
     flex:3;
+    
     @media (max-width: 768px) {
-    flex: 2;
+      flex: 2;
     }
   }
 
   .date-span {
-  flex: 1;
-  @media (max-width: 768px) {
-    padding-left: 40px;
-  }
+    flex: 1;
+    
+    @media (max-width: 768px) {
+      padding-left: 40px;
+    }
   }
 `;
 
@@ -200,8 +204,8 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
 `;
 
 export const CsDataContainer = styled.div`
-flex: 1;  
-display: flex;
+  flex: 1;  
+  display: flex;
   justify-content: start;
   align-items: center;
 
@@ -221,12 +225,12 @@ display: flex;
   }
 
   &.title {
-  flex:3;
+    flex:3;
 
-  @media (max-width:768px) {
-  flex: 2;
-    margin-left:10px;
-  }
+    @media (max-width:768px) {
+      flex: 2;
+      margin-left:10px;
+    }
   }
 
   &.date {
@@ -268,9 +272,9 @@ export const CsCategory = styled.div`
 `
 
 export const CsTitle = styled.div`
-  width: 100px;
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-size: 16px;
   font-weight: 500;
