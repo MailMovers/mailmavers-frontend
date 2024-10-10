@@ -36,7 +36,7 @@ export default function HeaderContainer() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      if (!token) {
+      if (!token?.accessToken && !token?.refreshToken) {
         const accessToken = LocalStorage.getItem('accessToken');
         const refreshToken = LocalStorage.getItem('refreshToken');
 
@@ -44,11 +44,9 @@ export default function HeaderContainer() {
           setToken({ accessToken, refreshToken });
           initAxios({ accessToken, refreshToken });
         }
-        return;
       }
-      initAxios();
     }
-  }, [token, setToken, initAxios]);
+  }, [token, setToken]);
 
   const movePage = (path: string) => {
     setIsOpenMenu(false);

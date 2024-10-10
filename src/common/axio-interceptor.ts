@@ -5,11 +5,8 @@ import LocalStorage from './LocalStorage';
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_HOST,
-  headers: {
-    Authorization: `Bearer `,
-  },
+  withCredentials: true,
 });
-axios.defaults.withCredentials = true;
 
 export const setToken = (accessToken: string, refreshToken: string) => {
   instance.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
@@ -21,13 +18,11 @@ export const removeToken = async () => {
   LocalStorage.removeItem('accessToken');
   LocalStorage.removeItem('refreshToken');
   instance.defaults.headers.common['Authorization'] = 'Bearer ';
-  instance.defaults.headers['Authorization'] = 'Bearer ';
 };
 
 export const initAxios = (tokenInfo?: TToken) => {
   if (tokenInfo?.accessToken) {
     instance.defaults.headers.common['Authorization'] = 'Bearer ' + tokenInfo.accessToken;
-    instance.defaults.headers['Authorization'] = 'Bearer ' + tokenInfo.accessToken;
   }
 };
 
