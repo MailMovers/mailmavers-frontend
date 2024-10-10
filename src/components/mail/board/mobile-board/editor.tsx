@@ -92,13 +92,14 @@ export default function MobileBoardEditor({
                 });
             }, { threshold: 1.0 });
         });
-
+    
         focusAreaRefs.current.forEach((focusAreaRef, index) => {
             if (focusAreaRef) {
                 observers[index].observe(focusAreaRef);
             }
         });
-
+    
+        // Clean-up 함수 정의
         return () => {
             focusAreaRefs.current.forEach((focusAreaRef, index) => {
                 if (focusAreaRef) {
@@ -121,16 +122,31 @@ export default function MobileBoardEditor({
 
     const handleInputChangeWrapper = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
         handleInputChange(fontSize)(index)(event);
-
-        const newContent = [...contents[pageNum]];
+        const newContent = [...contents[pageNum]]; // 페이지 번호에 맞는 콘텐츠 배열 복사
         newContent[index] = event.target.value;
         setContents((prevContents) => ({
             ...prevContents,
             [pageNum]: newContent,
         }));
         localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(newContent));
+    
+        // 다음 인풋으로 자동 이동 처리 (최대 너비 기준)
+        const inputElement = inputRefs.current[index];
+        if (inputElement && inputElement.scrollWidth > inputElement.clientWidth && index < inputRefs.current.length - 1) {
+            const nextInput = inputRefs.current[index + 1];
+            if (nextInput) {
+                nextInput.focus();
+            }
+        }
+    
+        if (index === 15) {
+            const inputElement = inputRefs.current[index];
+            if (inputElement && inputElement.scrollWidth > inputElement.clientWidth) {
+                setIsMaxLengthModalOpen(true);
+                return;
+            }
+        }
     };
-
     const handleButtonClick2 = (buttonType: string) => {
         setActiveButtons((prevActiveButtons) =>
             prevActiveButtons.includes(buttonType)
