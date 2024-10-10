@@ -1,22 +1,24 @@
-import * as S from './editor.styles';
+import * as S from './style';
+import { useState, useRef, useEffect, CSSProperties } from 'react';
 import useTextMaxLength from '../../../../hooks/mail/useTextMaxLength';
-import { useEffect, useState, useRef, CSSProperties } from 'react';
 import { AlignLeftOutlined, AlignCenterOutlined, AlignRightOutlined } from '@ant-design/icons';
 import useMoveToPage from '../../../../hooks/mail/useMoveToPage';
-import { postLetterContent } from './axios';
+import { postMobileLetterContent } from './axios';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { tokenAtom } from '@/recoil/auth/atom';
 
-interface BoardWriteUIProps {
+interface MobileBoardEditorProps {
     pageNum: string | string[] | undefined;
     padId: string;
 }
 
-export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
+export default function MobileBoardEditor({
+    padId
+}: MobileBoardEditorProps) {
     const router = useRouter();
-    const [pageNum, setPageNum] = useState<number>(1);
     const token = useRecoilValue(tokenAtom);
+    const [pageNum, setPageNum] = useState<number>(1);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [contents, setContents] = useState<{ [key: number]: string[] }>(() => {
         const initialContents: { [key: number]: string[] } = {};
@@ -33,12 +35,13 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
         }));
     });
     const { moveToNextPage, moveToPreviousPage, isMaxPageModalOpen, setIsMaxPageModalOpen } = useMoveToPage();
+
     const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large'>('medium');
+    const [fontColor, setFontColor] = useState<string>('#000000');
     const [activeButton, setActiveButton] = useState<string | null>(null);
     const [activeButtons, setActiveButtons] = useState<string[]>([]);
     const [flexButtons, setFlexButtons] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [fontColor, setFontColor] = useState<string>('#000000');
     const [currentInputIndex, setCurrentInputIndex] = useState(0);
 
     useEffect(() => {
@@ -148,7 +151,7 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
         // 현재 페이지 내용을 로컬스토리지에 저장하고 페이지를 이동
         localStorage.setItem(`pageContent-${pageNum}`, JSON.stringify(contents[pageNum]));
         setPageNum(newPageNum);
-        router.push(`/mail/1/${newPageNum}`); // URL에 페이지 번호를 반영하여 이동
+        router.push(`/mail/${padId}/${newPageNum}`); // URL에 페이지 번호를 반영하여 이동
     };
 
     const handleSubmit = async () => {
@@ -156,6 +159,7 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
             alert('인증 토큰이 없습니다. 다시 로그인 해주세요.');
             return;
         }
+    
         const finalContents: any = {
             fontFamily: "noto sanse",
             padId: padId,
@@ -166,36 +170,37 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
             flex: flexButtons === 'left' ? 'start' : flexButtons === 'center' ? 'center' : flexButtons === 'right' ? 'end' : 'start',
             hexCode: fontColor,
         };
-
+    
         let pageCount = 0;
         for (let page = 1; page <= 5; page++) {
             const pageContent = contents[page];
             if (pageContent?.some((line) => line.trim() !== '')) {
                 pageCount++;
             }
-
+    
             finalContents[`page${page}`] = {};
             for (let line = 1; line <= 16; line++) {
                 finalContents[`page${page}`][`line${line}`] = pageContent?.[line - 1] || "";
             }
         }
-
+    
         const letterData = {
             padId,
             contents: finalContents,
             pageCount,
         };
-
+    
         console.log('전송할 데이터:', letterData);
-
+    
         try {
-            await postLetterContent(letterData, token.accessToken);
+            await postMobileLetterContent(letterData, token.accessToken);
             alert('데이터가 성공적으로 저장되었습니다.');
         } catch (error) {
             console.error('데이터 저장 중 오류가 발생했습니다.', error);
             alert('데이터 저장 중 오류가 발생했습니다.');
         }
     };
+    
 
     const getTextStyle = (): CSSProperties => {
         let style: CSSProperties = { color: fontColor };
@@ -221,114 +226,117 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
     };
 
     return (
-        <>
-            <S.ContainerWrapper>
-                <S.Header>
-                    <S.FontStyleWrapper>
-                        <S.FontStyleInput type="text" placeholder="글꼴을 변경하실수있습니다" />
+        <S.Container>
+            <S.headerWrapper>
+                <S.FontStyleInput type="text" placeholder="글꼴을 변경하실수있습니다" />
+                <div>
+                    <S.ColorWithFlexWrapper>
                         <S.PickerWrapper>
-                            <span style={{ color: fontColor }}>{fontColor}</span>
-                            <S.ColorPicker 
-                                type="color" 
-                                value={fontColor} 
+                            <S.ColorPicker
+                                type="color"
+                                value={fontColor}
                                 onChange={(e) => setFontColor(e.target.value)}
                             />
+                            <span>{fontColor}</span>
                         </S.PickerWrapper>
-                    </S.FontStyleWrapper>
-                    <S.ButtonWrapper>
+                        <S.FlexWrapper>
+                            <S.FlexButton
+                                id='left'
+                                isActive={flexButtons === 'left'}
+                                onClick={() => handleFlexButtonClick('left')}
+                            >
+                                <AlignLeftOutlined />
+                            </S.FlexButton>
+                            <S.FlexButton
+                                id='center'
+                                isActive={flexButtons === 'center'}
+                                onClick={() => handleFlexButtonClick('center')}
+                            >
+                                <AlignCenterOutlined />
+                            </S.FlexButton>
+                            <S.FlexButton
+                                id='right'
+                                isActive={flexButtons === 'right'}
+                                onClick={() => handleFlexButtonClick('right')}
+                            >
+                                <AlignRightOutlined />
+                            </S.FlexButton>
+                        </S.FlexWrapper>
+                    </S.ColorWithFlexWrapper>
+                    <S.HeaderBtnWrapper>
                         <S.FontSizeButtonWrapper>
-                            <S.FontSizeButton 
-                                id='large' 
-                                isActive={activeButton === 'large'} 
+                            <S.FontSizeButton
+                                id='large'
+                                isActive={activeButton === 'large'}
                                 onClick={() => handleFontSizeChange('large')}
                             >
                                 큰글씨
                             </S.FontSizeButton>
-                            <S.FontSizeButton 
-                                id='medium' 
-                                isActive={activeButton === 'medium'} 
+                            <S.FontSizeButton
+                                id='medium'
+                                isActive={activeButton === 'medium'}
                                 onClick={() => handleFontSizeChange('medium')}
                             >
                                 보통
                             </S.FontSizeButton>
-                            <S.FontSizeButton 
-                                id='small' 
-                                isActive={activeButton === 'small'} 
+                            <S.FontSizeButton
+                                id='small'
+                                isActive={activeButton === 'small'}
                                 onClick={() => handleFontSizeChange('small')}
                             >
                                 작은글씨
                             </S.FontSizeButton>
                         </S.FontSizeButtonWrapper>
                         <S.FormatButtonWrapper>
-                            <S.FormatButton 
-                                isActive={activeButtons.includes('bold')} 
+                            <S.FormatButton
+                                isActive={activeButtons.includes('bold')}
                                 onClick={() => handleButtonClick2('bold')}
                             >
                                 <b style={{ color: activeButtons.includes('bold') ? 'white' : 'black' }}>굵게</b>
                             </S.FormatButton>
-                            <S.FormatButton 
-                                isActive={activeButtons.includes('italic')} 
+                            <S.FormatButton
+                                isActive={activeButtons.includes('italic')}
                                 onClick={() => handleButtonClick2('italic')}
                             >
                                 <i style={{ color: activeButtons.includes('italic') ? 'white' : 'black' }}>기울기</i>
                             </S.FormatButton>
-                            <S.FormatButton 
-                                isActive={activeButtons.includes('underline')} 
+                            <S.FormatButton
+                                isActive={activeButtons.includes('underline')}
                                 onClick={() => handleButtonClick2('underline')}
                             >
                                 <u style={{ color: activeButtons.includes('underline') ? 'white' : 'black' }}>밑줄</u>
                             </S.FormatButton>
                         </S.FormatButtonWrapper>
-                        <S.FlexWrapper>
-                            <S.FlexButton 
-                                id='left' 
-                                isActive={flexButtons === 'left'} 
-                                onClick={() => handleFlexButtonClick('left')}
-                            >
-                                <AlignLeftOutlined />
-                            </S.FlexButton>
-                            <S.FlexButton 
-                                id='center' 
-                                isActive={flexButtons === 'center'} 
-                                onClick={() => handleFlexButtonClick('center')}
-                            >
-                                <AlignCenterOutlined />
-                            </S.FlexButton>
-                            <S.FlexButton 
-                                id='right' 
-                                isActive={flexButtons === 'right'} 
-                                onClick={() => handleFlexButtonClick('right')}
-                            >
-                                <AlignRightOutlined />
-                            </S.FlexButton>
-                        </S.FlexWrapper>
-                    </S.ButtonWrapper>
-                </S.Header>
-                <S.ImgWrapper>
+                    </S.HeaderBtnWrapper>
+                </div>
+            </S.headerWrapper>
+            <S.ImgWrapper>
                 <S.BlankArea />
-                <S.TextAreaWrapper>                        
-                            {Array.from({ length: 16 }).map((_, index) => (
-                                <S.Content
-                                    key={index}
-                                    id={`${index + 1}line`}
-                                    ref={(el) => {
-                                        inputRefs.current[index] = el;
-                                        if (index === 0) inputRef.current = el; 
-                                    }}
-                                    style={{ 
-                                        fontSize: fontSize === 'large' ? '26px' : fontSize === 'medium' ? '23px' : '20px',
-                                        ...getTextStyle()
-                                    }}
-                                    value={contents[pageNum]?.[index] || ''}
-                                    onChange={handleInputChangeWrapper(index)}
-                                    onKeyPress={handleKeyPress(index)}
-                                    onKeyDown={handleKeyDown(index)}
-                                />
-                            ))}
+                <S.TextAreaWrapper>
+                    {Array.from({ length: 16 }).map((_, index) => (
+                        <div key={index} style={{ position: 'relative' }}>
+                            <S.Content
+                                id={`${index + 1}line`}
+                                ref={(el) => {
+                                    inputRefs.current[index] = el;
+                                }}
+                                value={contents[pageNum]?.[index] || ''}
+                                onChange={handleInputChangeWrapper(index)}
+                                onKeyPress={handleKeyPress(index)}
+                                onKeyDown={handleKeyDown(index)}
+                                style={{
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    fontSize: fontSize === 'large' ? '14px' : fontSize === 'medium' ? '12px' : '8px',
+                                    ...getTextStyle()
+                                }}
+                            />
 
-                        </S.TextAreaWrapper>
-                        </S.ImgWrapper>
-                <S.StyledModal
+                        </div>
+                    ))}
+                </S.TextAreaWrapper>
+            </S.ImgWrapper>
+            <S.StyledModal
                     isOpen={isModalOpen}
                     onRequestClose={() => setIsModalOpen(false)}
                     contentLabel="Error Modal"
@@ -379,8 +387,7 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
                     <p>현재 페이지는 마지막 페이지입니다.</p>
                     <button onClick={() => setIsLastPageModalOpen(false)}>확인</button>
                 </S.StyledModal>
-            </S.ContainerWrapper>
-            <S.FooterWrapper>
+                <S.FooterWrapper>
                 <S.BottomWrapper>
                     <S.Button 
                         id='MoveBackPage'
@@ -393,18 +400,19 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
                         id='MoveNextPage'
                         onClick={() => handlePageChange(pageNum + 1)}
                         disabled={pageNum === 5}
-                                    >
+                    >
                         다음
                     </S.Button>
-                </S.BottomWrapper>
-                <S.PageInfo>{pageNum}/5 page</S.PageInfo>
-                <S.BottomWrapper>
+
+                <S.PageInfo>{pageNum ? `${pageNum}/5 page` : ''}</S.PageInfo>
                     <S.Button 
                         id='save'
                         onClick={handleSubmit}
-                    >
+                        >
                         임시저장
                     </S.Button>
+                            </S.BottomWrapper>
+                        <S.BottomWrapper>
                     <S.Button 
                         id='summit'
                         onClick={handleSubmit}
@@ -413,6 +421,6 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
                     </S.Button>
                 </S.BottomWrapper>
             </S.FooterWrapper>
-        </>
+        </S.Container>
     );
 }

@@ -268,7 +268,7 @@ export const CsCategory = styled.div`
 `
 
 export const CsTitle = styled.div`
-  width: 100px
+  width: 100px;
   display: flex;
   justify-content: center;
   align-items: center;

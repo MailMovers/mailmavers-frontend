@@ -1,4 +1,5 @@
 export const productData = {
+    id: 1,
     mainImage: {
       src: "/images/open_graph.png",
       alt: "상품 이미지",

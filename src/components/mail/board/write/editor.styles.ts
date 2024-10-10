@@ -2,54 +2,69 @@ import { Common } from "@/styles/common";
 import styled from "@emotion/styled";
 import Modal from 'react-modal';
 
+
 export const Container = styled.div`
     width: 900px;
-    margin : 0 auto;
+    margin: 0 auto;
     height: 1100px;
     padding: 0px;
-    background-image: url('/images/letter/letter.png');
-    background-size: cover;
-    background-position: center;
-  object-fit: cover;
-  object-position: center; /* 이미지의 중심을 기준으로 정렬 */
+
+    input {
+        margin-bottom: 5px;
+        width: 100%;
+    }
+
 `
 
 export const TextAreaWrapper = styled.div`
     margin : 0 auto;
     width: 700px;
     height: 800px;
+    padding-top: 0px;
+    margin-top: 50px;
+
 `
 
 export const Content = styled.input`
     width: 700px;
     height: 50px;
     margin : 0 auto;
-    padding-left: 5px;
-    font-size: 17px; 
+    padding-left: 10px;
+    font-size: 23px; 
     outline: none;
     border: none;
-    border-bottom: 1px solid black; 
+    padding-right: 13px;
+
+
     vertical-align: bottom; 
     line-height: 60px; 
     z-index: 0;
-    background: transparent;
-
+    background: transparent;  
 
 `
 
 export const BlankArea = styled.div`
-        height: 150px;
-        width: 100%;
+   width: 100%;
+   height: 100px;
 `
 
 
 export const ContainerWrapper = styled.div`
   width: 900px;
-  height: 1300px;
+  height: 1270px;
   margin: 0 auto;
-  background-color: yellow;
-    z-index: 1;
 `;
+
+export const ImgWrapper = styled.div`
+    background-color: skyblue;
+    background-image: url('/images/letter/letterPc.png');
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+    object-position: center;
+    height: 1100px;
+
+`
 
 export const Header = styled.div`
   display: flex;
@@ -57,7 +72,6 @@ export const Header = styled.div`
   border: 1px solid #ddd;
   flex-direction: column;
   background-color: white;
-
 `;
 
 export const ColorPicker = styled.input`
@@ -95,15 +109,9 @@ export const FormatButton = styled.button<{ isActive: boolean }>`
   border: 1px solid #ddd;
   cursor: pointer;
   background-color: ${({ isActive }) => (isActive ? Common.colors.yellow : 'white')};
+
 `;
 
-export const EmojiButton = styled.button`
-  margin-left: auto;
-  background-color: white;
-  border: 1px solid #ddd;
-  width: 50px;
-  font-size: 18px;
-`;
 
 export const FontStyleInput = styled.input`
   width: 71.6%;
@@ -114,6 +122,7 @@ export const FontStyleInput = styled.input`
 export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin: 10px;
 `;
 
@@ -142,7 +151,10 @@ export const PickerWrapper = styled.div`
     text-align: center;
     margin-top: 7px;
     margin-left: 12px;
+    color: red;
+    font-weight: 500;
   }
+
 `;
 
 
@@ -205,3 +217,83 @@ export const StyledModal = styled(Modal)`
     }
   }
 `;
+
+
+export const BottomWrapper = styled.div`
+  margin-top : 20;
+
+
+`
+
+export const Button = styled.button`
+  width: 100px;
+  height: 50px;
+  border: 1px solid gray;
+  margin-right: 5px;
+  margin-left: 10px;
+  padding: 15px;
+  background-color: white;
+  font-size: 16px;
+  &#save {
+
+  }
+
+  &#summit {
+    margin-right: 10px;
+    background-color: green;
+    color: white;
+
+    &:active {
+    background-color: ${Common.colors.yellow};
+    color: white;
+    transform: scale(0.98); 
+  }
+
+  }
+
+
+  &:active {
+    background-color: ${Common.colors.yellow};
+    color: white;
+    transform: scale(0.98); 
+  }
+
+`
+
+
+
+export const FooterWrapper = styled.div`
+  display: flex;
+  flex-direction:  row;
+  width: 900px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  height: 100px;
+  margin-bottom: 100px;
+  justify-content: space-between;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  margin-top: 0px;
+  padding-top: 0px;
+  
+  
+`
+
+export const PageInfo = styled.div`
+  width: 65px;
+  height: 65px;
+  background-color: #ddd;
+  padding: 10px;
+  color: ${Common.colors.gray};
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-size: 16px;
+  border-radius: 50%;
+
+
+
+  `
