@@ -14,7 +14,7 @@ import { tokenAtom } from "@/recoil/auth/atom";
 
 interface BoardWriteUIProps {
   pageNum: string | string[] | undefined;
-  padId: number;
+  padId: string;
 }
 
 export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
@@ -254,7 +254,7 @@ export default function BoardWriteUI({ padId }: BoardWriteUIProps) {
     }
 
     const letterData = {
-      padId,
+      padId: parseInt(padId),
       contents: finalContents,
       pageCount,
     };
