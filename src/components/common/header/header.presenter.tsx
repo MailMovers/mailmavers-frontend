@@ -100,6 +100,12 @@ export default function HeaderPresenter({ isOpenMenu, setIsOpenMenu, userInfo, m
               </>
             ) : (
               <>
+                <S.HeaderContainer>
+                  <S.HeaderTitle>로그인이 필요합니다.</S.HeaderTitle>
+                  <S.MobileTop>
+                    <CloseOutlined onClick={() => setIsOpenMenu(false)} height={44} width={44} />
+                  </S.MobileTop>
+                </S.HeaderContainer>
                 <S.Menu onClick={() => movePage('/signup')}>회원가입</S.Menu>
                 <S.Menu onClick={() => movePage('/login')}>로그인</S.Menu>
                 <S.Menu onClick={() => movePage('/product/list')}>상품</S.Menu>
