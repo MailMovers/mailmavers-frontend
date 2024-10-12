@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
-import {LetterContent} from './types'
-
+import { AxiosResponse } from "axios";
+import { LetterContent } from "./types";
+import instance from "@/common/axio-interceptor";
 
 type TResonse = {
   [x: string]: any;
@@ -9,24 +9,15 @@ type TResonse = {
 };
 
 type letterData = {
-    contents: LetterContent[];
+  contents: LetterContent[];
 };
 
-export const postLetterContent = async (letterData: letterData, accessToken: string) => {
+export const postLetterContent = async (letterData: letterData) => {
   try {
-
-   const response: AxiosResponse =  await axios.post(
-      `letters/`,
-      letterData,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`, // 유저의 액세스 토큰을 헤더에 추가
-        },
-      }
-      )
+    const response: AxiosResponse = await instance.post(`letters/`, letterData);
     return response;
   } catch (error) {
-    console.error('API 요청 중 오류가 발생했습니다.', error);
-    throw error; // 오류 발생 시 상위로 전달
+    console.error("API 요청 중 오류가 발생했습니다.", error);
+    throw error;
   }
-  };
+};
