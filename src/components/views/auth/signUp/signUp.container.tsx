@@ -6,7 +6,7 @@ import {
   emailRegex,
   passwordRegex,
   nameRegex,
-  numberRegex,
+  numberRegexWithHyphen,
 } from '@/common/util';
 import { AxiosError } from 'axios';
 import { AxiosResponseData } from '@/type/common';
@@ -38,10 +38,13 @@ export default function SignUpContainer() {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [nameError, setNameError] = useState<string | null>(null);
-  const [phoneError, setphoneError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
   const [checkList, setCheckList] = useState<string[]>([]);
   const [isMarketingAgree, setIsMarketingAgree] = useState<boolean>(false);
   const [buttonColor, setButtonColor] = useState<boolean>(false);
+  const [phonePart1, setPhonePart1] = useState('');
+  const [phonePart2, setPhonePart2] = useState('');
+  const [phonePart3, setPhonePart3] = useState('');
 
   // 약관 체크
   useEffect(() => {
@@ -210,31 +213,49 @@ export default function SignUpContainer() {
   };
 
   // 연락처 입력 핸들러
-  const onChangePhone = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setPhone(e.target.value);
-      setphoneError(null); // Clear name error when user starts typing again
-      checkPhoneNumber(e.target.value);
-    },
-    [name]
-  );
+  const onChangePhonePart1 = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '');
+    setPhonePart1(value);
+    updatePhone(value, phonePart2, phonePart3);
+  };
+
+  const onChangePhonePart2 = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '');
+    setPhonePart2(value);
+    updatePhone(phonePart1, value, phonePart3);
+  };
+
+  const onChangePhonePart3 = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '');
+    setPhonePart3(value);
+    updatePhone(phonePart1, phonePart2, value);
+  };
+
 
   // 연락처 형식 확인기능 / 에러메세지
   const checkPhoneNumber = (phone: string) => {
-    const checkPhoneNumberValidation = phone.match(numberRegex);
-
+    const checkPhoneNumberValidation = phone.match(numberRegexWithHyphen);
+  
     if (!phone || !checkPhoneNumberValidation) {
       if (!phone) {
-        setphoneError('연락처를 입력해주세요.');
+        setPhoneError('연락처를 입력해주세요.');
         return false;
       } else {
-        setphoneError('연락처를 형식에 맞춰 입력해주세요.');
+        setPhoneError('연락처를 형식에 맞춰 입력해주세요.');
         return false;
       }
     }
-    setphoneError(null);
-    return true; //valid
+    setPhoneError(null);
+    return true;
   };
+  
+  const updatePhone = (part1: string, part2: string, part3: string) => {
+    const fullPhone = `${part1}-${part2}-${part3}`;
+    if (checkPhoneNumber(fullPhone)) {
+      setPhone(fullPhone);
+    }
+  };
+
 
   // 약관 전체 체크
   const checkAll = (e: ChangeEvent<HTMLInputElement>) => {
@@ -303,6 +324,9 @@ export default function SignUpContainer() {
       passwordCheck,
       name,
       phone,
+      phonePart1,
+      phonePart2,
+      phonePart3,
       authNumber,
     },
     formErrors: {
@@ -332,7 +356,9 @@ export default function SignUpContainer() {
       onChangePassword,
       onChangePasswordCheck,
       onChangeName,
-      onChangePhone,
+      onChangePhonePart1,
+      onChangePhonePart2,
+      onChangePhonePart3,
       checkAll,
       check,
       onSubmit,

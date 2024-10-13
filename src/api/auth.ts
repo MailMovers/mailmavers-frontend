@@ -21,7 +21,7 @@ export function postUserSignup(
   passwordCheck: string,
   isMarketingAgree: boolean
 ) {
-  return instance.post('/user/signup', {
+  return instance.post('/users/sign-up', {
     name,
     email,
     phone,
