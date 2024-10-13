@@ -18,16 +18,18 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid lightgray;
+  border: 1px solid lightgrey;
   border-radius: 10px;
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 70px;
 
   @media (max-width: 768px) {
     width: 100%;
-    padding: 80px 20px 20px 20px;
+    padding: 60px 20px 20px 20px;
     border-bottom: 1px solid ${Common.colors.gray02};
     border-radius: 0;
     box-shadow: none;
+    margin-bottom: 0;
   }
 `;
 
@@ -199,4 +201,13 @@ export const ErrorMessage = styled.p`
   color: ${Common.colors.red};
   font-size: 14px;
   font-weight: 400;
+`;
+
+export const PhoneNumberInput = styled.input`
+  text-align: center;
+  font-weight: 450;
+`;
+
+export const PhoneNumberHyphen = styled.span`
+  margin: 0 5px;
 `;
