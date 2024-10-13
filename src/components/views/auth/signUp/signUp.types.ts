@@ -9,6 +9,9 @@ export interface SignUpPageUIProps {
       passwordCheck: string;
       name: string;
       phone: string;
+      phonePart1: string;
+      phonePart2: string;
+      phonePart3: string;
       authNumber: string;
     };
     formErrors: {
@@ -38,7 +41,9 @@ export interface SignUpPageUIProps {
       onChangePassword: (e: ChangeEvent<HTMLInputElement>) => void;
       onChangePasswordCheck: (e: ChangeEvent<HTMLInputElement>) => void;
       onChangeName: (e: ChangeEvent<HTMLInputElement>) => void;
-      onChangePhone: (e: ChangeEvent<HTMLInputElement>) => void;
+      onChangePhonePart1: (e: ChangeEvent<HTMLInputElement>) => void;
+      onChangePhonePart2: (e: ChangeEvent<HTMLInputElement>) => void;
+      onChangePhonePart3: (e: ChangeEvent<HTMLInputElement>) => void;
       checkAll: (e: ChangeEvent<HTMLInputElement>) => void;
       check: (e: ChangeEvent<HTMLInputElement>) => void;
       onSubmit: (e: FormEvent<HTMLFormElement>) => void;

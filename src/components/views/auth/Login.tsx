@@ -59,6 +59,7 @@ export default function LoginPage() {
             } else {
               router.push('/');
             }
+            return;
           }
         })
         .catch((error) => {
