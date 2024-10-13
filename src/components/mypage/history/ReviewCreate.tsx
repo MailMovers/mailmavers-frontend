@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import useSWRMutation from 'swr/mutation';
 
-import { Body, Header, Wrap, ScoreWrap, ScoreContent, ScoreImage, Bottom, ButtonContainer } from './ReviewCraete.style';
+import { Body, Header, Wrap, ScoreWrap, ScoreContent, ScoreImage, Bottom, ButtonContainer } from './ReviewCreate.style';
 import { TPostReviewParam, postReview } from '@/api/mypage';
 import { TMyLetter } from '@/type/mypage';
 

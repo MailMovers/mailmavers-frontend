@@ -24,7 +24,7 @@ export const Header = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid lightgrey;
   border-radius: 10px 10px 0 0;
   background-image: url('/images/bottom.SVG.png');
   background-size: cover;
@@ -44,7 +44,7 @@ export const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid lightgrey;
   border-radius: 10px 10px 0 0;
   background-image: url('/images/bottom.SVG.png');
   background-size: cover;
@@ -112,7 +112,7 @@ export const Body = styled.div`
   }
 `;
 
-export const InfoContaier = styled.div`
+export const InfoContainer = styled.div`
   width: 900px;
   display: flex;
   margin-bottom: 50px;
@@ -134,7 +134,7 @@ export const TitleWrap = styled.div`
   display: flex;
   align-items: center;
   border-radius: 5px;
-  background: var(--yellowgreen, #f8f7ea);
+  background: var(--yellowGreen, #f8f7ea);
 
   span {
     color: var(--primary, #4a743c);
@@ -142,39 +142,43 @@ export const TitleWrap = styled.div`
     font-weight: 600;
 
     @media (max-width: 768px) {
-    display: flex;
-    justify-content: space-between;
+      display: flex;
+      justify-content: space-between;
       font-size: 14px;
       font-weight: 500;
     }
   }
   .status-span {
-  flex:1;
-  padding-left: 30px;
-  @media (max-width: 768px) {
-    padding: 20px;
-  }
+    flex:1;
+    padding-left: 30px;
+    
+    @media (max-width: 768px) {
+      padding: 20px;
+    }
   }
 
   .category-span {
-  flex: 1;
-  @media (max-width:768px) {
-    display: none;
-  }
+    flex: 1;
+    
+    @media (max-width:768px) {
+      display: none;
+    }
   }
 
   .title-span {
     flex:3;
+    
     @media (max-width: 768px) {
-    flex: 2;
+      flex: 2;
     }
   }
 
   .date-span {
-  flex: 1;
-  @media (max-width: 768px) {
-    padding-left: 40px;
-  }
+    flex: 1;
+    
+    @media (max-width: 768px) {
+      padding-left: 40px;
+    }
   }
 `;
 
@@ -200,8 +204,8 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
 `;
 
 export const CsDataContainer = styled.div`
-flex: 1;  
-display: flex;
+  flex: 1;  
+  display: flex;
   justify-content: start;
   align-items: center;
 
@@ -221,12 +225,12 @@ display: flex;
   }
 
   &.title {
-  flex:3;
+    flex:3;
 
-  @media (max-width:768px) {
-  flex: 2;
-    margin-left:10px;
-  }
+    @media (max-width:768px) {
+      flex: 2;
+      margin-left:10px;
+    }
   }
 
   &.date {
@@ -238,13 +242,13 @@ display: flex;
   }
 `
           
-export const CsStatus = styled.div<{status: string}>`
+export const CsStatus = styled.div<{status: boolean}>`
   width: 70px;
   height: 24px;
-  border: 2px solid ${({status}) => status === '답변 완료' ? 'var(--primary, #4a743c)' : 'orange'};
+  border: 2px solid ${({status}) => status === true ? 'var(--primary, #4a743c)' : 'orange'};
   border-radius: 10px;
-  background: ${({status}) => status === '답변 완료' ? 'white' : 'white'};
-  color: ${({status}) => status === '답변 완료' ? 'var(--primary, #4a743c)' : 'orange'};
+  background: ${({status}) => status === true ? 'white' : 'white'};
+  color: ${({status}) => status === true ? 'var(--primary, #4a743c)' : 'orange'};
   text-align: center;
   font-size: 12px;
   font-weight: 600;
@@ -268,9 +272,9 @@ export const CsCategory = styled.div`
 `
 
 export const CsTitle = styled.div`
-  width: 100px;
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-size: 16px;
   font-weight: 500;
@@ -296,8 +300,8 @@ export const CsDate = styled.div`
 
 export const InquireBtn = styled.div`
   position: fixed;
-  bottom: 5%;
-  left: 90%;
+  bottom: 10%;
+  right: 10%;
 
   width: 80px;
   height: 80px;
@@ -319,8 +323,8 @@ export const InquireBtn = styled.div`
   }
 
   @media all and (max-width: 480px) {
-    left: 75%;
-    bottom: 10%;
+    left: 80%;
+    bottom: 20%;
 
     width: 50px;
     height: 50px;

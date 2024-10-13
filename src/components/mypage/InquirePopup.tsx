@@ -7,15 +7,15 @@ import type { AxiosError } from 'axios';
 import { ChangeEvent, useEffect, useState } from 'react';
 import useSWRMutation from 'swr/mutation';
 
-type Tprops = {
+type TProps = {
   close: () => void;
   callback: () => void;
 };
 
-const InquirePopup = ({ close, callback }: Tprops) => {
+const InquirePopup = ({ close, callback }: TProps) => {
   const [modal, contextHolder] = Modal.useModal();
 
-  const [info, setInfo] = useState<TCs>({ title: '', category: '', content: '' });
+  const [info, setInfo] = useState<TCs>({ title: '', content: '' });
 
   const handleInput = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setInfo({ ...info, [e.target.id]: e.target.value });
@@ -49,13 +49,13 @@ const InquirePopup = ({ close, callback }: Tprops) => {
       return;
     }
 
-    if (!info.category) {
-      modal.warning({
-        title: '',
-        content: '카테고리를 입력해주세요',
-      })
-      return;
-    }
+    // if (!info.category) {
+    //   modal.warning({
+    //     title: '',
+    //     content: '카테고리를 입력해주세요',
+    //   })
+    //   return;
+    // }
 
     if (!info.content) {
       modal.warning({
@@ -75,13 +75,13 @@ const InquirePopup = ({ close, callback }: Tprops) => {
         <span>문의하기</span>
       </Header>
       <Body>
-        <Tiltle>
+        <Title>
           <span>제목 :</span>
           <input id="title" placeholder="제목을 입력해 주세요." value={info.title} onChange={handleInput} />
-        </Tiltle>
+        </Title>
         <Category>
           <span>분류 :</span>
-          <input id='category' placeholder='카테고리를 입력해 주세요. ex) 배송관련' value={info.category} onChange={handleInput}  />
+          <input id='category' placeholder='카테고리를 입력해 주세요. ex) 배송관련' value='기타 문의' onChange={handleInput}  />
         </Category>
         <Message>
           <span>내용 :</span>
@@ -107,8 +107,9 @@ export default InquirePopup;
 
 const Wrap = styled.div`
   position: fixed;
-  right: 5%;
-  bottom: 5%;
+  right: calc((100% - 1200px) / 2); // 1200px의 오른쪽에 정렬
+  top: 52.5%;
+  transform: translateY(-50%); // 수직 중앙 정렬
   width: 500px;
   height: 570px;
 
@@ -124,6 +125,7 @@ const Wrap = styled.div`
     right: 0%;
     bottom: 0%;
     top: 0;
+    transform: translateY(0%);
     border-radius: 0;
   }
 `;
@@ -166,7 +168,7 @@ const Body = styled.div`
   }
 `;
 
-const Tiltle = styled.div<{ isArea?: boolean }>`
+const Title = styled.div<{ isArea?: boolean }>`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 5fr;

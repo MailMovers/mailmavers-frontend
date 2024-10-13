@@ -81,7 +81,8 @@ export const Content = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 60px;
+  align-items: center;
+  gap: 26px;
   margin-top: 30px;
 
   p {
@@ -89,13 +90,9 @@ export const Content = styled.div`
     font-size: 26px;
     font-weight: 500;
   }
-
-  @media(max-width: 768px) {
-    gap: 20px;
-  }
 `;
 
-export const InfoContaier = styled.div`
+export const InfoContainer = styled.div`
   display: flex;
   gap: 50px;
 
@@ -106,7 +103,6 @@ export const InfoContaier = styled.div`
 
 export const InfoWrap = styled.div`
   width: 450px;
-  min-height: 400px;
   display: flex;
   flex-direction: column;
 
@@ -133,10 +129,6 @@ export const TitleWrap = styled.div`
     font-weight: 500;
   }
 
-  .anticon {
-    cursor: pointer;
-  }
-
   @media (max-width: 768px) {
     span {
       font-size: 12px;
@@ -154,7 +146,7 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
 
   display: flex;
   justify-content: space-between;
-  align-items: top;
+  align-items: end;
 
   color: var(--grey666, #666);
   font-size: 14px;
@@ -170,46 +162,13 @@ export const CardWrap = styled.div<{ isLast?: boolean }>`
     .text_wrap {
       display: flex;
       gap: 20px;
-      font-weight: 450;
-      font-size: 16px;
-
-      @media (max-width: 768px) {
-        flex-direction: column;
-        gap: 2px;
-        font-size: 12px;
-      }
-    }
-
-    .addr_container {
-      font-size: 12px;
-      font-weight: 400;
-
-      @media (max-width: 768px) {
-      font-size: 10px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      flex: 5;
     }
   }
 
   .del_btn {
-    width: 50px;
-    height: 25px;
+    width: 40px;
     text-align: center;
     cursor: pointer;
-    background-color: orange;
-    color: white;
-    padding-top: 4px;
-    border-radius: 2px;
-
-    @media(max-width: 768px) {
-      flex: 1;
-      height: 15px;
-      font-size: 10px;
-      padding-top: 1.5px;
-    }
   }
 `;
 

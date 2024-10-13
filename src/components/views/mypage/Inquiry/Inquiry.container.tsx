@@ -24,15 +24,15 @@ export default function InquiryPageContainer (): JSX.Element {
   const [page, setPage] = useState<string>('1');
 
   const { data, mutate: refetch } = useSWR<TCsListResult>(
-    () => (!!token ? `/mypage/cs-inquiries?page=${page}&limit=${LIST_PER_PAGE}` : null),
-    () => getCsList(page, LIST_PER_PAGE),
+    () => (!!token ? `/mypage/cs-inquiries` : null),
+    () => getCsList(),
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       revalidateOnMount: true,
     }
   );
-
+  
     return (
         <InquiryPageUI 
         userInfo={userInfo}

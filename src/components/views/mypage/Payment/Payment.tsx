@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import moment from 'moment';
 
 import { tokenAtom } from '@/recoil/auth/atom';
-import { TMypagePayment } from '@/type/mypage';
+import { TMyPagePayment } from '@/type/mypage';
 import { getMyPayments } from '@/api/mypage';
 
 import * as S from './Payment.styles';
@@ -13,7 +13,7 @@ export default function Payment() {
   const token = useRecoilValue(tokenAtom);
   const userInfo = useRecoilValue(userInfoAtom);
 
-  const { data: payments = null } = useSWR<TMypagePayment>(
+  const { data: payments = null } = useSWR<TMyPagePayment>(
     () => (!!token ? '/payments/pointTransactions' : null),
     getMyPayments,
     {
