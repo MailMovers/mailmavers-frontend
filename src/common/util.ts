@@ -5,6 +5,7 @@ export const passwordRegex =
 
 export const nameRegex = /^[a-zA-Z가-힣]{2,}$/;
 export const numberRegex = /^01[01]\d{3,4}\d{4}$/;
+export const numberRegexWithHyphen = /^01[01]-\d{3,4}-\d{4}$/;
 
 // 천원단위 콤마 추가
 export const addComma = (price: number) => {

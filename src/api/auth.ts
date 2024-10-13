@@ -21,7 +21,7 @@ export function postUserSignup(
   passwordCheck: string,
   isMarketingAgree: boolean
 ) {
-  return instance.post('/user/signup', {
+  return instance.post('/users/sign-up', {
     name,
     email,
     phone,
@@ -45,7 +45,7 @@ export function postEmailAuthenticationNumber(
 }
 
 export function postUserEmailCheck(email: string) {
-  return instance.post('/user/email-check', { email });
+  return instance.post('/users/email-duplicate-check', { email });
 }
 
 export function googleSocailLogin() {

@@ -54,7 +54,7 @@ export const Wrap = styled.div`
 
 export const MobileFrame = styled.div`
   position: fixed;
-  width: 30%;
+  width: 25%;
   height: 100%;
   right: 0;
   top: 0;
@@ -72,6 +72,9 @@ export const MobileFrame = styled.div`
 `;
 
 export const MobileTop = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 10%;
 `;
 
 export const MobileBody = styled.div`
@@ -190,20 +193,25 @@ export const button2 = styled.span`
 export const MobileWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
   gap: 10px;
 `;
 
 export const HeaderContainer = styled.div`
   // padding: 10px 0;
-  height: 80px;
+  height: 85px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #bbb;
+  background-color: ${Common.colors.white};
+
+  @media(max-width: 768px) {
+    height: 70px;
+  }
 `
 
 export const MenuWrapper = styled.div`
+  padding: 0 20px;
 `
 
 export const MenuContainer = styled.div`
@@ -213,16 +221,17 @@ export const MenuContainer = styled.div`
   gap: 10px;
 `
 export const HeaderTitle = styled.h2`
-font-weight: 700;
-font-size: 24px;
-color: ${Common.colors.theme};
+  font-weight: 700;
+  font-size: 24px;
+  color: ${Common.colors.theme};
+  margin-left: 20px;
 `
 
 export const MenuTitle = styled.p`
-font-weight: 700;
-font-size: 20px;
-margin-bottom: 5px;
-color: ${Common.colors.theme};
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 5px;
+  color: ${Common.colors.theme};
 `
 
 export const MenuItem = styled.p`

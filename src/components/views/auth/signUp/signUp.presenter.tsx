@@ -12,10 +12,10 @@ const domainOptions = [
   ];
 
   export default function SignUpPageUI({ formData, formErrors, formState, handlers }: SignUpPageUIProps) {
-    const { emailFirst, email, domain, password, passwordCheck, name, phone, authNumber } = formData;
+    const { emailFirst, email, domain, password, passwordCheck, name, phonePart1, phonePart2, phonePart3, authNumber } = formData;
     const { emailError, passwordError, nameError, phoneError } = formErrors;
     const { signUpError, signUpSuccess, mismatchError, emailSendSuccess, isEmailVerified, isCustomDomain, inputMode, checkEmailMsg, checkList, buttonColor } = formState;
-    const { handleChangeEmailFirst, handleChangeDomain, onChangeCustomDomain, handleInputModeChange, checkEmailAuthentication, onChangePassword, onChangePasswordCheck, onChangeName, onChangePhone, checkAll, check, onSubmit } = handlers;
+    const { handleChangeEmailFirst, handleChangeDomain, onChangeCustomDomain, handleInputModeChange, checkEmailAuthentication, onChangePassword, onChangePasswordCheck, onChangeName, onChangePhonePart1, onChangePhonePart2, onChangePhonePart3, checkAll, check, onSubmit } = handlers;
     return(
             <S.Layout>
               <S.Container>
@@ -136,17 +136,36 @@ const domainOptions = [
                     <S.FormDivDefaultMargin>
                       <label>연락처</label>
                       <S.PasswordRegexGuide>
-                        '-' 를 제외하고 숫자만 입력해주세요. (ex) 01012345678
+                        숫자만 입력해주세요.
                       </S.PasswordRegexGuide>
                       <S.InputGroup>
                         <S.InputLocal>
-                          <input
+                          <S.PhoneNumberInput
                             type='text'
-                            id='phone'
-                            name='phone'
-                            value={phone}
-                            onChange={onChangePhone}
-                            placeholder='연락처'
+                            name='phonePart1'
+                            value={phonePart1}
+                            onChange={onChangePhonePart1}
+                            maxLength={3}
+                          />
+                        </S.InputLocal>
+                        <S.PhoneNumberHyphen>-</S.PhoneNumberHyphen>
+                        <S.InputLocal>
+                          <S.PhoneNumberInput
+                            type='text'
+                            name='phonePart2'
+                            value={phonePart2}
+                            onChange={onChangePhonePart2}
+                            maxLength={4}
+                          />
+                        </S.InputLocal>
+                        <S.PhoneNumberHyphen>-</S.PhoneNumberHyphen>
+                        <S.InputLocal>
+                          <S.PhoneNumberInput
+                            type='text'
+                            name='phonePart3'
+                            value={phonePart3}
+                            onChange={onChangePhonePart3}
+                            maxLength={4}
                           />
                         </S.InputLocal>
                       </S.InputGroup>
