@@ -15,6 +15,7 @@ export const Section = styled.div`
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
 `;
 
 export const SubSection = styled.div`
@@ -27,6 +28,8 @@ export const Title = styled.h3`
   margin-bottom: 15px;
   font-size: 18px;
   color: #333;
+  border-bottom: 1px solid #888;
+  padding-bottom: 10px;
 `;
 
 export const Label = styled.label`
@@ -79,5 +82,32 @@ export const Button = styled.button`
 `;
 
 export const Error = styled.div`
+  color: red;
+  margin-top: 5px;
+`;
+
+export const SendAddressForm = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+`;
+
+
+
+
+export const AddressButton = styled.button`
+    border-radius: 30%;
+    border: 1px solid #888;
+    margin-left: 5px;
+    font-size: 14px;
+    background: white;
 
 `
