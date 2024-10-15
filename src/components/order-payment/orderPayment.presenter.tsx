@@ -1,16 +1,35 @@
 import React, { useState, useMemo } from 'react';
 import { OrderPaymentProps } from './types';
-import { Container, Button, Input, Section, SubSection, Title, Label, Value, Checkbox, Select, Error } from './styles';
+import { Container, Button, Input, Section, SubSection, Title, Label, Value, Checkbox, Select, Error, SendAddressForm, AddressButton } from './styles';
 import { mockPaymentData } from './mocks';
+import AddressModalContainer from './addressFormModal/container';
+import AddressListContainer from './addressFormModal/list/container';
 
 const OrderPaymentPresenter: React.FC<OrderPaymentProps> = ({ /* props */ }) => {
     const { paymentInfo, senderInfo } = mockPaymentData;
     const [selectedStampPrice, setSelectedStampPrice] = useState<number>(0);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isListModalOpen, setIsListModalOpen] = useState<boolean>(false);
+    const [address, setAddress] = useState<string>(senderInfo.address || '');
+    const [addressDetail, setAddressDetail] = useState<string>('');
+    const [selectedRequest, setSelectedRequest] = useState<string>('');
 
     const handleStampChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         const price = parseInt(value.match(/\d+/)?.[0] || '0', 10);
         setSelectedStampPrice(price);
+    };
+
+    const handleSaveAddress = (fullAddress: string, detail: string) => {
+        setAddress(fullAddress);
+        setAddressDetail(detail);
+        setIsModalOpen(false);
+    };
+
+    const handleSelectAddress = (fullAddress: string, request: string) => {
+        setAddress(fullAddress);
+        setSelectedRequest(request);
+        setIsListModalOpen(false);
     };
 
     const totalAmount = useMemo(() => {
@@ -38,7 +57,11 @@ const OrderPaymentPresenter: React.FC<OrderPaymentProps> = ({ /* props */ }) => 
         <Container>
             {/* 구매자 정보 */}
             <Section>
-                <Title>보낸 사람</Title>
+                <Title>
+                    보낸 사람
+                    <AddressButton>기본주소</AddressButton>
+                    <AddressButton onClick={() => setIsListModalOpen(true)}>주소변경</AddressButton>
+                </Title>
                 <SubSection>
                     <Label>이름</Label>
                     <Value>{senderInfo.name}</Value>
@@ -47,15 +70,46 @@ const OrderPaymentPresenter: React.FC<OrderPaymentProps> = ({ /* props */ }) => 
                     <Label>휴대전화</Label>
                     <Value>{senderInfo.phone}</Value>
                 </SubSection>
-                <SubSection>
+                <SendAddressForm>
                     <Label>주소</Label>
-                    <Input placeholder="주소를 입력하세요" />
-                </SubSection>
+                    {address ? (
+                        <Value>{`${address} ${addressDetail}`.trim()}</Value>
+                    ) : (
+                        <Input
+                            placeholder="주소를 입력하세요"
+                            onClick={() => setIsModalOpen(true)}
+                        />
+                    )}
+                </SendAddressForm>
                 <SubSection>
-                    <Label>상세주소</Label>
-                    <Input placeholder="상세주소를 입력하세요" />
+                    <Label>배송 요청 사항</Label>
+                    <Select
+                        value={selectedRequest}
+                        onChange={(e) => setSelectedRequest(e.target.value)}
+                    >
+                        <option value="">요청사항을 선택해주세요</option>
+                        <option value="부재시 반송">부재시 반송부탁드립니다.</option>
+                        <option value="반송안함">부재시 반송받지않겠습니다.</option>
+                        <option value="배송전 연락">배송전 연락바랍니다.</option>
+                        <option value="문앞">문 앞에 놓아 주세요.</option>
+                        <option value="경비실">경비실에 맡겨 주세요.</option>
+                    </Select>
                 </SubSection>
             </Section>
+
+            {/* 주소 입력 모달 */}
+            <AddressModalContainer
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSave={(fullAddress, detail) => handleSaveAddress(fullAddress, detail)}
+            />
+
+            {/* 주소 리스트 모달 */}
+            <AddressListContainer
+                isOpen={isListModalOpen}
+                onClose={() => setIsListModalOpen(false)}
+                onSelect={(fullAddress, request) => handleSelectAddress(fullAddress, request)}
+            />
 
             {/* 받는사람 정보 */}
             <Section>
@@ -73,31 +127,27 @@ const OrderPaymentPresenter: React.FC<OrderPaymentProps> = ({ /* props */ }) => 
                     <Input placeholder="주소를 입력하세요" />
                 </SubSection>
                 <SubSection>
-                    <Label>상세주소</Label>
+                    <Label>배송 요청 사항</Label>
                     <Input placeholder="상세주소를 입력하세요" />
                 </SubSection>
             </Section>
 
             {/* 배송 정보 */}
             <Section>
-                <Title>배송 정보 <span style={{ color: 'red', fontSize: '14px', marginLeft: '50px' }}>(익일특급, 등기선택시 연락처 필수입력 없을시 "반송"됩니다.)</span></Title>
+                <Title>
+                    우표 선택{' '}
+                    <span style={{ color: 'red', fontSize: '14px', marginLeft: '50px' }}>
+                        (익일특급, 등기선택시 연락처 필수입력 없을시 "반송"됩니다.)
+                    </span>
+                </Title>
                 <SubSection>
-                    <Label>배송 옵션</Label>
-                    <Select 
-                    onChange={handleStampChange}>
-                        <option id='1'>우표를 선택해주세요</option>
+                    <Label>우표 옵션</Label>
+                    <Select onChange={handleStampChange}>
+                        <option id="1">우표를 선택해주세요</option>
                         <option>익일특급 (4000원) 1일후 도착 배송알림 가능</option>
                         <option>일반등기 (3000원) 2~3일후 도착 배송알림 가능</option>
                         <option>일반우표 (1000원) 2~3일후 도착 배송알림 불가능</option>
                     </Select>
-                </SubSection>
-                <SubSection>
-                    <Label>상품</Label>
-                    <Value>기본편지지</Value>
-                </SubSection>
-                <SubSection>
-                    <Label>배송시 요청사항</Label>
-                    <Input placeholder="요청사항을 입력하세요" />
                 </SubSection>
             </Section>
 
