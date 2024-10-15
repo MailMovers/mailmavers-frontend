@@ -1,7 +1,7 @@
 export type TToken = {
-  accessToken: string;
-  refreshToken: string;
-} | null; // null을 허용하도록 수정
+  accessToken: string | null;
+  refreshToken: string | null;
+};
 
 export type TUserInfo = {
   name: string; //'박현민';
