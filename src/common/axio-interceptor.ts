@@ -2,20 +2,21 @@ import type { TToken } from '@/type/auth';
 import axios, { AxiosError } from 'axios';
 import LocalStorage from './LocalStorage';
 
+let accessToken: string | null = null;
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_HOST,
   withCredentials: true,
 });
 
-export const setToken = (accessToken: string, refreshToken: string) => {
-  instance.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
-  LocalStorage.setItem('accessToken', accessToken);
+export const setToken = (newAccessToken: string, refreshToken: string) => {
+  instance.defaults.headers.common['Authorization'] = 'Bearer ' + newAccessToken;
   LocalStorage.setItem('refreshToken', refreshToken);
+  accessToken = newAccessToken;
+
 };
 
 export const removeToken = async () => {
-  LocalStorage.removeItem('accessToken');
   LocalStorage.removeItem('refreshToken');
   instance.defaults.headers.common['Authorization'] = 'Bearer ';
 };
@@ -28,7 +29,6 @@ export const initAxios = (tokenInfo?: TToken) => {
 
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = LocalStorage.getItem('accessToken');
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
@@ -41,56 +41,38 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-
-  (response) => {
-    return response;
-  },
-  (error) => {
-    const err = error as AxiosError;
-
-    if (err.response?.data) {
-      // if (error.response.data.error.name === 'TokenExpiredError') {
-      //   window.location.href = '/?status=expire';
-      // }
-      //   const { data } = err.response as TError;
-      //   if (data.message === 'jwt malformed') {
-      //     removeToken();
-      //     window.location.href = '/?status=expire';
-      //   }
-      // }
-    }
-
-    return Promise.reject(error);
-    // return new Promise((resolve, reject) => {
-    //   // AccessToken 만료 시 어럿창 -> 메인페이지로 이동
-    //   // if (error.response.data.code === 'AUTHENTICATION_TOKEN_USER_NONE') {
-    //   //   return reject(error);
-    //   // }
-
-    //   // AccessToken 만료 시 TokenRefresh 후 재 요청 처리
-    //   if (
-    //     error.config &&
-    //     error.response &&
-    //     error.response.data.error &&
-    //     error.response.data.error.name &&
-    //     error.response.data.error.name === 'TokenExpiredError'
-    //   ) {
-    //     const refreshToken = tokenInfo?.refreshToken;
-    //     fetch(`${process.env.NEXT_PUBLIC_API_HOST}user/refresh`, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         Authorization: `Bearer ${tokenInfo?.accessToken}`,
-    //       },
-    //       body: JSON.stringify({ refreshToken: refreshToken }),
-    //     }).then((res) => {
-    //       console.log('Res', res);
-    //     });
-    //   }
-
-    //   return reject(error);
-    // });
-  }
+  // (response) => response,
+  // async (error) => {
+  //   const originalRequest = error.config;
+  //   if (error.response?.status === 401 && !originalRequest._retry) {
+  //     originalRequest._retry = true;
+  //     const refreshToken = LocalStorage.getItem('refreshToken');
+  //     if (refreshToken) {
+  //       try {
+  //         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}auth/refresh`, { refresh_token: refreshToken });
+  //         console.log("response", response.data); // 응답 데이터 확인
+  //         const { access_token, refresh_token } = response.data; // 백엔드와 일치하는 키 이름 사용
+  //         if (access_token && refresh_token) {
+  //           console.log('Token refreshed successfully');
+  //           setToken(access_token, refresh_token);
+  //           originalRequest.headers['Authorization'] = 'Bearer ' + access_token;
+  //           return instance(originalRequest);
+  //         } else {
+  //           console.error('Invalid token response');
+  //           throw new Error('Invalid token response');
+  //         }
+  //       } catch (refreshError) {
+  //         console.error('Failed to refresh access token:', refreshError);
+  //         removeToken();
+  //         window.location.href = '/';
+  //         return Promise.reject(refreshError);
+  //       }
+  //     } else {
+  //       console.error('No refresh token available');
+  //     }
+  //   }
+  //   return Promise.reject(error);
+  // }
 );
 
 export default instance;
