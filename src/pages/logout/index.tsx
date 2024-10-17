@@ -13,11 +13,10 @@ export default function Logout() {
   const router = useRouter();
 
   useEffect(() => {
-    removeToken().then(() => {
+    removeToken()
       setToken({ accessToken: null, refreshToken: null });
       resetUserInfo();
-      router.push('/?status=expire');
-    });
+      router.push('/');
   }, [setToken, resetUserInfo, router]);
 
   return <Spin spinning tip='로그아웃 중' />;
