@@ -18,7 +18,7 @@ export const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid lightgrey;
   border-radius: 10px 10px 0 0;
   background-image: url('/images/bottom.SVG.png');
   background-size: cover;
@@ -110,7 +110,6 @@ export const InputContent = styled.div`
   align-items: center;
   border-bottom: 1px dashed var(--greyD9, #d9d9d9);
   padding-bottom: 10px;
-
   .info {
     padding: 15px 0 13px 0;
     width: 280px;
@@ -120,10 +119,13 @@ export const InputContent = styled.div`
     text-align: center;
     color: var(--default, #000);
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       font-size: 16px;
-      width: 200px;
+      width: 250px;
     }
+  }
+  @media (max-width: 768px) {
+    text-align: center;
   }
 `;
 
@@ -146,7 +148,7 @@ padding-right: 20px;
     text-align: center;
 
     @media (max-width: 480px) {
-      width: 200px;
+      // width: 200px;
     }
   }
 `
