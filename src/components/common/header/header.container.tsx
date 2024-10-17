@@ -31,6 +31,7 @@ export default function HeaderContainer() {
           if (access_token && refresh_token) {
             setToken(access_token, refresh_token);
             updateToken(access_token, refresh_token);
+            updateUserInfo();
           } else {
             throw new Error('Invalid token response');
           }
@@ -38,24 +39,26 @@ export default function HeaderContainer() {
         .catch(error => {
           console.error('Failed to refresh access token on load:', error);
           removeToken();
+          setUserInfo(null); // 리코일에 저장된 사용자 정보 초기화
+          setToken(null, null); // 리코일에 저장된 토큰 초기화
         });
     }
   }, [token, updateToken]);
 
-  useSWR<TUserInfo | null>(
-    () => (!!token && !userInfo ? 'getUserInfo' : null),
-    getUserInfo,
-    {
-      fallbackData: null,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      onSuccess: (data: TUserInfo | null) => {
-        if (data) {
-          setUserInfo(data);
-        }
-      },
-    }
-  );
+  // useSWR<TUserInfo | null>(
+  //   () => (!!token && !userInfo ? 'getUserInfo' : null),
+  //   getUserInfo,
+  //   {
+  //     fallbackData: null,
+  //     revalidateOnFocus: false,
+  //     revalidateOnReconnect: false,
+  //     onSuccess: (data: TUserInfo | null) => {
+  //       if (data) {
+  //         setUserInfo(data);
+  //       }
+  //     },
+  //   }
+  // );
 
   const updateUserInfo = async () => {
     const data = await getUserInfo();

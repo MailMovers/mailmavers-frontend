@@ -93,7 +93,9 @@ export default function HeaderPresenter({ isOpenMenu, setIsOpenMenu, userInfo, m
                       <S.MenuItem onClick={() => movePage('/mypage/inquiry')}>1:1 문의</S.MenuItem>
                     </S.MenuContainer>
                     <S.MenuContainer>
-                      <S.MenuItem className='logout' onClick={() => movePage('/logout')}>로그아웃</S.MenuItem>
+                      <Link href={'/logout'}>
+                        <S.MenuItem className='logout'>로그아웃</S.MenuItem>
+                      </Link>
                     </S.MenuContainer>
                   </S.MenuWrapper>
                 </S.MobileWrapper>

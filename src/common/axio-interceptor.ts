@@ -9,14 +9,17 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-export const setToken = (newAccessToken: string, refreshToken: string) => {
+export const setToken = (newAccessToken: string | null, refreshToken: string | null) => {
   instance.defaults.headers.common['Authorization'] = 'Bearer ' + newAccessToken;
-  LocalStorage.setItem('refreshToken', refreshToken);
   accessToken = newAccessToken;
+  if (refreshToken) {
+    LocalStorage.setItem('refreshToken', refreshToken);
+  }
 
 };
 
 export const removeToken = async () => {
+  accessToken = null;
   LocalStorage.removeItem('refreshToken');
   instance.defaults.headers.common['Authorization'] = 'Bearer ';
 };
