@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { userInfoAtom } from "@/recoil/mypage/atom";
 import { getUserInfo } from "@/api/auth";
 import { TUserInfo } from "@/type/auth";
@@ -9,6 +9,7 @@ import { putPhone, TPhone } from "@/api/mypage";  // 수정된 함수 import
 import { AxiosError } from "axios";
 import { TResMsg } from "@/type/common";
 import ProfilePageUI from "./Profile.presenter";
+import { tokenAtom } from "@/recoil/auth/atom";
 
 const DEFAULT_INFO: TUserInfo = {
   name: '',
@@ -24,6 +25,7 @@ export default function ProfilePageContainer(): JSX.Element {
   const [modal, contextHolder] = Modal.useModal();
   const router = useRouter();
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
+  const token = useRecoilValue(tokenAtom);
   const [userEditInfo, setUserEditInfo] = useState<TUserInfo>(DEFAULT_INFO);
   const [isLoading, setIsLoading] = useState(true);
   const [msgError, setMsgError] = useState<string>('');
@@ -31,6 +33,7 @@ export default function ProfilePageContainer(): JSX.Element {
 
   useEffect(() => {
     const fetchUserInfo = async () => {
+      if (!token?.accessToken) return;
       setIsLoading(true);
       try {
         const info = await getUserInfo();
@@ -55,7 +58,7 @@ export default function ProfilePageContainer(): JSX.Element {
       }
     };
     fetchUserInfo();
-  }, [setUserInfo]);
+  }, [token, setUserInfo]);
 
   const movePasswordChange = () => {
     router.push('/mypage/password');

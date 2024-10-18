@@ -29,9 +29,15 @@ export default function InquiryPageContainer (): JSX.Element {
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      revalidateOnMount: true,
+      revalidateOnMount: false,
     }
   );
+
+  useEffect(() => {
+    if (token) {
+      refetch(); // 토큰이 있을 때만 데이터 요청
+    }
+  }, [token, refetch]);
   
     return (
         <InquiryPageUI 

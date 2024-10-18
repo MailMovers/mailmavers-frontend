@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import moment from 'moment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ReviewCreate from '@/components/mypage/history/ReviewCreate';
 import { tokenAtom } from '@/recoil/auth/atom';
@@ -31,6 +31,12 @@ export default function History() {
       revalidateOnMount: true,
     }
   );
+
+  // useEffect(() => {
+  //   if (token) {
+  //     refetch(); // 토큰이 있을 때만 데이터 요청
+  //   }
+  // }, [token, refetch]);
 
   const [selectLetter, setSelectLetter] = useState<TMyLetter | null>(null);
 
@@ -94,7 +100,7 @@ export default function History() {
                       {letter.status}
                     </S.StatusWrap>
                     <S.StatusReviewWrap
-                      isDone={letter?.reviewStatus === 'DONE'}
+                      isDone={letter.reviewStatus === 'DONE'}
                       onClick={() => onClickReview(letter)}
                     >
                       {letter.reviewStatus === 'DONE' ? '작성완료' : '후기작성'}

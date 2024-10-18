@@ -25,9 +25,15 @@ export default function ReviewPage(): JSX.Element {
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      revalidateOnMount: true,
+      revalidateOnMount: false,
     }
   );
+
+  useEffect(() => {
+    if (token) {
+      refetch(); // 토큰이 있을 때만 데이터 요청
+    }
+  }, [token, refetch]);
 
   const handleDelete = async (reviewId: number) => {
     try {
@@ -55,28 +61,28 @@ export default function ReviewPage(): JSX.Element {
       </S.TitleContainer>
       <S.Content>
       <S.CardContainer>
-        {data && data.data ? (
-          data.data.map((review: TReview) => (
+        {data && data?.data ? (
+          data?.data?.map((review: TReview) => (
             <S.CardWrap key={`${review.reviewId}`}>
               <S.ImgScoreWrap>
-                <S.MobileImgDeleteBtnWrapper>
+                  <S.MobileImgDeleteBtnWrapper>
                   <S.ReviewImage
-                    src={review.imgUrl1}
+                    src={review?.imgUrl1}
                     alt='리뷰이미지'
                     width={0}
                     height={0}
                   />
-                  <S.MobileDeleteBtn onClick={() =>handleDelete(review.reviewId)}>삭제</S.MobileDeleteBtn>
+                  <S.MobileDeleteBtn onClick={() =>handleDelete(review?.reviewId)}>삭제</S.MobileDeleteBtn>
                 </S.MobileImgDeleteBtnWrapper>
-                <S.Score disabled defaultValue={review.score} />
+                <S.Score disabled defaultValue={review?.score} />
               </S.ImgScoreWrap>
               <S.ReviewContentWrap>
                 <S.ReviewDate>
-                  작성일 : {moment(review.reviewCreatedAt).format('YYYY/MM/DD')}
+                  작성일 : {moment(review?.reviewCreatedAt).format('YYYY/MM/DD')}
                 </S.ReviewDate>
-                <S.ReviewContent>{review.content}</S.ReviewContent>
+                <S.ReviewContent>{review?.content}</S.ReviewContent>
               </S.ReviewContentWrap>
-              <S.DeleteBtn onClick={() => handleDelete(review.reviewId)}>
+              <S.DeleteBtn onClick={() => handleDelete(review?.reviewId)}>
                 <CloseOutlined />
               </S.DeleteBtn>
             </S.CardWrap>
