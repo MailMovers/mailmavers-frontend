@@ -143,16 +143,16 @@ export default function Address(props: any): JSX.Element {
                     <S.CardWrap key={sendInfo.id}>
                       <div className='text_container'>
                         <div className='text_wrap'>
-                          <span>{sendInfo.sendName}</span>
-                          <span>{sendInfo.sendPhone}</span>
+                          <span>{sendInfo?.sendName}</span>
+                          <span>{sendInfo?.sendPhone}</span>
                         </div>
                         <span className='addr_container'>
-                          {sendInfo.sendAddress} {sendInfo.sendAddressDetail}
+                          {sendInfo?.sendAddress} {sendInfo?.sendAddressDetail}
                         </span>
                       </div>
                       <span
                         className='del_btn'
-                        onClick={() => handleDelSend(sendInfo.id)}
+                        onClick={() => handleDelSend(sendInfo?.id)}
                       >
                         삭제
                       </span>
@@ -172,20 +172,20 @@ export default function Address(props: any): JSX.Element {
                 </S.TitleWrap>
                 <S.CardContainer>
                   {viewReceiveList?.map((receiveInfo) => (
-                    <S.CardWrap key={receiveInfo.id}>
+                    <S.CardWrap key={receiveInfo?.id}>
                       <div className='text_container'>
                         <div className='text_wrap'>
-                          <span>{receiveInfo.deliveryName}</span>
-                          <span>{receiveInfo.deliveryPhone}</span>
+                          <span>{receiveInfo?.deliveryName}</span>
+                          <span>{receiveInfo?.deliveryPhone}</span>
                         </div>
                         <span className='addr_container'>
-                          {receiveInfo.deliveryAddress}{' '}
-                          {receiveInfo.deliveryAddressDetail}
+                          {receiveInfo?.deliveryAddress}{' '}
+                          {receiveInfo?.deliveryAddressDetail}
                         </span>
                       </div>
                       <span
                         className='del_btn'
-                        onClick={() => handleDelReceive(receiveInfo.id)}
+                        onClick={() => handleDelReceive(receiveInfo?.id)}
                       >
                         삭제
                       </span>

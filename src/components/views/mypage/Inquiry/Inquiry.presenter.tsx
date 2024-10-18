@@ -30,23 +30,23 @@ export default function InquiryPageUI(props: IInquiryProps): JSX.Element {
                   {props.data ?
                     props.data.map((csInfo: TCsInfo) =>(
                         <S.CardWrap
-                          key={csInfo.id}
+                          key={csInfo?.id}
                           onClick={() => props.setSelectCs(csInfo)}
                         >
                           <S.CsDataContainer className='status'>
-                          <S.CsStatus status={csInfo.hasAnswer}>
-                            {csInfo.hasAnswer ? '답변 완료' : '미답변'}
+                          <S.CsStatus status={csInfo?.hasAnswer}>
+                            {csInfo?.hasAnswer ? '답변 완료' : '미답변'}
                           </S.CsStatus>
                           </S.CsDataContainer>
                           <S.CsDataContainer className='category'>
                             <S.CsCategory>기타 문의</S.CsCategory>
                           </S.CsDataContainer>
                           <S.CsDataContainer className='title'>
-                            <S.CsTitle> {csInfo.title} </S.CsTitle>                      
+                            <S.CsTitle> {csInfo?.title} </S.CsTitle>                      
                           </S.CsDataContainer>
                           <S.CsDataContainer className='date'>
                             <S.CsDate>
-                            {new Date(csInfo.createdAt).toLocaleDateString()}
+                            {new Date(csInfo?.createdAt).toLocaleDateString()}
                           </S.CsDate>
                           </S.CsDataContainer>
                         </S.CardWrap>
